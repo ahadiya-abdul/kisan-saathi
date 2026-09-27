@@ -1,0 +1,1 @@
+"""Grounded prompt builder placeholder."""

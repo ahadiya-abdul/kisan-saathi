@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in | Fieldwise</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="auth-page">
+  <main class="auth-card">
+    <div class="brand"><span class="brand-mark">✳</span><span>fieldwise</span></div>
+    <p class="eyebrow">SECURE FARMER ACCESS</p>
+    <h1>Welcome back.</h1>
+    <p class="auth-copy">Sign in to keep your field context and advisory history private.</p>
+    {% if error %}<div class="auth-error" role="alert">{{ error }}</div>{% endif %}
+    <form method="post" action="{{ url_for('login_submit') }}" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <label>Email address<input type="email" name="email" autocomplete="username" required maxlength="254"></label>
+      <label>Password<input type="password" name="password" autocomplete="current-password" required></label>
+      <button type="submit">Sign in securely <span>→</span></button>
+    </form>
+    <div class="auth-divider"><span>NEW TO FIELDWISE?</span></div>
+    <form method="post" action="{{ url_for('register') }}" class="auth-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <label>Email address<input type="email" name="email" autocomplete="email" required maxlength="254"></label>
+      <label>Create password<input type="password" name="password" autocomplete="new-password" minlength="12" required></label>
+      <button type="submit" class="secondary">Create an account</button>
+    </form>
+    <p class="auth-note">Passwords are hashed before storage. Use at least 12 characters and never reuse a password from another service.</p>
+  </main>
+</body>
+</html>

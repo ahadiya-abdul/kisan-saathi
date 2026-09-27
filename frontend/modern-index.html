@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6ef">
+  <title>Biocontrol Advisor | Healthy crops, naturally</title>
+  <link rel="stylesheet" href="/static/styles.css?v=20260927i">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="Biocontrol Advisor home">
+      <span class="brand-mark" aria-hidden="true">✳</span>
+      <span><small>BIOCONTROL ADVISOR</small><strong>Fieldwise</strong></span>
+    </a>
+    <div class="header-actions">
+      <span class="status"><i></i> Farmer guidance</span>
+      <button id="logout" class="button button-quiet" type="button" hidden>Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">GOOD ADVICE GROWS HERE</p>
+        <h1>Healthy crops,<br><em>naturally.</em></h1>
+        <p class="hero-subtitle">Practical biocontrol guidance, shaped around your field.</p>
+      </div>
+      <div class="hero-note">
+        <svg class="hero-illustration" viewBox="0 0 340 250" role="img" aria-label="Illustration of healthy crops growing in a field">
+          <defs>
+            <linearGradient id="skyWash" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD77A"/><stop offset="1" stop-color="#F8A56C"/></linearGradient>
+            <linearGradient id="fieldWash" x1="0" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#69B77D"/><stop offset="1" stop-color="#237653"/></linearGradient>
+          </defs>
+          <circle cx="245" cy="65" r="34" fill="#FFE7A8"/>
+          <path d="M10 147c42-33 85-36 133-7 45 26 86 20 187-28v138H10z" fill="#B4D887"/>
+          <path d="M10 177c74-36 126-19 174 0 48 20 93 1 146-31v104H10z" fill="url(#fieldWash)"/>
+          <path d="M40 218c69-36 113-37 172-6 41 22 75 17 116-8" fill="none" stroke="#D9F0A2" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+          <path d="M160 191c2-31 1-61-5-88m4 58c-20-20-34-28-50-30m55 12c15-20 27-29 43-35m-47 72c18-12 34-16 52-13" fill="none" stroke="#F8F5D9" stroke-width="5" stroke-linecap="round"/>
+          <path d="M104 130c17-9 36 1 49 31-25 1-42-7-49-31Zm55-30c-2 22-14 37-37 45-2-22 9-38 37-45Zm48-5c-5 21-21 32-49 37 4-23 19-35 49-37Zm6 69c-20-9-39-6-58 9 19 11 39 9 58-9Z" fill="#E8F4B3"/>
+          <path d="M68 183c1-24 0-43-4-61m0 37c-14-13-25-18-37-19m41 5c10-14 20-20 32-24" fill="none" stroke="#F8F5D9" stroke-width="4" stroke-linecap="round"/>
+          <path d="M24 158c13-7 26 0 35 21-18 0-30-7-35-21Zm66-23c-4 16-13 25-31 29 1-17 11-26 31-29Zm10 31c-15-7-28-5-42 6 14 8 29 6 42-6Z" fill="#DDEEA7"/>
+          <circle cx="80" cy="66" r="5" fill="#FFF4CC"/><circle cx="98" cy="45" r="3" fill="#FFF4CC"/><circle cx="282" cy="124" r="4" fill="#FFF4CC"/>
+        </svg>
+        <span class="hero-sticker">GROW WITH NATURE <b>✳</b></span>
+      </div>
+    </section>
+
+    <section id="auth" class="auth-panel panel">
+      <div class="auth-intro"><p class="eyebrow">WELCOME</p><h2>Let’s get growing.</h2><p>Sign in to get advice and revisit your farm conversations.</p></div>
+      <div class="auth-form-wrap">
+        <div class="tabs" role="tablist" aria-label="Account access">
+          <button class="tab active" data-tab="login" type="button" role="tab" aria-selected="true">Sign in</button>
+          <button class="tab" data-tab="register" type="button" role="tab" aria-selected="false">Create account</button>
+        </div>
+        <form id="authForm">
+          <label id="nameLabel" for="name" hidden>Your name</label>
+          <input id="name" name="name" autocomplete="name" placeholder="Your name" hidden>
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="password">Password</label>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 8 characters" required>
+          <button class="button button-primary" type="submit">Continue <span aria-hidden="true">→</span></button>
+          <p id="authMsg" class="form-message" role="alert"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="app" hidden>
+      <section class="ask-panel panel" aria-labelledby="askTitle">
+        <div class="ask-heading">
+          <div><p class="eyebrow">YOUR FIELD, YOUR QUESTION</p><h2 id="askTitle">Ask about your crop</h2></div>
+          <span class="ask-icon" aria-hidden="true">✳</span>
+        </div>
+        <p class="section-copy">Tell us the crop, location, and what you’re noticing. Add your budget if you have one.</p>
+        <label class="sr-only" for="question">Describe your crop and pest issue</label>
+        <textarea id="question" rows="4" placeholder="For example: My maize in Dharwad has Fall Armyworm. What should I do?"></textarea>
+        <div class="ask-footer"><span class="input-hint">More field details help tailor the advice.</span><button id="ask" class="button button-primary" type="button">Get a recommendation <span aria-hidden="true">→</span></button></div>
+      </section>
+
+      <section id="conversation" class="conversation" aria-live="polite" aria-label="Advice conversation"></section>
+
+      <section class="tools-section" aria-labelledby="toolsTitle">
+        <div class="section-heading"><div><p class="eyebrow">A LITTLE HELP FOR THE FIELD</p><h2 id="toolsTitle">Farm tools</h2></div><p>Quick planning tools for your next step.</p></div>
+        <div class="tools-grid">
+          <article class="tool-card" id="imageCard">
+            <div class="tool-head"><span class="tool-icon icon-sage" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h3l1.5-2h7L17 7h3v12H4z"/><circle cx="12" cy="13" r="4"/></svg></span><div><h3>Photo diagnosis</h3><p>Share a clear photo of the affected plant.</p></div></div>
+            <label class="field-label" for="photo">Choose a photo</label>
+            <label class="file-picker" for="photo" tabindex="0" role="button" aria-controls="photo"><span class="file-symbol" aria-hidden="true">＋</span><span id="photoName">Choose image from device</span></label>
+            <input class="file-native" id="photo" name="photo" type="file" accept="image/png,image/jpeg,image/webp" capture="environment" tabindex="-1" aria-label="Choose a crop image">
+            <div class="button-row"><button id="startCamera" class="button button-secondary" type="button">Open camera</button><button id="analyze" class="button button-primary button-small" type="button">Analyze photo</button></div>
+            <video id="cameraPreview" class="camera-preview" autoplay playsinline hidden aria-label="Live camera preview"></video>
+            <button id="capturePhoto" class="button button-secondary full-button" type="button" hidden>Capture photo</button>
+            <div id="imageResult" class="tool-result empty-result" role="status">Your image analysis will appear here.</div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-head"><span class="tool-icon icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M7 6V4h10v2m-3 8h4"/></svg></span><div><h3>Budget optimizer</h3><p>Estimate a sample plan for your field size.</p></div></div>
+            <div class="field-pair">
+              <div class="field"><label class="field-label" for="budget">Your budget</label><div class="input-with-prefix"><span>₹</span><input id="budget" type="number" min="1" step="1" placeholder="e.g. 500"></div></div>
+              <div class="field"><label class="field-label" for="area">Field size</label><div class="input-with-suffix"><input id="area" type="number" min="0.1" step="0.1" value="1"><span>acres</span></div></div>
+            </div>
+            <button id="optimize" class="button button-primary full-button" type="button">Estimate sample plan <span aria-hidden="true">→</span></button>
+            <div id="budgetResult" class="tool-result empty-result" role="status">Enter your budget and area to see an estimate.</div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-head"><span class="tool-icon icon-rose" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 22 20H2z"/><path d="M12 9v5m0 3h.01"/></svg></span><div><h3>Outbreak watch</h3><p>Check a sample risk level from recent reports.</p></div></div>
+            <div class="field"><label class="field-label" for="reports">Reports in your area · last 7 days</label><input id="reports" type="number" min="0" step="1" value="0"></div>
+            <button id="outbreak" class="button button-primary full-button" type="button">Check sample risk <span aria-hidden="true">→</span></button>
+            <div id="outbreakResult" class="tool-result empty-result" role="status">Your sample risk check will appear here.</div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-head"><span class="tool-icon icon-sky" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18M8 14h3m-3 3h7"/></svg></span><div><h3>28-day field planner</h3><p>Build a simple scouting and follow-up schedule.</p></div></div>
+            <div class="field"><label class="field-label" for="plannerCrop">Crop</label><input id="plannerCrop" value="Maize"></div>
+            <div class="field"><label class="field-label" for="plannerPest">Pest</label><input id="plannerPest" value="Fall Armyworm"></div>
+            <button id="planner" class="button button-primary full-button" type="button">Build sample plan <span aria-hidden="true">→</span></button>
+            <div id="plannerResult" class="tool-result empty-result" role="status">Your field schedule will appear here.</div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-head"><span class="tool-icon icon-sage" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 7h13l-3-3m3 3-3 3M17 17H4l3 3m-3-3 3-3"/></svg></span><div><h3>Treatment compatibility</h3><p>Screen a combination against simple demo rules.</p></div></div>
+            <div class="field"><label class="field-label" for="products">Treatments to check</label><input id="products" value="Trichogramma, Neem Oil" placeholder="Separate treatments with commas"></div>
+            <button id="compatibility" class="button button-primary full-button" type="button">Check compatibility <span aria-hidden="true">→</span></button>
+            <div id="compatibilityResult" class="tool-result empty-result" role="status">Enter at least one treatment to check.</div>
+          </article>
+
+          <article class="tool-card">
+            <div class="tool-head"><span class="tool-icon icon-gold" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg></span><div><h3>Local suppliers</h3><p>Look up a sample advisory contact by product.</p></div></div>
+            <div class="field"><label class="field-label" for="supplier">Product or treatment</label><input id="supplier" value="Trichogramma" placeholder="e.g. Neem Oil"></div>
+            <button id="suppliers" class="button button-primary full-button" type="button">Find sample suppliers <span aria-hidden="true">→</span></button>
+            <div id="supplierResult" class="tool-result empty-result" role="status">Supplier results will appear here.</div>
+          </article>
+
+          <article class="tool-card dashboard-card">
+            <div class="tool-head"><span class="tool-icon icon-sky" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7m-7 4h7"/></svg></span><div><h3>Your field notes</h3><p>Return to questions you’ve asked before.</p></div></div>
+            <button id="dashboard" class="button button-secondary full-button" type="button">Refresh chat history <span aria-hidden="true">↻</span></button>
+            <div id="dashboardResult" class="tool-result empty-result" role="status">Your saved conversations will appear here.</div>
+            <div id="dashboardHistory" class="history-list"></div>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer>Sample estimates and demo checks are not live market data. Confirm treatment and product-label guidance with your local KVK.</footer>
+  <script src="/static/app-modern.js?v=20260927i"></script>
+</body>
+</html>

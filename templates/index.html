@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fieldwise | Localized Biocontrol Advisory</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">✳</span><span>fieldwise</span></div>
+      <p class="eyebrow">BIOCONTROL ADVISORY</p>
+      <h1>Decisions that fit your field.</h1>
+      <p class="muted">A context-aware assistant combining local evidence with a crop-pest knowledge graph.</p>
+      <div class="status"><span class="pulse"></span> Advisory engine online</div>
+      <div class="sidebar-card">
+        <p class="eyebrow">HOW IT WORKS</p>
+        <div class="step"><b>01</b><span>Set your field context</span></div>
+        <div class="step"><b>02</b><span>Ask in plain language</span></div>
+        <div class="step"><b>03</b><span>Review grounded sources</span></div>
+      </div>
+      <p class="disclaimer">For decision support only. Always confirm registration, label directions, and local extension guidance before application.</p>
+    </aside>
+
+    <section class="workspace">
+      <header class="topbar">
+        <div><span class="live-dot"></span> FIELD SESSION <strong id="sessionName">South Asia / Maize</strong></div>
+        <div class="account-actions"><span>{{ email }}</span><form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="reset-button" type="submit">Sign out</button></form></div>
+      </header>
+      <div class="content">
+        <section class="hero">
+          <div>
+            <p class="eyebrow">GOOD AFTERNOON, GROWER</p>
+            <h2>What’s happening in your field?</h2>
+            <p class="hero-copy">Describe a symptom, pest, or decision. I’ll connect it to locally relevant biological control options.</p>
+          </div>
+          <div class="hero-orbit"><span>FIELD<br>CONTEXT</span></div>
+        </section>
+
+        <section class="context-panel">
+          <div class="panel-heading"><div><p class="eyebrow">01 / CONTEXT</p><h3>Tell us about this field</h3></div><span class="context-badge">Personalized</span></div>
+          <div class="context-grid">
+            <label>Crop<select id="crop"><option>Maize</option><option>Tomato</option><option>Cotton</option><option>Cabbage</option></select></label>
+            <label>Known pest<select id="pest"><option>Fall armyworm</option><option>Aphids</option><option>Caterpillars</option><option>Whitefly</option></select></label>
+            <label>District<select id="district"><option>Mandya</option><option>Bengaluru Rural</option><option>Nashik</option></select></label>
+            <label>Soil type<select id="soil"><option>Loamy</option><option>Sandy loam</option><option>Black soil</option></select></label>
+            <label>Crop stage<select id="stage"><option>Vegetative</option><option>Flowering</option><option>Transplanting</option></select></label>
+            <label>Budget / acre<input id="budget" type="number" min="0" value="200"></label>
+            <label>Language<select id="language"><option>English</option><option>Hindi</option><option>Kannada</option><option>Tamil</option></select></label>
+          </div>
+        </section>
+
+        <section class="chat-layout">
+          <div class="chat-card">
+            <div class="panel-heading"><div><p class="eyebrow">02 / ADVISORY CHAT</p><h3>Ask Fieldwise</h3></div><span class="ai-badge">RAG + KG</span></div>
+            <div class="messages" id="messages">
+              <article class="message assistant"><div class="avatar">✳</div><div><p class="message-meta">FIELDWISE · NOW</p><p>Welcome. I’m ready to help with your <strong>maize</strong> field. What would you like to investigate?</p><div class="suggestions"><button data-question="How can I manage this pest biologically?">Manage this pest biologically</button><button data-question="What should I scout for this week?">What should I scout for?</button></div></div></article>
+            </div>
+            <form class="composer" id="chatForm"><input id="messageInput" autocomplete="off" placeholder="Ask about your crop, pest, or next step..." required><button aria-label="Send message">→</button></form>
+          </div>
+          <aside class="insights">
+            <div class="insight-card"><div class="panel-heading"><div><p class="eyebrow">03 / EVIDENCE</p><h3>Retrieved sources</h3></div><span id="sourceCount">0</span></div><div id="sources" class="source-list"><p class="empty">Sources used for the next answer will appear here.</p></div></div>
+            <div class="insight-card graph-card"><div class="panel-heading"><div><p class="eyebrow">KNOWLEDGE GRAPH</p><h3>Reasoning path</h3></div><span class="graph-icon">⌁</span></div><div id="graph" class="graph-list"><p class="empty">Ask a question to reveal crop → pest → control links.</p></div><div id="fieldSignals" class="field-signals"></div></div>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script>window.FIELDWISE_CSRF = {{ csrf_token|tojson }};</script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
