@@ -1,0 +1,30 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Fieldwise (updated) - FastAPI :8010",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_updated.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Fieldwise (updated) - Flask prototype :5010",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_updated_flask.py",
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Fieldwise (updated) - pytest",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "pytest",
+      "args": ["tests", "-v"],
+      "console": "integratedTerminal",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

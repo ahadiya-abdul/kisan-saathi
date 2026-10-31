@@ -56,10 +56,10 @@
         <form id="authForm">
           <label id="nameLabel" for="name" hidden>Your name</label>
           <input id="name" name="name" autocomplete="name" placeholder="Your name" hidden>
-          <label for="email">Email address</label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required>
+          <label for="email">Email address or phone number</label>
+          <input id="email" name="identifier" type="text" autocomplete="username" placeholder="you@example.com or +91…" required>
           <label for="password">Password</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 8 characters" required>
+          <input id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 12 characters" required>
           <button class="button button-primary" type="submit">Continue <span aria-hidden="true">→</span></button>
           <p id="authMsg" class="form-message" role="alert"></p>
         </form>
@@ -145,6 +145,6 @@
   </main>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <footer>Sample estimates and demo checks are not live market data. Confirm treatment and product-label guidance with your local KVK.</footer>
-  <script src="/static/app-modern.js?v=20260927i"></script>
+  <script src="/static/app-modern.js?v=5"></script>
 </body>
 </html>

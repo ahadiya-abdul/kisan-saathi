@@ -1,0 +1,129 @@
+/* Fieldwise v2 – mobile-first, no remote fonts, no animations. */
+:root{
+  --green:#1f6b4a; --green-dark:#154a34; --green-soft:#e4f0e8; --bg:#f5f7f1; --card:#fff;
+  --ink:#1c2a22; --muted:#4d5d54; --line:#c9d5cc; --warn:#8a4b00; --warn-bg:#fff2dc;
+  --err:#a11d1d; --err-bg:#fde8e8; --ok-bg:#e4f4ea; --radius:12px;
+}
+*{box-sizing:border-box}
+html{font-size:100%}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.5;font-size:1.0625rem;
+  font-family:system-ui,-apple-system,"Segoe UI","Nirmala UI",Roboto,"Noto Sans","Noto Sans Devanagari","Noto Sans Kannada","Noto Sans Tamil","Noto Sans Telugu","Noto Sans Malayalam",Arial,sans-serif;
+  overflow-wrap:anywhere}
+[hidden]{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--green-dark);color:#fff;padding:.6rem 1rem;z-index:20}
+.skip-link:focus{left:0}
+h1{font-size:1.6rem;line-height:1.25;margin:.2rem 0 .4rem}
+h2{font-size:1.2rem;line-height:1.3;margin:0}
+p{margin:.4rem 0}
+.muted{color:var(--muted)} .hint{color:var(--muted);font-size:.95rem;display:block;margin-top:.25rem}
+.multi{font-size:1rem;font-weight:400;color:var(--muted)}
+a{color:var(--green-dark)}
+:focus-visible{outline:3px solid #f0a500;outline-offset:2px}
+
+.top{flex-wrap:wrap;display:flex;align-items:center;justify-content:space-between;gap:.5rem;padding:.6rem 1rem;background:var(--green-dark);color:#fff;position:sticky;top:0;z-index:10}
+.brand{color:#fff;text-decoration:none;font-weight:700;font-size:1.15rem}
+.brand-big{color:var(--green-dark);font-size:1.4rem;margin:0 0 1rem}
+.brand-mark{display:inline-grid;place-items:center;width:1.7rem;height:1.7rem;border-radius:8px;background:var(--green);color:#fff}
+.top-actions{display:flex;align-items:center;gap:.5rem}
+.lang-switch select{min-height:44px;border-radius:10px;border:1px solid #fff;background:#fff;color:var(--ink);padding:0 .6rem;font:inherit}
+.banner{padding:.7rem 1rem;background:var(--warn-bg);color:var(--warn);border-bottom:1px solid #e6c48a;font-weight:600}
+
+main{padding:1rem;max-width:1100px;margin:0 auto}
+.narrow{max-width:520px;margin:1.5rem auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1rem}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;margin-bottom:.3rem}
+.section-head{margin:.5rem 0 1rem}
+.grid3,.grid2{display:grid;grid-template-columns:1fr;gap:1rem}
+.card-wide{grid-column:1/-1}
+
+.steps{display:flex;gap:.5rem;margin-bottom:.5rem}
+.step{flex:1;text-align:center;padding:.65rem .4rem;border-radius:10px;border:2px solid var(--line);text-decoration:none;color:var(--muted);font-weight:600;min-height:44px}
+.step.current{border-color:var(--green);background:var(--green-soft);color:var(--green-dark)}
+
+/* language screen */
+.lang-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin:1rem 0}
+.lang-btn{min-height:84px;border-radius:var(--radius);border:2px solid var(--green);background:#fff;color:var(--green-dark);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.15rem;cursor:pointer;padding:.5rem;font:inherit}
+.lang-btn .native{font-size:1.5rem;font-weight:700;line-height:1.3}
+.lang-btn .eng{font-size:.9rem;color:var(--muted)}
+.lang-btn:hover,.lang-btn:active{background:var(--green-soft)}
+
+/* forms */
+.field{margin:.8rem 0}
+label{display:block;font-weight:600;margin-bottom:.3rem}
+input,select,textarea{width:100%;min-height:48px;padding:.6rem .75rem;font:inherit;color:var(--ink);background:#fff;border:2px solid #8fa396;border-radius:10px}
+textarea{resize:vertical}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--err)}
+.req{font-weight:600;color:var(--err);font-size:.85rem}
+.opt{font-weight:400;color:var(--muted);font-size:.85rem}
+.field-error,.form-error{color:var(--err);font-weight:600;display:block;min-height:0}
+.form-msg{font-weight:600;color:var(--green-dark);min-height:1.5rem}
+.form-msg.is-error{color:var(--err)}
+.tabs{display:flex;gap:.5rem;margin:1rem 0}
+.tab{flex:1;min-height:48px;border-radius:10px;border:2px solid var(--line);background:#fff;font:inherit;font-weight:600;cursor:pointer}
+.tab.active{border-color:var(--green);background:var(--green-soft);color:var(--green-dark)}
+
+/* buttons */
+.btn{min-height:48px;padding:.6rem 1.1rem;border-radius:10px;border:2px solid transparent;font:inherit;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.btn-primary{background:var(--green);color:#fff}
+.btn-primary:hover{background:var(--green-dark)}
+.btn-secondary{background:#fff;color:var(--green-dark);border-color:var(--green)}
+.btn-quiet{background:transparent;color:inherit;border-color:currentColor}
+.top .btn-quiet{color:#fff}
+.btn-block{width:100%}
+.btn-big{min-height:56px;font-size:1.1rem}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn-row{display:flex;gap:.6rem;flex-wrap:wrap;margin:.6rem 0}
+.btn-row .btn{flex:1 1 9rem}
+
+/* status chips: text + symbol, never colour alone */
+.status{display:inline-block;font-size:.85rem;font-weight:700;padding:.2rem .6rem;border-radius:999px;border:2px solid var(--line);color:var(--muted);white-space:nowrap}
+.status.is-saved{border-color:var(--green);background:var(--ok-bg);color:var(--green-dark)}
+.status.is-attention{border-color:var(--err);background:var(--err-bg);color:var(--err)}
+.status.is-unsaved{border-color:#c98a00;background:var(--warn-bg);color:var(--warn)}
+
+.action-bar{margin:1.2rem 0 2rem}
+.ctx-summary{font-weight:700;color:var(--green-dark)}
+.needs{color:var(--warn);font-weight:600;min-height:0}
+
+/* results */
+.result{margin-top:.8rem}
+.panel{border-radius:10px;border:2px solid var(--line);padding:.8rem;background:#fff}
+.panel h3{margin:0 0 .3rem;font-size:1.05rem}
+.panel.is-ok{border-color:var(--green);background:var(--ok-bg)}
+.panel.is-warn,.panel.is-stale{border-color:#c98a00;background:var(--warn-bg)}
+.panel.is-error{border-color:var(--err);background:var(--err-bg)}
+.panel ul{margin:.3rem 0 .3rem 1.2rem;padding:0}
+.tag{display:inline-block;font-size:.8rem;font-weight:700;padding:.1rem .5rem;border-radius:6px;background:#eceff1;color:#37474f;margin:.2rem 0}
+details{margin-top:.5rem} summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
+.preview{display:flex;gap:.7rem;align-items:center;margin:.6rem 0}
+.preview img{width:96px;height:96px;object-fit:cover;border-radius:10px;border:2px solid var(--line)}
+progress{width:100%;height:14px}
+.msg{border-left:6px solid var(--green);background:#fff;padding:.7rem .9rem;margin:.7rem 0;border-radius:8px;border:1px solid var(--line);border-left-width:6px}
+.msg.is-user{border-left-color:#6b7d73;background:#f0f3ef}
+.note-item{display:block;width:100%;text-align:left;background:#fff;border:2px solid var(--line);border-radius:10px;padding:.7rem;margin:.5rem 0;font:inherit;cursor:pointer;min-height:48px}
+.toast{position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);background:var(--green-dark);color:#fff;padding:.7rem 1rem;border-radius:10px;max-width:90vw;z-index:30;display:none}
+.toast.show{display:block}
+.foot{max-width:1100px;margin:0 auto;padding:1rem;color:var(--muted);font-size:.9rem}
+
+@media (min-width:760px){
+  .grid2{grid-template-columns:1fr 1fr}
+  .grid3{grid-template-columns:repeat(3,1fr);align-items:start}
+  .lang-grid{grid-template-columns:repeat(3,1fr)}
+  .narrow{margin-top:3rem}
+  .action-bar{max-width:520px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.top .btn{white-space:nowrap;min-height:44px;padding:.4rem .8rem}
+
+/* Prefer script-specific system fonts when available; no remote font download required. */
+html[lang="ml"] body { font-family: "Noto Sans Malayalam", "Nirmala UI", system-ui, sans-serif; }
+html[lang="hi"] body { font-family: "Noto Sans Devanagari", "Nirmala UI", system-ui, sans-serif; }
+html[lang="kn"] body { font-family: "Noto Sans Kannada", "Nirmala UI", system-ui, sans-serif; }
+html[lang="ta"] body { font-family: "Noto Sans Tamil", "Nirmala UI", system-ui, sans-serif; }
+html[lang="te"] body { font-family: "Noto Sans Telugu", "Nirmala UI", system-ui, sans-serif; }
+.photo-panel { margin: 1rem 0; padding: 1rem; border: 1px solid var(--line, #c9ded2); border-radius: 1rem; background: rgba(237, 248, 240, .55); }
+.photo-panel .card-head { margin-bottom: .5rem; }
+.photo-panel h2 { font-size: 1.05rem; }

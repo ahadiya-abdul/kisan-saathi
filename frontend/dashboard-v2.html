@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f6b4a">
+  <title>Fieldwise</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/v2.css?v=5">
+</head>
+<body>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="top" id="topbar" hidden>
+    <a class="brand" href="#/field"><span class="brand-mark" aria-hidden="true">✳</span> Fieldwise</a>
+    <div class="top-actions">
+      <label class="lang-switch"><span class="sr-only" data-i18n="lang_label">Language</span>
+        <select id="langSwitch" aria-label="Language">
+          <option value="ml">മലയാളം</option>
+          <option value="hi">हिन्दी</option>
+          <option value="kn">ಕನ್ನಡ</option>
+          <option value="ta">தமிழ்</option>
+          <option value="te">తెలుగు</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <button id="logout" class="btn btn-quiet" type="button" hidden data-i18n="sign_out">Sign out</button>
+    </div>
+  </header>
+  <div id="netBanner" class="banner" role="status" hidden></div>
+
+  <main id="main" tabindex="-1">
+    <!-- 1. LANGUAGE (first screen for a new visitor, before sign-in) -->
+    <section id="view-language" class="view" hidden aria-labelledby="langTitle">
+      <div class="narrow">
+        <p class="brand brand-big"><span class="brand-mark" aria-hidden="true">✳</span> Fieldwise</p>
+        <h1 id="langTitle">Choose your language<br><span class="multi">अपनी भाषा चुनें · ನಿಮ್ಮ ಭಾಷೆ ಆರಿಸಿ</span></h1>
+        <div class="lang-grid" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="ml" lang="ml"><span class="native">മലയാളം</span><span class="eng">Malayalam</span></button>
+          <button type="button" class="lang-btn" data-lang="hi" lang="hi"><span class="native">हिन्दी</span><span class="eng">Hindi</span></button>
+          <button type="button" class="lang-btn" data-lang="kn" lang="kn"><span class="native">ಕನ್ನಡ</span><span class="eng">Kannada</span></button>
+          <button type="button" class="lang-btn" data-lang="ta" lang="ta"><span class="native">தமிழ்</span><span class="eng">Tamil</span></button>
+          <button type="button" class="lang-btn" data-lang="te" lang="te"><span class="native">తెలుగు</span><span class="eng">Telugu</span></button>
+          <button type="button" class="lang-btn" data-lang="en" lang="en"><span class="native">English</span><span class="eng">English</span></button>
+        </div>
+        <p class="muted" id="langHelp">You can change it later.</p>
+      </div>
+    </section>
+
+    <!-- 2. SIGN IN / CREATE ACCOUNT -->
+    <section id="view-auth" class="view" hidden aria-labelledby="authTitle">
+      <div class="narrow card">
+        <h1 id="authTitle" data-i18n="welcome_title">Let’s get started.</h1>
+        <p class="muted" data-i18n="welcome_help">Sign in to save your field details and advice.</p>
+        <div class="tabs" role="tablist">
+          <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="login" data-i18n="tab_signin">Sign in</button>
+          <button class="tab" type="button" role="tab" aria-selected="false" data-tab="register" data-i18n="tab_register">Create account</button>
+        </div>
+        <form id="authForm" novalidate>
+          <div class="field" id="nameWrap" hidden>
+            <label for="name" data-i18n="label_name">Your name</label>
+            <input id="name" name="name" autocomplete="name" maxlength="80">
+          </div>
+          <div class="field">
+            <label for="email" data-i18n="label_email">Email address or phone number</label>
+            <input id="email" name="identifier" type="text" autocomplete="username" inputmode="text" maxlength="254" required>
+          </div>
+          <div class="field">
+            <label for="password" data-i18n="label_password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" minlength="12" required>
+            <span class="hint" data-i18n="password_hint">At least 8 characters</span>
+          </div>
+          <p id="authMsg" class="form-error" role="alert"></p>
+          <button id="authSubmit" class="btn btn-primary btn-block" type="submit" data-i18n="btn_signin">Sign in</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- 3. SECTION A: TELL US ABOUT YOUR FIELD (three data-collection cards) -->
+    <section id="view-field" class="view" hidden aria-labelledby="aTitle">
+      <nav class="steps" aria-label="Steps">
+        <a class="step current" href="#/field" aria-current="step" data-i18n="step_field">1. Your field</a>
+        <a class="step" href="#/advice" id="stepAdvice" data-i18n="step_advice">2. Advice</a>
+      </nav>
+      <div class="section-head">
+        <h1 id="aTitle" data-i18n="a_title">Tell us about your field</h1>
+        <p class="muted" data-i18n="a_help">Fill in what you know. Only the crop is required.</p>
+      </div>
+
+      <div class="grid3">
+        <!-- Card 1 -->
+        <article class="card" id="card1" aria-labelledby="c1t">
+          <header class="card-head"><h2 id="c1t" data-i18n="c1_title">Crop and soil</h2><span class="status" id="status1"></span></header>
+          <p class="muted" data-i18n="c1_help">What are you growing?</p>
+          <div class="field"><label for="f_crop"><span data-i18n="f_crop">Crop</span> <b class="req" data-i18n="required">required</b></label>
+            <select id="f_crop"></select><span class="field-error" id="e_crop"></span></div>
+          <div class="field" id="cropOtherWrap" hidden><label for="f_crop_other" data-i18n="f_crop_other">Type the crop name</label>
+            <input id="f_crop_other" maxlength="80"><span class="field-error" id="e_crop_other"></span></div>
+          <div class="field"><label for="f_variety"><span data-i18n="f_variety">Variety (if known)</span></label>
+            <input id="f_variety" maxlength="60"></div>
+          <div class="field"><label for="f_stage" data-i18n="f_stage">Growth stage</label><select id="f_stage"></select></div>
+          <div class="field"><label for="f_sowing" data-i18n="f_sowing">Sowing date</label><input id="f_sowing" type="date"></div>
+          <div class="field"><label for="f_soil" data-i18n="f_soil">Soil type (what you see)</label><select id="f_soil"></select></div>
+          <p class="hint" data-i18n="c1_photo">The photo is analyzed as preliminary evidence and is not saved with your field.</p>
+        <!-- Photo input: collect evidence before decisions -->
+        <section class="photo-panel" id="cardPhoto" aria-labelledby="pt">
+          <header class="card-head"><h2 id="pt" data-i18n="p_title">Photo diagnosis</h2></header>
+          <p class="muted" data-i18n="p_help">Take or choose a clear photo of the affected plant.</p>
+          <p class="hint" data-i18n="p_tips">Use daylight. Show the affected leaf or plant clearly. No people or documents in the photo.</p>
+          <p class="hint" data-i18n="p_internet">Needs internet. The photo is sent to an online service.</p>
+          <div class="field"><label for="photoKind" data-i18n="photo_kind_label">What are you photographing?</label>
+            <select id="photoKind"><option value="plant" data-i18n="photo_kind_plant">Affected plant or leaves</option><option value="soil" data-i18n="photo_kind_soil">Soil surface</option></select></div>
+          <div class="btn-row">
+            <button class="btn btn-secondary" type="button" id="photoTake" data-i18n="p_take">Take photo</button>
+            <button class="btn btn-secondary" type="button" id="photoPick" data-i18n="p_gallery">Choose from gallery</button>
+          </div>
+          <input id="photoCamera" type="file" accept="image/*" capture="environment" hidden>
+          <input id="photoGallery" type="file" accept="image/jpeg,image/png,image/webp,image/*" hidden>
+          <div class="preview" id="photoPreview" hidden><img id="photoImg" alt=""><span id="photoMeta" class="hint"></span></div>
+          <div class="btn-row">
+            <button class="btn btn-primary" type="button" id="photoAnalyze" disabled data-i18n="p_analyze">Analyze photo</button>
+            <button class="btn btn-quiet" type="button" id="photoCancel" hidden data-i18n="p_cancel">Cancel</button>
+          </div>
+          <progress id="photoProgress" max="100" value="0" hidden></progress>
+          <div class="result" id="photoResult" aria-live="polite"></div>
+        </section>
+
+          <button class="btn btn-secondary btn-block" type="button" id="save1" data-i18n="save">Save</button>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card" id="card2" aria-labelledby="c2t">
+          <header class="card-head"><h2 id="c2t" data-i18n="c2_title">Farm size and budget</h2><span class="status" id="status2"></span></header>
+          <p class="muted" data-i18n="c2_help">Used to estimate costs. You can leave this empty.</p>
+          <div class="field"><label for="f_area"><span data-i18n="f_area">Field size</span> <span class="opt" data-i18n="optional">optional</span></label>
+            <input id="f_area" inputmode="decimal" autocomplete="off"><span class="field-error" id="e_area"></span></div>
+          <div class="field"><label for="f_unit" data-i18n="f_unit">Unit</label>
+            <select id="f_unit"><option value="acres" data-i18n="unit_acres">Acres</option><option value="hectares" data-i18n="unit_hectares">Hectares</option></select></div>
+          <div class="field"><label for="f_budget"><span data-i18n="f_budget">Total budget for this field (₹)</span> <span class="opt" data-i18n="optional">optional</span></label>
+            <input id="f_budget" inputmode="decimal" autocomplete="off"><span class="field-error" id="e_budget"></span></div>
+          <button class="btn btn-secondary btn-block" type="button" id="save2" data-i18n="save">Save</button>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card" id="card3" aria-labelledby="c3t">
+          <header class="card-head"><h2 id="c3t" data-i18n="c3_title">Your location</h2><span class="status" id="status3"></span></header>
+          <p class="muted" data-i18n="c3_help">Used for local help and the risk check.</p>
+          <div class="field"><label for="f_state" data-i18n="f_state">State</label><input id="f_state" maxlength="80" autocomplete="off"></div>
+          <div class="field"><label for="f_district" data-i18n="f_district">District</label><input id="f_district" maxlength="80" autocomplete="off"></div>
+          <div class="field"><label for="f_village" data-i18n="f_village">Village or area</label><input id="f_village" maxlength="80" autocomplete="off"></div>
+          <button class="btn btn-secondary btn-block" type="button" id="useGpsWeather" data-i18n="gps_weather">Use my location for weather</button>
+          <p class="hint" id="weatherStatus" role="status" data-i18n="weather_note">Weather is fetched only when you allow location access. Your exact coordinates are not saved.</p>
+          <button class="btn btn-secondary btn-block" type="button" id="save3" data-i18n="save">Save</button>
+        </article>
+      </div>
+
+      <div class="action-bar">
+        <p id="saveMsg" class="form-msg" role="status" aria-live="polite"></p>
+        <button class="btn btn-primary btn-block btn-big" type="button" id="saveAll" data-i18n="save_all">Save field information and view recommendations</button>
+      </div>
+    </section>
+
+    <!-- 4. SECTION B: RECOMMENDATIONS (decision cards using the saved field) -->
+    <section id="view-advice" class="view" hidden aria-labelledby="bTitle">
+      <nav class="steps" aria-label="Steps">
+        <a class="step" href="#/field" data-i18n="step_field">1. Your field</a>
+        <a class="step current" href="#/advice" aria-current="step" data-i18n="step_advice">2. Advice</a>
+      </nav>
+      <div class="section-head">
+        <h1 id="bTitle" data-i18n="b_title">Recommendations for your field</h1>
+        <p class="muted" data-i18n="b_help">These use the information you saved.</p>
+        <p class="ctx-summary" id="ctxSummary"></p>
+        <a class="btn btn-quiet" href="#/field" data-i18n="edit_field">Change field information</a>
+      </div>
+
+      <!-- Ask Fieldwise (existing chat endpoint) -->
+      <article class="card" id="askCard" aria-labelledby="askT">
+        <h2 id="askT" data-i18n="ask_title">Ask Fieldwise</h2>
+        <p class="muted" data-i18n="ask_help">Get a recommendation from your saved crop, photo, weather, field size and budget. You do not need to choose a pest-control method.</p>
+        <label class="sr-only" for="question" data-i18n="ask_title">Ask Fieldwise</label>
+        <textarea id="question" rows="3" maxlength="600" data-i18n-placeholder="ask_placeholder" placeholder="Optional: tell us what you noticed."></textarea>
+        <button class="btn btn-primary btn-block" type="button" id="ask" data-i18n="ask_btn">Make a recommendation for my field</button>
+        <p class="hint" data-i18n="ask_internet">Needs internet to get advice from the server.</p>
+        <div id="conversation" aria-live="polite"></div>
+      </article>
+
+      <div class="grid2">
+        <!-- Card 5: Budget plan -->
+        <article class="card" id="cardBudget" aria-labelledby="bt">
+          <header class="card-head"><h2 id="bt" data-i18n="bu_title">Budget plan</h2></header>
+          <p class="muted" data-i18n="bu_help">Estimated cost for your field.</p>
+          <p class="needs" id="needsBudget"></p>
+          <button class="btn btn-primary btn-block" type="button" id="runBudget" data-i18n="get_result">Get result</button>
+          <div class="result" id="resBudget" aria-live="polite"></div>
+        </article>
+
+        <!-- Card 6: Risk -->
+        <article class="card" id="cardRisk" aria-labelledby="rt">
+          <header class="card-head"><h2 id="rt" data-i18n="r_title">Pest risk check</h2></header>
+          <p class="muted" data-i18n="r_help">Uses your crop, location, weather and available verified evidence. It will not invent an outbreak alert.</p>
+          <p class="needs" id="needsRisk"></p>
+          <button class="btn btn-primary btn-block" type="button" id="runRisk" data-i18n="get_result">Get result</button>
+          <div class="result" id="resRisk" aria-live="polite"></div>
+        </article>
+
+        <!-- Card 7: Planner -->
+        <article class="card" id="cardPlan" aria-labelledby="plt">
+          <header class="card-head"><h2 id="plt" data-i18n="pl_title">Field plan</h2></header>
+          <p class="muted" data-i18n="pl_help">A simple scouting schedule.</p>
+          <div class="field"><label for="planStart" data-i18n="pl_start">Plan start date</label><input id="planStart" type="date"></div>
+          <p class="needs" id="needsPlan"></p>
+          <button class="btn btn-primary btn-block" type="button" id="runPlan" data-i18n="get_result">Get result</button>
+          <div class="result" id="resPlan" aria-live="polite"></div>
+        </article>
+
+        <!-- Card 8: Compatibility -->
+        <article class="card" id="cardCompat" aria-labelledby="ct">
+          <header class="card-head"><h2 id="ct" data-i18n="co_title">Treatment compatibility</h2></header>
+          <p class="muted" data-i18n="co_help">The advisor will choose evidence-supported next steps for your crop. It will not ask you to select a treatment.</p>
+          <button class="btn btn-primary btn-block" type="button" id="runCompat" data-i18n="co_check">Recommend a safe next step</button>
+          <div class="result" id="resCompat" aria-live="polite"></div>
+        </article>
+
+        <!-- Card 9: Suppliers -->
+        <article class="card" id="cardSupp" aria-labelledby="st">
+          <header class="card-head"><h2 id="st" data-i18n="su_title">Local suppliers</h2></header>
+          <p class="muted" data-i18n="su_help">Find verified local agricultural support. The app will not invent supplier names or stock.</p>
+          <p class="hint"><span data-i18n="su_district">Your district:</span> <b id="suppDistrict">–</b></p>
+          <p class="needs" id="needsSupp"></p>
+          <button class="btn btn-primary btn-block" type="button" id="runSupp" data-i18n="su_search">Search</button>
+          <div class="result" id="resSupp" aria-live="polite"></div>
+        </article>
+
+        <!-- Card 10: Field notes -->
+        <article class="card card-wide" id="cardNotes" aria-labelledby="nt">
+          <header class="card-head"><h2 id="nt" data-i18n="n_title">Field notes</h2>
+            <button class="btn btn-quiet" type="button" id="notesRefresh" data-i18n="n_refresh">Refresh</button></header>
+          <p class="muted" data-i18n="n_help">Your earlier questions and answers.</p>
+          <div id="notesList" aria-live="polite"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer class="foot" id="foot" data-i18n="footer" hidden>Sample estimates and demo checks are not live data. Confirm treatment and label guidance with your local KVK.</footer>
+  <script src="/static/app-v2.js?v=5"></script>
+</body>
+</html>

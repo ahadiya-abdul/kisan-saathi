@@ -3,15 +3,13 @@ const escapeHtml = (value) => String(value ?? "").replace(/[&<>"']/g, (character
   "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
 }[character]));
 
-let token = localStorage.getItem("fieldwise_token");
+let token = null; // in-memory marker only; session credential is an HttpOnly cookie
 let authMode = "login";
 let cameraStream;
 let toastTimer;
 
 function setAuthenticated(accessToken) {
-  token = accessToken;
-  if (token) localStorage.setItem("fieldwise_token", token);
-  else localStorage.removeItem("fieldwise_token");
+  token = accessToken ? "cookie-session" : null;
   $("auth").hidden = Boolean(token);
   $("app").hidden = !token;
   $("logout").hidden = !token;
@@ -37,8 +35,9 @@ async function post(url, body) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
+      ...(token && token !== "cookie-session" ? { Authorization: `Bearer ${token}` } : {})
     },
+    credentials: "same-origin",
     body: JSON.stringify(body)
   }));
 }
@@ -127,7 +126,7 @@ async function loadConversationHistory() {
   list.innerHTML = '<p class="history-loading">Loading saved conversations…</p>';
   try {
     const data = await readResponse(await fetch("/api/farmer/dashboard", {
-      headers: { Authorization: `Bearer ${token}` }
+      credentials: "same-origin"
     }));
     const chats = data.chat_history || [];
     $("dashboardResult").textContent = chats.length
@@ -178,7 +177,7 @@ $("authForm").addEventListener("submit", async (event) => {
   button.disabled = true;
   button.classList.add("is-loading");
   $("authMsg").textContent = "";
-  const body = { email: $("email").value.trim(), password: $("password").value };
+  const body = { identifier: $("email").value.trim(), password: $("password").value };
   if (authMode === "register") body.name = $("name").value.trim();
   try {
     const data = await readResponse(await fetch(`/api/auth/${authMode}`, {
@@ -186,7 +185,7 @@ $("authForm").addEventListener("submit", async (event) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body)
     }));
-    setAuthenticated(data.access_token);
+    setAuthenticated("cookie-session");
     form.reset();
     notify(authMode === "login" ? "Welcome back." : "Your account is ready.");
   } catch (error) {
@@ -198,8 +197,9 @@ $("authForm").addEventListener("submit", async (event) => {
   }
 });
 
-$("logout").addEventListener("click", () => {
+$("logout").addEventListener("click", async () => {
   if (cameraStream) cameraStream.getTracks().forEach((track) => track.stop());
+  try { await fetch("/api/auth/logout", {method: "POST", credentials: "same-origin"}); } catch (_) {}
   setAuthenticated(null);
   $("conversation").replaceChildren();
   notify("You have been signed out.");
@@ -225,7 +225,7 @@ $("ask").addEventListener("click", async () => {
   try {
     const data = await readResponse(await fetch("/api/chat", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+      headers: { "Content-Type": "application/json" }, credentials: "same-origin",
       body: JSON.stringify({ question, context: {} })
     }));
     loading.remove();
@@ -464,4 +464,10 @@ document.querySelectorAll("input, textarea").forEach((input) => {
   input.addEventListener("input", () => input.setAttribute("aria-invalid", "false"));
 });
 
-setAuthenticated(token);
+(async () => {
+  try {
+    const response = await fetch("/api/auth/me", {credentials: "same-origin"});
+    if (response.ok) { setAuthenticated("cookie-session"); await loadConversationHistory(); }
+    else setAuthenticated(null);
+  } catch (_) { setAuthenticated(null); }
+})();

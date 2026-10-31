@@ -1,0 +1,32 @@
+[
+ {
+  "code": "ml",
+  "native": "മലയാളം",
+  "english": "Malayalam"
+ },
+ {
+  "code": "hi",
+  "native": "हिन्दी",
+  "english": "Hindi"
+ },
+ {
+  "code": "kn",
+  "native": "ಕನ್ನಡ",
+  "english": "Kannada"
+ },
+ {
+  "code": "ta",
+  "native": "தமிழ்",
+  "english": "Tamil"
+ },
+ {
+  "code": "te",
+  "native": "తెలుగు",
+  "english": "Telugu"
+ },
+ {
+  "code": "en",
+  "native": "English",
+  "english": "English"
+ }
+]

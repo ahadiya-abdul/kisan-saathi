@@ -1,0 +1,26 @@
+{
+  "icar_ipm_handbook.pdf": {
+    "title": "Handbook of Integrated Pest Management",
+    "source": "Indian Council of Agricultural Research (ICAR)",
+    "url": "https://www.icar.org.in/en/product/18",
+    "verified": false,
+    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
+    "status": "source lead only; full document is not included"
+  },
+  "icar_farmer_centric_ipm.pdf": {
+    "title": "Farmer-centric ICT-based approach for integrated pest management in India",
+    "source": "ICAR - Indian Farming",
+    "url": "https://epubs.icar.org.in/index.php/IndFarm/article/view/172442",
+    "verified": false,
+    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
+    "status": "source lead only; full document is not included"
+  },
+  "fao_ipm_guidance.pdf": {
+    "title": "Guidance on integrated pest management for the world's major crop pests and diseases",
+    "source": "Food and Agriculture Organization of the United Nations (FAO)",
+    "url": "https://openknowledge.fao.org/items/7a20fe82-13ce-462c-8476-8267e8a5b71b",
+    "verified": false,
+    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
+    "status": "source lead only; full document is not included"
+  }
+}
