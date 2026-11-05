@@ -1,0 +1,19 @@
+ICAR - Indian Institute of Millets Research (IIMR)
+Biocontrol and Eco-Friendly IPM Protocol for Sorghum Stem Borer and Shoot Fly
+
+1. TARGET PESTS:
+- Sorghum Shoot Fly (Atherigona soccata): Attacks seedlings from 7 to 28 days after emergence, causing dead hearts in main tillers.
+- Spotted Stem Borer (Chilo partellus): Attacks sorghum from 20 days after emergence until grain filling. Larvae feed in leaf whorls causing pinholes, then bore into stalks resulting in stem lodging and peduncle breakage.
+
+2. BIOLOGICAL PARASITOIDS AND PREDATORS:
+- Trichogramma chilonis: Release @ 50,000 parasitoids per acre at 20, 30, and 40 days after crop emergence. Staple Trichocards on lower leaf surface.
+- Larval Parasitoid Bracon brevicornis / Bracon hebetor: Release @ 100 mated pairs per acre when stem borer larval activity is noted in the field.
+- Pupal Parasitoid: Conserve Tetrastichus howardi, a natural gregarious pupal parasitoid of Chilo partellus.
+
+3. MICROBIAL AND BOTANICAL SPRAYS:
+- Spray Bacillus thuringiensis (Bt) kurstaki formulation @ 2 g/L directed into the central leaf whorls at 25 and 35 days after emergence.
+- Spray 5% Neem Seed Kernel Extract (NSKE) or Neem Azadirachtin 0.03% (300 ppm) @ 5 ml/L at first appearance of whorl feeding pinholes.
+
+4. CULTURAL INTEGRATION:
+- Intercropping: Intercrop Sorghum with Cowpea or Pigeon Pea in 4:2 ratio. Cowpea serves as a trap crop and refuge for beneficial predatory spiders and carabid ground beetles.
+- High seed rate (1.2x) with thinning of shoot fly dead-heart seedlings at 12-14 DAE.

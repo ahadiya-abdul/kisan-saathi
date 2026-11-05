@@ -1,0 +1,22 @@
+ICAR - National Bureau of Agricultural Insect Resources (NBAIR)
+Package of Practices for Management of Fall Armyworm (Spodoptera frugiperda) in Maize
+
+1. IDENTIFICATION AND SYMPTOMS:
+Fall armyworm (Spodoptera frugiperda) is a highly destructive pest affecting Maize at all stages, especially from seedling to flowering whorl development.
+Young larvae scrape epidermal leaf tissue causing window-pane patches. Older instars bore into the central whorl, creating large ragged holes, severed central leaves (dead hearts), and copious moist sawdust-like fecal matter in the whorl.
+
+2. BIOLOGICAL CONTROL AND PARASITOIDS (PRIMARY STRATEGY):
+- Egg Parasitoids: Release Trichogramma chilonis or Telenomus remus @ 50,000 parasitoids per acre (approximately 2 to 3 Trichocards) at 10-day intervals starting from 15 days after germination or upon noticing adult moth flight.
+- How to apply Trichocards: Cut the card into strips of 1,000 to 2,000 parasitized eggs each. Staple the strips to the underside of the central leaves in the evening hours to avoid direct solar UV heat and predatory ants.
+- Larval Parasitoids: Conserve and release Campoletis sonorensis and Bracon hebetor which naturally parasitize young FAW caterpillars.
+
+3. BIO-PESTICIDES AND MICROBIAL CONTROLS:
+- Entomopathogenic Fungi: Spray Beauveria bassiana (strain NBAIR Bb-45) or Metarhizium anisopliae or Nomuraea rileyi @ 5 g per liter of water (minimum 1x10^8 cfu/g) directed into leaf whorls. Apply in late afternoon (after 4:30 PM) when humidity is above 70% for maximum fungal spore germination.
+- Bacillus thuringiensis (Bt): Spray Bacillus thuringiensis var. kurstaki (Btk) @ 2 g/L or 400 g/acre in the early vegetative stage.
+- Botanical Repellents: Spray 5% Neem Seed Kernel Extract (NSKE) or Azadirachtin 10,000 ppm @ 2 ml per liter of water. Acts as an oviposition deterrent and antifeedant.
+
+4. PHEROMONE TRAPPING AND MONITORING:
+Install 5 Fall Armyworm funnel pheromone traps per acre at crop canopy height to monitor adult moth catches. If trap catch exceeds 3 moths per trap per day, initiate bio-agent release immediately.
+
+5. HARVEST AND SAFETY INTERVAL:
+Biocontrol agents (Trichogramma, Beauveria, Bt, Neem) have a 0-day Pre-Harvest Interval (PHI). They leave zero toxic residues, do not harm pollinators or bees, and allow safe green fodder and grain harvest.

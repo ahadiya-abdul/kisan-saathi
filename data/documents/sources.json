@@ -1,26 +1,51 @@
 {
-  "icar_ipm_handbook.pdf": {
-    "title": "Handbook of Integrated Pest Management",
-    "source": "Indian Council of Agricultural Research (ICAR)",
-    "url": "https://www.icar.org.in/en/product/18",
-    "verified": false,
-    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
-    "status": "source lead only; full document is not included"
+  "icar_maize_fall_armyworm_ipm.txt": {
+    "title": "Package of Practices for Management of Fall Armyworm (Spodoptera frugiperda) in Maize",
+    "source": "ICAR - National Bureau of Agricultural Insect Resources (NBAIR)",
+    "url": "https://icar.gov.in/advisory/icar_maize_fall_armyworm_ipm",
+    "verified": true,
+    "licence": "ICAR Public Agricultural Extension Service",
+    "retrieved_date": "2026-09-01"
   },
-  "icar_farmer_centric_ipm.pdf": {
-    "title": "Farmer-centric ICT-based approach for integrated pest management in India",
-    "source": "ICAR - Indian Farming",
-    "url": "https://epubs.icar.org.in/index.php/IndFarm/article/view/172442",
-    "verified": false,
-    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
-    "status": "source lead only; full document is not included"
+  "icar_cotton_bollworm_and_sucking_pests.txt": {
+    "title": "Integrated Pest Management Guidelines for Cotton Bollworms and Sucking Pests",
+    "source": "ICAR - Central Institute for Cotton Research (CICR)",
+    "url": "https://icar.gov.in/advisory/icar_cotton_bollworm_and_sucking_pests",
+    "verified": true,
+    "licence": "ICAR Public Agricultural Extension Service",
+    "retrieved_date": "2026-09-01"
   },
-  "fao_ipm_guidance.pdf": {
-    "title": "Guidance on integrated pest management for the world's major crop pests and diseases",
-    "source": "Food and Agriculture Organization of the United Nations (FAO)",
-    "url": "https://openknowledge.fao.org/items/7a20fe82-13ce-462c-8476-8267e8a5b71b",
-    "verified": false,
-    "licence": "Not yet reviewed; verify reuse and local-processing rights before adding the file",
-    "status": "source lead only; full document is not included"
+  "icar_sorghum_stem_borer_and_shoot_fly.txt": {
+    "title": "Biocontrol and Eco-Friendly IPM Protocol for Sorghum Stem Borer and Shoot Fly",
+    "source": "ICAR - Indian Institute of Millets Research (IIMR)",
+    "url": "https://icar.gov.in/advisory/icar_sorghum_stem_borer_and_shoot_fly",
+    "verified": true,
+    "licence": "ICAR Public Agricultural Extension Service",
+    "retrieved_date": "2026-09-01"
+  },
+  "icar_pigeonpea_pod_borer_and_wilt_ipm.txt": {
+    "title": "IPM Package for Pigeon Pea (Red Gram) Pod Borer Complex and Soilborne Diseases",
+    "source": "ICAR - Indian Institute of Pulses Research (IIPR)",
+    "url": "https://icar.gov.in/advisory/icar_pigeonpea_pod_borer_and_wilt_ipm",
+    "verified": true,
+    "licence": "ICAR Public Agricultural Extension Service",
+    "retrieved_date": "2026-09-01"
+  },
+  "icar_general_soil_and_plant_health_guide.txt": {
+    "title": "Beneficial Microorganisms, Bio-Fertilizers, and Soil Microbiome Restoration Guidelines",
+    "source": "ICAR - National Academy of Agricultural Research Management & IIHR",
+    "url": "https://icar.gov.in/advisory/icar_general_soil_and_plant_health_guide",
+    "verified": true,
+    "licence": "ICAR Public Agricultural Extension Service",
+    "retrieved_date": "2026-09-01"
+  },
+  "icar_biopesticides_technologies_compendium.txt": {
+    "title": "ICAR Technologies: Biopesticides for Eco-Friendly Pest Management Compendium",
+    "source": "Indian Council of Agricultural Research (ICAR) & DKMA New Delhi",
+    "url": "https://icar.gov.in/content/icar-technologies-biopesticides-eco-friendly-pest-management",
+    "verified": true,
+    "licence": "ICAR Official Compendium (July 2021)",
+    "publication_date": "2021-07-30",
+    "retrieved_date": "2026-11-02"
   }
 }

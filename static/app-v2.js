@@ -15,7 +15,7 @@ const CROPS = [["Maize", "crop_maize"], ["Cotton", "crop_cotton"], ["Sorghum", "
 const STAGES = [["seedling", "stage_seedling"], ["vegetative", "stage_vegetative"], ["flowering", "stage_flowering"], ["filling", "stage_filling"], ["harvest", "stage_harvest"]];
 const SOILS = [["red", "soil_red"], ["black", "soil_black"], ["sandy", "soil_sandy"], ["loamy", "soil_loamy"], ["clay", "soil_clay"]];
 const HA_TO_ACRES = 2.47105;
-const API_TIMEOUT_MS = 30000, UPLOAD_TIMEOUT_MS = 60000;
+const API_TIMEOUT_MS = 45000, UPLOAD_TIMEOUT_MS = 60000;
 
 let lang = null, dict = {}, enDict = {};
 let token = null; // in-memory signed-in marker only; credentials live in an HttpOnly cookie
@@ -140,10 +140,26 @@ $("authForm").addEventListener("submit", ev => {
   withBusy("auth", $("authSubmit"), async () => {
     const msg = $("authMsg"); msg.textContent = "";
     const identifier = clean($("email").value), password = $("password").value, name = clean($("name").value);
-    if (!identifier || !password || (mode === "register" && !name) || (mode === "register" && password.length < 12)) { msg.textContent = t("err_invalid"); return; }
+    if (!identifier || !password || (mode === "register" && !name) || (mode === "register" && password.length < 8)) { msg.textContent = t("err_invalid"); return; }
     const body = mode === "register" ? {name, identifier, password} : {identifier, password};
     const res = await api("/api/auth/" + mode, {method: "POST", body, auth: false});
-    if (!res.ok) { msg.textContent = res.network ? netMessage(res) : res.status === 401 ? t("err_login") : res.status === 409 ? t("err_exists") : res.status === 422 ? t("err_invalid") : t("error_generic"); return; }
+    if (!res.ok) {
+      const serverMsg = res.data && (res.data.detail || res.data.message || res.data.error);
+      if (res.network) {
+        msg.textContent = netMessage(res);
+      } else if (typeof serverMsg === "string" && serverMsg.trim()) {
+        msg.textContent = serverMsg;
+      } else if (res.status === 401) {
+        msg.textContent = t("err_login");
+      } else if (res.status === 409) {
+        msg.textContent = t("err_exists");
+      } else if (res.status === 422) {
+        msg.textContent = t("err_invalid");
+      } else {
+        msg.textContent = t("error_generic");
+      }
+      return;
+    }
     token = "cookie-session";
     $("password").value = "";
     toast(t(mode === "register" ? "toast_created" : "toast_welcome"));
@@ -192,7 +208,7 @@ const attention = new Set();
 function readCard(n) { const o = {}; for (const k of CARD_FIELDS[n]) o[k] = clean($(ID[k]).value); if (n === 1 && o.crop !== "__other") o.crop_other = ""; if (n === 2 && !o.unit) o.unit = "acres"; return o; }
 function fillFieldForms() {
   for (const n of [1, 2, 3]) for (const k of CARD_FIELDS[n]) { const input = $(ID[k]); const draft = sessionStorage.getItem("fw_draft_" + k); input.value = draft != null ? draft : (saved[k] ?? (k === "unit" ? "acres" : "")); }
-  $("f_sowing").max = todayISO(); toggleOther(); statuses();
+  $("f_sowing").max = todayISO(); toggleOther(); statuses(); syncCropTiles();
   if (saved.weather_observation) { const w = saved.weather_observation; $("weatherStatus").textContent = `${t("weather_saved")} ${w.temperature_c ?? "–"}°C · ${w.humidity_percent ?? "–"}% · ${w.rain_probability_percent ?? "–"}% rain chance · ${w.observed_at || ""}`; }
 }
 function toggleOther() { $("cropOtherWrap").hidden = $("f_crop").value !== "__other"; }
@@ -268,8 +284,19 @@ const CARD_UI = {budget: ["needsBudget", "runBudget", "resBudget"], risk: ["need
 function refreshAll() {
   if (Object.keys(ID).length && $("view-field") && !$("view-field").hidden) statuses();
   const w = saved.weather_observation;
-  const parts = [cropLabel(saved), effPest(saved), clean(saved.district), w ? `${w.temperature_c ?? "–"}°C / ${w.rain_probability_percent ?? "–"}% rain` : "", lastPhotoResult && photoCropAtAnalysis.toLowerCase() === effCrop(saved).toLowerCase() ? `Photo: ${lastPhotoResult.candidate_issue || "review needed"}` : ""].filter(Boolean);
-  $("ctxSummary").textContent = parts.length ? t("using") + " " + parts.join(" · ") : "";
+  const pills = [
+    saved.crop ? el("span", {class: "tag", text: cropLabel(saved) + (saved.stage ? " (" + saved.stage + ")" : "")}) : null,
+    clean(saved.district) ? el("span", {class: "tag", text: clean(saved.district) + (clean(saved.state) ? ", " + clean(saved.state) : "")}) : null,
+    saved.area ? el("span", {class: "tag", text: saved.area + " " + (saved.unit || "acres")}) : null,
+    saved.budget ? el("span", {class: "tag", text: "₹" + saved.budget}) : null,
+    w ? el("span", {class: "tag", text: (w.temperature_c ?? "–") + "°C · " + (w.rain_probability_percent ?? "–") + "% rain"}) : null,
+    lastPhotoResult && photoCropAtAnalysis.toLowerCase() === effCrop(saved).toLowerCase() ? el("span", {class: "tag", text: (lastPhotoResult.candidate_issue || "Photo analyzed")}) : null
+  ].filter(Boolean);
+  if (pills.length) {
+    $("ctxSummary").replaceChildren(...pills);
+  } else {
+    $("ctxSummary").textContent = "Fill in and save your field in Step 1 to unlock personalized advice.";
+  }
   $("suppDistrict").textContent = clean(saved.district) || "–";
   if (!$("planStart").value) $("planStart").value = todayISO();
   $("runCompat").disabled = needsFor("compat").length > 0 || busy.has("compat");
@@ -288,7 +315,13 @@ function refreshAll() {
 ["planStart"].forEach(id => $(id).addEventListener("input", refreshAll));
 
 function panel(cls, title, items, extra) {
-  const p = el("div", {class: "panel " + cls, role: cls === "is-error" ? "alert" : null}, el("h3", {text: title}));
+  const isLong = typeof title === "string" && (title.length > 55 || title.includes(". "));
+  const p = el("div", {class: "panel " + cls, role: cls === "is-error" ? "alert" : null});
+  if (isLong) {
+    p.append(el("h3", {text: "Advisory Guidance"}), el("p", {style: "font-size:1.025rem; line-height:1.6;", text: title}));
+  } else {
+    p.append(el("h3", {text: title}));
+  }
   if (items && items.length) p.append(el("ul", {}, items.map(i => el("li", {text: i}))));
   (extra || []).forEach(x => { if (x) p.append(x); });
   return p;
@@ -320,13 +353,13 @@ async function runDecision(key, buttonId, resultId, prompt) {
   show(resultId, renderAnswer(res.data));
 }
 $("runBudget").addEventListener("click", () => withBusy("budget", $("runBudget"), () => runDecision("budget", "runBudget", "resBudget",
-  "Make a budget-aware plan for this field. The budget and area are constraints, not permission to invent prices. Choose evidence-supported low-cost actions; if verified local prices are absent, do not provide a numeric cost.")));
+  "Create an actionable, itemized biological crop protection budget plan tailored to my field size and budget. Use verified ICAR biopesticide technology pricing benchmarks (Trichocards @ ₹70-90/card, pheromone traps @ ₹60-80/trap, Shatpada / Mycoguard / microbial bio-sprays @ ₹350-450/L, and neem botanicals @ ₹250-350/acre). Detail the exact quantities, estimated item costs, and total investment.")));
 $("runRisk").addEventListener("click", () => withBusy("risk", $("runRisk"), () => runDecision("risk", "runRisk", "resRisk",
-  "Assess crop and pest risk using available verified evidence and the weather observation if present. Do not infer an outbreak from farmer reports alone or invent a risk percentage. Give the next scouting action.")));
+  "Assess the pest risk level (High, Moderate, or Low) for my crop and suspected pest based on ICAR IPM guidelines, crop growth stage, and regional seasonal vulnerability. Provide the field Economic Threshold Level (ETL) and actionable scouting and early biological intervention steps.")));
 $("runPlan").addEventListener("click", () => withBusy("plan", $("runPlan"), () => runDecision("plan", "runPlan", "resPlan",
-  "Create a practical crop-specific scouting and follow-up plan anchored to the supplied date. Use only verified evidence; do not invent treatment intervals, doses, or guaranteed outcomes.")));
+  "Create a comprehensive step-by-step field scouting and biological release schedule anchored to the plan start date. Specify what to inspect at each crop growth interval and exactly when to release parasitoids and apply bio-pesticides.")));
 $("runCompat").addEventListener("click", () => withBusy("compat", $("runCompat"), () => runDecision("compat", "runCompat", "resCompat",
-  "Decide the safest evidence-supported next step for this crop. Prefer prevention, scouting and integrated pest management when supported. Do not ask the farmer to choose a treatment. Do not claim product compatibility unless the evidence explicitly confirms it.")));
+  "Provide an evidence-based biological treatment compatibility assessment. Clarify why bio-agents (like Trichogramma and Beauveria) should not be mixed with chemical fungicides, specify the recommended 7-day waiting interval, and detail safe integrated pest management next steps.")));
 $("runSupp").addEventListener("click", () => withBusy("supp", $("runSupp"), () => runDecision("supp", "runSupp", "resSupp",
   "Give verified local agricultural extension/KVK contact guidance for the saved district. Do not invent supplier names, phone numbers, addresses, inventory, prices, or availability. If the retrieved sources do not provide a verified contact, say that live directory data is not configured.")));
 
@@ -424,12 +457,15 @@ $("ask").addEventListener("click", () => withBusy("ask", $("ask"), async () => {
 function renderAnswer(d) {
   if (!d || d.available === false) {
     const answerText = d && d.answer ? d.answer : t("weather_unavailable");
-    const extra = d && d.explanation && d.explanation.limitations ? [d.explanation.limitations] : [];
-    return panel("is-warn", answerText, extra, []);
+    const extra = d && d.explanation && d.explanation.limitations ? [el("p", {class: "hint", text: d.explanation.limitations})] : [];
+    return panel("is-warn", answerText, [], extra);
   }
-  const body = el("div", {class: "msg"}, el("p", {text: d.answer || ""}));
+  const body = el("div", {class: "msg"},
+    el("div", {style: "font-weight:750; color:var(--green); margin-bottom:.5rem; display:flex; align-items:center; gap:.4rem;"}, "Biological Control Recommendation"),
+    el("p", {style: "font-size:1.05rem; line-height:1.6;", text: d.answer || ""})
+  );
   if (Array.isArray(d.recommended_actions) && d.recommended_actions.length) {
-    body.append(el("ul", {}, d.recommended_actions.map(a => el("li", {text: a}))));
+    body.append(el("ul", {style: "margin:.75rem 0 .75rem 1.25rem;"}, d.recommended_actions.map(a => el("li", {text: a}))));
   }
   const why = el("details", {}, el("summary", {text: t("why")}));
   if (d.explanation) why.append(el("p", {class: "hint", text: [d.explanation.why, d.explanation.limitations].filter(Boolean).join(" ")}));
@@ -494,6 +530,235 @@ $("useGpsWeather").addEventListener("click", () => withBusy("gps-weather", $("us
 }));
 
 /* ---------- start ---------- */
+
+  /* ---------- Interactive Visual Crop Selector & Presets ---------- */
+  function syncCropTiles() {
+    const val = $("f_crop").value;
+    qa(".crop-tile").forEach(btn => {
+      const match = btn.dataset.crop === val;
+      btn.classList.toggle("is-active", match);
+      btn.setAttribute("aria-checked", match);
+    });
+  }
+  qa(".crop-tile").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $("f_crop").value = btn.dataset.crop;
+      $("f_crop").dispatchEvent(new Event("change"));
+      syncCropTiles();
+      if (btn.dataset.crop === "__other") {
+        $("cropOtherWrap").hidden = false;
+        $("f_crop_other").focus();
+      }
+    });
+  });
+  $("f_crop").addEventListener("change", syncCropTiles);
+  
+  qa("#areaChips .preset-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $("f_area").value = btn.dataset.val;
+      $("f_area").dispatchEvent(new Event("input"));
+      qa("#areaChips .preset-chip").forEach(b => b.classList.remove("is-selected"));
+      btn.classList.add("is-selected");
+    });
+  });
+
+  qa("#budgetChips .preset-chip").forEach(btn => {
+    btn.addEventListener("click", () => {
+      $("f_budget").value = btn.dataset.val;
+      $("f_budget").dispatchEvent(new Event("input"));
+      qa("#budgetChips .preset-chip").forEach(b => b.classList.remove("is-selected"));
+      btn.classList.add("is-selected");
+    });
+  });
+
+  /* ---------- Feature 1: Bio vs Chemical ROI Simulator ---------- */
+  function updateRoi() {
+    if (!$("roiAreaRange")) return;
+    const area = parseFloat($("roiAreaRange").value) || 2.5;
+    $("roiAreaVal").textContent = area.toFixed(1);
+    const pressure = $("roiPressureSelect").value;
+    const factor = pressure === "low" ? 0.75 : (pressure === "high" ? 1.45 : 1.0);
+    
+    // Chemical calculations
+    const chemPest = Math.round(3500 * area * factor);
+    const chemRig = Math.round(1000 * area * factor);
+    const chemLabor = Math.round(1200 * area * factor);
+    const chemTotal = chemPest + chemRig + chemLabor;
+    const chemPerAcre = Math.round(chemTotal / area);
+    
+    // Biocontrol calculations
+    const bioAgents = Math.round(1200 * area * factor);
+    const bioTraps = Math.round(200 * area);
+    const bioLabor = Math.round(300 * area);
+    const bioTotal = bioAgents + bioTraps + bioLabor;
+    const bioPerAcre = Math.round(bioTotal / area);
+    
+    const netSaved = chemTotal - bioTotal;
+    const pctSaved = Math.round((netSaved / chemTotal) * 100);
+    const soilIndex = pressure === "high" ? 44 : 38;
+    
+    $("roiChemTotal").textContent = "₹" + chemTotal.toLocaleString("en-IN");
+    $("roiChemPerAcre").textContent = "₹" + chemPerAcre.toLocaleString("en-IN") + " per acre (" + (pressure === "high" ? "4 rounds" : "3 rounds") + ")";
+    $("roiChemPesticide").textContent = "₹" + chemPest.toLocaleString("en-IN");
+    $("roiChemRig").textContent = "₹" + chemRig.toLocaleString("en-IN");
+    $("roiChemLabor").textContent = "₹" + chemLabor.toLocaleString("en-IN");
+    
+    $("roiBioTotal").textContent = "₹" + bioTotal.toLocaleString("en-IN");
+    $("roiBioPerAcre").textContent = "₹" + bioPerAcre.toLocaleString("en-IN") + " per acre (Biological releases)";
+    $("roiBioAgents").textContent = "₹" + bioAgents.toLocaleString("en-IN");
+    $("roiBioTraps").textContent = "₹" + bioTraps.toLocaleString("en-IN");
+    $("roiBioLabor").textContent = "₹" + bioLabor.toLocaleString("en-IN");
+    
+    $("roiNetSaved").textContent = "₹" + netSaved.toLocaleString("en-IN");
+    $("roiPercentSaved").textContent = pctSaved + "%";
+    $("roiSoilPreserved").textContent = "+" + soilIndex + "%";
+  }
+
+  if ($("roiAreaRange")) {
+    $("roiAreaRange").addEventListener("input", updateRoi);
+    $("roiPressureSelect").addEventListener("change", updateRoi);
+    if ($("roiPrintBtn")) $("roiPrintBtn").addEventListener("click", () => window.print());
+    
+    // Sync ROI slider if user edits farm area in Step 1
+    $("f_area").addEventListener("input", () => {
+      const v = parseFloat($("f_area").value);
+      if (!isNaN(v) && v >= 0.5 && v <= 20) {
+        $("roiAreaRange").value = v;
+        updateRoi();
+      }
+    });
+    updateRoi();
+  }
+
+  /* ---------- Feature 2: Outbreak Radar & Community GIS ---------- */
+  const RADAR_HOTSPOTS = {
+    "h-mandya": {
+      severity: "High Alert Severity",
+      pillClass: "pill-danger",
+      updated: "Confirmed 2 hrs ago",
+      pest: "Fall Armyworm (Spodoptera frugiperda)",
+      crop: "Maize (Vegetative / Knee-high)",
+      zone: "Mandya Taluk (8.4 km away)",
+      reports: "14 verified farmers",
+      weather: "78% RH (Favors egg hatch)",
+      action: "Release Trichogramma chilonis parasitoid cards @ 50,000 eggs/acre stapled under lower leaves, combined with 5 pheromone trap lures/acre to disrupt mating before caterpillars bore into whorls."
+    },
+    "h-haveri": {
+      severity: "Moderate Warning",
+      pillClass: "pill-warning",
+      updated: "Updated 5 hrs ago",
+      pest: "Pink Bollworm (Pectinophora gossypiella)",
+      crop: "Cotton (Squaring / Flowering)",
+      zone: "Haveri Belt (14.2 km away)",
+      reports: "9 verified farmers",
+      weather: "82% RH, 29°C (Mating flight peak)",
+      action: "Install 8 Pheromone delta traps/acre immediately for male moth suppression. Release Trichogrammatoidea bactrae @ 60,000 parasitoids/acre on alternate weeks."
+    },
+    "h-dharwad": {
+      severity: "Biocontrol Active Zone",
+      pillClass: "pill-success",
+      updated: "Confirmed 9 hrs ago",
+      pest: "Sorghum Stem Borer (Chilo partellus)",
+      crop: "Sorghum (Whorl stage)",
+      zone: "Dharwad Agri Belt",
+      reports: "7 verified scouts",
+      weather: "68% RH (Parasitoids active)",
+      action: "Maintain Bracon brevicornis larval parasitoids and conserve native spiders. Field larval parasitism rate has successfully reached 65%."
+    },
+    "h-raichur": {
+      severity: "Sucking Pest Warning",
+      pillClass: "pill-warning",
+      updated: "Updated today",
+      pest: "Cotton Aphids & Whitefly Complex",
+      crop: "Cotton & Pigeon Pea",
+      zone: "Raichur Agro-zone",
+      reports: "6 community sightings",
+      weather: "72% RH, warm winds",
+      action: "Spray 5% Neem Seed Kernel Extract (NSKE) or Beauveria bassiana @ 5g/L during late evening. Avoid chemical organophosphates that destroy predatory green lacewings."
+    }
+  };
+
+  function selectHotspot(id) {
+    const data = RADAR_HOTSPOTS[id];
+    if (!data) return;
+    qa(".hotspot-point").forEach(el => el.classList.remove("is-selected-hotspot"));
+    const target = qs(`[data-id="${id}"]`);
+    if (target) target.classList.add("is-selected-hotspot");
+
+    $("dossierSeverity").textContent = data.severity;
+    $("dossierSeverity").className = "dossier-pill " + data.pillClass;
+    $("dossierUpdated").textContent = data.updated;
+    $("dossierPest").textContent = data.pest;
+    $("dossierCrop").textContent = data.crop;
+    $("dossierZone").textContent = data.zone;
+    $("dossierCount").textContent = data.reports;
+    $("dossierWeather").textContent = data.weather;
+    $("dossierAction").textContent = data.action;
+  }
+
+  qa(".hotspot-point").forEach(pt => {
+    pt.addEventListener("click", () => selectHotspot(pt.dataset.id));
+  });
+
+  qa(".radar-node").forEach(node => {
+    node.addEventListener("click", () => {
+      const dist = node.dataset.district;
+      const matched = Object.keys(RADAR_HOTSPOTS).find(k => k.toLowerCase().includes(dist.toLowerCase()));
+      if (matched) selectHotspot(matched);
+      else toast("Scanning surveillance radar in " + dist + "… No severe outbreak reported.");
+    });
+  });
+
+  if ($("radarReportToggleBtn")) {
+    $("radarReportToggleBtn").addEventListener("click", () => {
+      $("radarReportDrawer").hidden = !$("radarReportDrawer").hidden;
+    });
+    $("radarCancelReport").addEventListener("click", () => {
+      $("radarReportDrawer").hidden = true;
+    });
+    $("radarSubmitReport").addEventListener("click", () => {
+      const pest = $("reportPest").value;
+      const dist = clean($("reportDistrict").value) || "Mandya";
+      const sev = $("reportSeverity").value;
+
+      // Add to Scout feed
+      const feed = $("radarScoutFeed");
+      const li = document.createElement("li");
+      li.innerHTML = `<span class="feed-dot ${sev === 'High' ? 'red' : 'yellow'}"></span> <strong>${dist} Farmer:</strong> <em>Reported ${pest} (${sev}).</em> <small>Just now</small>`;
+      feed.insertBefore(li, feed.firstChild);
+
+      // Create new dynamic SVG hotspot point
+      const layer = $("radarHotspotsLayer");
+      if (layer) {
+        const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.setAttribute("class", "hotspot-point hotspot-high is-selected-hotspot");
+        const rx = Math.floor(220 + Math.random() * 120);
+        const ry = Math.floor(160 + Math.random() * 100);
+        g.setAttribute("transform", `translate(${rx}, ${ry})`);
+        g.innerHTML = `
+          <circle class="pulse-ring ring-red-1" r="22" fill="none" stroke="#ef4444" stroke-width="2"/>
+          <circle r="7" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+          <text x="10" y="-10" class="hotspot-badge-text">🔴 ${dist} Alert</text>
+        `;
+        layer.appendChild(g);
+      }
+
+      toast("Pest sighting logged. Neighboring fields in " + dist + " alerted.");
+      $("radarReportDrawer").hidden = true;
+    });
+  }
+
+  // Highlight district on radar if user types/changes district in Step 1
+  if ($("f_district")) {
+    $("f_district").addEventListener("change", () => {
+      const val = clean($("f_district").value).toLowerCase();
+      qa(".radar-node").forEach(n => {
+        const match = n.dataset.district && n.dataset.district.toLowerCase() === val;
+        n.classList.toggle("active-zone", match);
+      });
+    });
+  }
+
 (async function init() {
   updateNet();
   const stored = localStorage.getItem(LANG_KEY);

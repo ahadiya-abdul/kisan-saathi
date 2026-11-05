@@ -1,0 +1,18 @@
+ICAR - Indian Institute of Pulses Research (IIPR)
+IPM Package for Pigeon Pea (Red Gram) Pod Borer Complex and Soilborne Diseases
+
+1. TARGET PROBLEMS:
+- Gram Pod Borer (Helicoverpa armigera): Caterpillars feed on foliage, flower buds, flowers, and bore round holes into developing pods, consuming green seeds.
+- Pod Fly (Melanagromyza obtusa): Maggots feed internally on seeds without external pod symptoms until emergence holes appear.
+- Fusarium Wilt (Fusarium udum): Vascular fungal wilt causing drooping, yellowing leaves, xylem browning, and plant collapse.
+
+2. BIOCONTROL PRACTICES FOR POD BORER:
+- Pheromone Traps: Install 5 Helilure pheromone traps per acre at flower initiation stage.
+- Bird Perches: Erect 20 'T'-shaped wooden bird perches per acre at 1 foot above crop canopy. Attracts predatory birds (Black Drongo, Indian Myna) which consume larvae during morning and evening.
+- Egg Parasitoids: Release Trichogramma chilonis @ 50,000 per acre at 50% flowering. Repeat 3 times at weekly intervals.
+- HaNPV Spray: Spray Helicoverpa armigera Nuclear Polyhedrosis Virus (HaNPV) @ 250 LE/acre mixed with 100 g jaggery in 200 L water in late afternoon.
+- Bio-insecticide: Spray Beauveria bassiana @ 5 g/L or Bt var. kurstaki @ 2 g/L at pod setting.
+
+3. SOILBORNE WILT BIOLOGICAL MANAGEMENT:
+- Bio-fungicide Seed Inoculation: Treat seed with Trichoderma viride or Trichoderma harzianum @ 10 g per kg seed with rice gruel as sticker before sowing.
+- Soil Application: Enrich 2.5 kg Trichoderma harzianum formulation in 250 kg well-decomposed Farm Yard Manure (FYM) with 5 kg neem cake. Incubate for 7 days under shade with moisture, then apply to furrow at sowing.

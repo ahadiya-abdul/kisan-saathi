@@ -1,0 +1,34 @@
+ICAR - Central Institute for Cotton Research (CICR)
+Integrated Pest Management Guidelines for Cotton Bollworms and Sucking Pests
+
+1. KEY PESTS OF COTTON:
+Cotton is vulnerable to the bollworm complex (Pink Bollworm - Pectinophora gossypiella, American Bollworm - Helicoverpa armigera, Spotted Bollworm - Earias vittella) and sucking pests (Aphids - Aphis gossypii, Leafhoppers/Jassids - Amrasca biguttula, Whiteflies - Bemisia tabaci, and Thrips).
+
+2. BIOLOGICAL CONTROLS FOR BOLLWORMS:
+- Egg Parasitoid: Release Trichogrammatoidea bactrae or Trichogramma chilonis @ 60,000 parasitoids per acre starting at squaring stage (40-45 days after sowing). Repeat 3 to 4 times at 7 to 10-day intervals.
+- Nucleopolyhedrovirus (NPV): Apply HaNPV @ 250 LE (Larval Equivalents) per acre with 0.1% jaggery (100 g/100 L water) during evening hours against Helicoverpa armigera. Jaggery acts as a UV protectant and feeding stimulant.
+- Pheromone Lures: Install 8 to 10 Pheromone Delta/Funnel traps per acre with Gossyplure (for Pink Bollworm) and Helilure (for American Bollworm). Replace septa every 25 days.
+
+3. MANAGEMENT OF SUCKING PESTS (WHITEFLY, APHIDS, JASSIDS):
+- Sticky Traps: Install 10 yellow sticky traps per acre for Whitefly/Aphids and 5 blue sticky traps per acre for Thrips at canopy level.
+- Entomopathogenic Fungi: Spray Lecanicillium lecanii (Verticillium lecanii) or Beauveria bassiana @ 5 g/L of water during evening hours. Fungal hyphae penetrate insect cuticles within 48-72 hours.
+- Botanical Spray: Spray 5% Neem Seed Kernel Extract (NSKE) or cold-pressed Neem Oil @ 5 ml/L with 1 ml Teepol/soap solution as emulsifier.
+- Predator Conservation: Conserve predatory Green Lacewing (Chrysoperla zastrowi sillemi). Release Chrysoperla larvae @ 4,000 to 5,000 per acre to feed voraciously on aphids, whitefly nymphs, and young bollworm eggs.
+
+4. COMPATIBILITY AND PRECAUTIONS:
+Do not mix entomopathogenic fungal formulations (Beauveria, Lecanicillium) with chemical fungicides. Maintain a gap of at least 7 days between bio-fungicides and bio-insecticides.
+
+5. ECONOMIC THRESHOLD LEVELS (ETL) AND RISK ASSESSMENT:
+- Economic Threshold Levels (ETL) for Decision Making:
+  * Pink Bollworm (Pectinophora gossypiella): 8 adult moths per trap per day for 3 consecutive days, OR 1 live larva per 10 green bolls (10% green boll infestation or rosette flowers).
+  * American Bollworm (Helicoverpa armigera): 1 larva per plant, OR 1 egg per plant, OR 5 to 8 moths per trap per night, OR 5% to 10% flared squares / damaged fruiting bodies.
+  * Whitefly (Bemisia tabaci): 6 to 8 adults per leaf or appearance of yellow mosaic / sooty mold.
+  * Leafhoppers/Jassids (Amrasca biguttula): 2 to 3 nymphs per leaf or visible hopper-burn along leaf margins.
+  * Thrips: 10 nymphs/adults per leaf.
+- Risk Classification and Biological Action Protocol:
+  * HIGH RISK: Field scouting detects infestation exceeding ETL (e.g., >8 moths/trap/night for 3 consecutive days, or >10% damaged green bolls / rosette flowers). Action: Immediate biological intervention: Release Trichogrammatoidea bactrae or Trichogramma chilonis cards @ 60,000 to 100,000 parasitoids/acre, apply microbial bio-pesticide spray (HaNPV @ 250 LE/acre with 0.1% jaggery or Shatpada Larvicide / Bacillus thuringiensis Bt @ 1.5 to 2.0 kg/ha or 400-500 ml/acre), and re-inspect field within 3 days.
+  * MODERATE RISK: Pheromone trap catch of 4 to 7 moths/trap/night OR 5% to 9% damaged bolls/squares, or early egg laying observed. Action: Deploy/refresh pheromone traps (8-10 traps/acre), release egg parasitoid Trichocards (2 to 3 cards/acre), spray botanical repellent (5% Neem Seed Kernel Extract NSKE or cold-pressed Neem Oil @ 5 ml/L with 1 ml soap solution), and inspect twice weekly.
+  * LOW RISK: Trap catch <4 moths/trap/night AND <5% damage. Action: Routine weekly scouting of 20 random plants across the field, maintain yellow and blue sticky traps, and preserve resident natural enemies (Chrysoperla, ladybird beetles, predatory spiders).
+- Field Scouting Protocol:
+  * Walk the field in a 'W' or 'Z' pattern and randomly examine 20 cotton plants.
+  * Inspect tender squares, flowers, and 20 green bolls (each 20-25 days old) for entry holes, frass, rosette appearance, and live larvae.

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1f6b4a">
-  <title>Fieldwise</title>
+  <meta name="theme-color" content="#1a6b46">
+  <title>Fieldwise - Biocontrol Advisory</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/static/v2.css?v=5">
+  <link rel="stylesheet" href="/static/v2.css?v=7">
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
   <header class="top" id="topbar" hidden>
-    <a class="brand" href="#/field"><span class="brand-mark" aria-hidden="true">✳</span> Fieldwise</a>
+    <a class="brand" href="#/field"><svg class="brand-vector-icon" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="9" fill="url(#brandGrad)"/><path d="M16 6C11 12 9 18 10 24c4-1 9-3 12-8 3-5 1-9-6-10z" fill="#a7f3d0"/><path d="M10 24c3-5 8-8 13-9" stroke="#065f46" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient></defs></svg> Fieldwise</a>
     <div class="top-actions">
       <label class="lang-switch"><span class="sr-only" data-i18n="lang_label">Language</span>
         <select id="langSwitch" aria-label="Language">
@@ -32,8 +32,8 @@
     <!-- 1. LANGUAGE (first screen for a new visitor, before sign-in) -->
     <section id="view-language" class="view" hidden aria-labelledby="langTitle">
       <div class="narrow">
-        <p class="brand brand-big"><span class="brand-mark" aria-hidden="true">✳</span> Fieldwise</p>
-        <h1 id="langTitle">Choose your language<br><span class="multi">अपनी भाषा चुनें · ನಿಮ್ಮ ಭಾಷೆ ಆರಿಸಿ</span></h1>
+        <p class="brand brand-big"><svg class="brand-vector-icon" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="9" fill="url(#brandGrad)"/><path d="M16 6C11 12 9 18 10 24c4-1 9-3 12-8 3-5 1-9-6-10z" fill="#a7f3d0"/><path d="M10 24c3-5 8-8 13-9" stroke="#065f46" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="brandGrad" x1="0" y1="0" x2="32" y2="32"><stop offset="0%" stop-color="#10b981"/><stop offset="100%" stop-color="#047857"/></linearGradient></defs></svg> Fieldwise</p>
+        <h1 id="langTitle">Choose your language<br><span class="multi">अपनी भाषा चुनें · ನಿಮ್ಮ ಭಾಷೆ ಆರಿಸಿ · നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക</span></h1>
         <div class="lang-grid" role="group" aria-label="Language">
           <button type="button" class="lang-btn" data-lang="ml" lang="ml"><span class="native">മലയാളം</span><span class="eng">Malayalam</span></button>
           <button type="button" class="lang-btn" data-lang="hi" lang="hi"><span class="native">हिन्दी</span><span class="eng">Hindi</span></button>
@@ -42,114 +42,918 @@
           <button type="button" class="lang-btn" data-lang="te" lang="te"><span class="native">తెలుగు</span><span class="eng">Telugu</span></button>
           <button type="button" class="lang-btn" data-lang="en" lang="en"><span class="native">English</span><span class="eng">English</span></button>
         </div>
-        <p class="muted" id="langHelp">You can change it later.</p>
+        <p class="muted" id="langHelp">You can change it later anytime from the top bar.</p>
       </div>
     </section>
 
     <!-- 2. SIGN IN / CREATE ACCOUNT -->
     <section id="view-auth" class="view" hidden aria-labelledby="authTitle">
-      <div class="narrow card">
-        <h1 id="authTitle" data-i18n="welcome_title">Let’s get started.</h1>
-        <p class="muted" data-i18n="welcome_help">Sign in to save your field details and advice.</p>
-        <div class="tabs" role="tablist">
-          <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="login" data-i18n="tab_signin">Sign in</button>
-          <button class="tab" type="button" role="tab" aria-selected="false" data-tab="register" data-i18n="tab_register">Create account</button>
+      <div class="auth-layout">
+        <!-- Left: Live Agricultural Hero with Animated Swaying Crops -->
+        <div class="auth-hero-panel">
+          <div class="auth-hero-content">
+            <span class="badge-live"><svg class="mini-svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg> Intelligent Biocontrol Network</span>
+            <h1>Healthy crops,<br><em>grown naturally.</em></h1>
+            <p class="auth-hero-desc">AI-powered biological pest management and precision IPM advisories tailored to your field and microclimate, grounded in ICAR & KVK science.</p>
+            
+            <div class="auth-perks">
+              <div class="perk-item"><div class="perk-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9A9 9 0 0 1 3 11C3 6.03 7.03 2 12 2z" fill="#dcfce7" stroke="#16a34a"/><path d="M12 6v14" stroke="#15803d"/></svg></div> <div><strong>Verified Bio-Agents</strong><small>Parasitoids, predators & microbials</small></div></div>
+              <div class="perk-item"><div class="perk-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" fill="#f0fdf4" stroke="#16a34a"/><circle cx="12" cy="13" r="4" fill="#dcfce7" stroke="#15803d"/></svg></div> <div><strong>AI Photo Triage</strong><small>Instant leaf & pest symptom check</small></div></div>
+              <div class="perk-item"><div class="perk-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5" fill="#fef08a" stroke="#eab308"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="#f59e0b"/></svg></div> <div><strong>Live Microclimate</strong><small>Weather-grounded risk radar</small></div></div>
+            </div>
+          </div>
+
+          <!-- Live Animated Field Simulation with Crops Swaying in Wind -->
+          <div class="live-crops-container" aria-label="Live animated crops swaying in breeze">
+            <div class="wind-badge"><svg class="mini-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg> Live Wind: 14 km/h breeze · Swaying crops</div>
+            <svg class="live-crops-svg" viewBox="0 0 900 255" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live animated healthy crops and plants swaying gently in the field wind">
+      
+    <defs>
+      <linearGradient id="skyGrad_auth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#bfe3f7"/>
+        <stop offset="50%" stop-color="#ddf1e4"/>
+        <stop offset="100%" stop-color="#c3e8cd"/>
+      </linearGradient>
+      <linearGradient id="sunGrad_auth" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#fff59d"/>
+        <stop offset="100%" stop-color="#f59e0b"/>
+      </linearGradient>
+      <linearGradient id="stalkGrad_auth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#34d399"/>
+        <stop offset="40%" stop-color="#15803d"/>
+        <stop offset="100%" stop-color="#0f482e"/>
+      </linearGradient>
+      <linearGradient id="leafGrad_auth" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#4ade80"/>
+        <stop offset="60%" stop-color="#16a34a"/>
+        <stop offset="100%" stop-color="#14532d"/>
+      </linearGradient>
+      <linearGradient id="grainGrad_auth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fef08a"/>
+        <stop offset="100%" stop-color="#d97706"/>
+      </linearGradient>
+      <linearGradient id="soilGrad_auth" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#5c4033"/>
+        <stop offset="50%" stop-color="#3e2723"/>
+        <stop offset="100%" stop-color="#1b120c"/>
+      </linearGradient>
+    </defs>
+    
+      
+    <rect width="100%" height="100%" fill="url(#skyGrad_auth)"/>
+    
+    <!-- Sun with pulsing glow -->
+    <circle class="anim-sun" cx="800" cy="50" r="42" fill="url(#sunGrad_auth)" opacity="0.8"/>
+    <circle cx="800" cy="50" r="28" fill="#fffde7"/>
+
+    <!-- Drifting clouds -->
+    <g class="anim-cloud-slow">
+      <path d="M100,50 Q120,30 145,35 Q165,22 188,38 Q205,38 210,52 Q215,68 195,68 L105,68 Q90,68 100,50 Z" fill="#ffffff" opacity="0.82"/>
+    </g>
+    <g class="anim-cloud-fast">
+      <path d="M480,35 Q495,20 515,24 Q530,12 550,26 Q565,26 570,38 Q575,50 555,50 L485,50 Q470,50 480,35 Z" fill="#ffffff" opacity="0.7"/>
+    </g>
+
+    <!-- Wind air streams moving across the crops -->
+    <g class="anim-wind-stream stream-1">
+      <path d="M-50,90 Q150,75 350,95 T750,85 T1150,90" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="160 80"/>
+    </g>
+    <g class="anim-wind-stream stream-2">
+      <path d="M-80,140 Q120,125 320,145 T720,135 T1120,140" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200 120"/>
+    </g>
+
+    <!-- Rolling hills in background -->
+    <path d="M0,195 Q220,168 450,186 T900,175 L900,260 L0,260 Z" fill="#86efac" opacity="0.45"/>
+    <path d="M0,210 Q280,188 560,205 T900,196 L900,260 L0,260 Z" fill="#4ade80" opacity="0.5"/>
+    
+      
+        <g class="crop-grass" style="transform-origin: 20px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M20,245 Q12,218.0 8,200" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M20,245 Q22,213.5 23,195" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M20,245 Q30,222.5 34,204" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 58px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M58,245 Q50,223.4 46,209" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M58,245 Q60,219.8 61,204" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M58,245 Q68,227.0 72,213" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 96px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M96,245 Q88,213.8 84,193" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M96,245 Q98,208.6 99,188" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M96,245 Q106,219.0 110,197" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 134px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M134,245 Q126,219.2 122,202" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M134,245 Q136,214.9 137,197" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M134,245 Q144,223.5 148,206" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 172px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M172,245 Q164,224.6 160,211" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M172,245 Q174,221.2 175,206" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M172,245 Q182,228.0 186,215" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 210px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M210,245 Q202,215.0 198,195" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M210,245 Q212,210.0 213,190" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M210,245 Q220,220.0 224,199" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 248px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M248,245 Q240,220.4 236,204" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M248,245 Q250,216.3 251,199" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M248,245 Q258,224.5 262,208" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 286px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M286,245 Q278,225.8 274,213" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M286,245 Q288,222.6 289,208" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M286,245 Q296,229.0 300,217" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 324px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M324,245 Q316,216.2 312,197" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M324,245 Q326,211.4 327,192" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M324,245 Q334,221.0 338,201" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 362px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M362,245 Q354,221.6 350,206" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M362,245 Q364,217.7 365,201" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M362,245 Q372,225.5 376,210" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 400px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M400,245 Q392,227.0 388,215" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M400,245 Q402,224.0 403,210" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M400,245 Q410,230.0 414,219" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 438px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M438,245 Q430,217.4 426,199" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M438,245 Q440,212.8 441,194" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M438,245 Q448,222.0 452,203" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 476px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M476,245 Q468,222.8 464,208" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M476,245 Q478,219.1 479,203" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M476,245 Q486,226.5 490,212" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 514px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M514,245 Q506,213.2 502,192" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M514,245 Q516,207.9 517,187" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M514,245 Q524,218.5 528,196" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 552px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M552,245 Q544,218.6 540,201" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M552,245 Q554,214.2 555,196" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M552,245 Q562,223.0 566,205" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 590px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M590,245 Q582,224.0 578,210" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M590,245 Q592,220.5 593,205" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M590,245 Q600,227.5 604,214" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 628px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M628,245 Q620,214.4 616,194" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M628,245 Q630,209.3 631,189" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M628,245 Q638,219.5 642,198" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 666px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M666,245 Q658,219.8 654,203" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M666,245 Q668,215.6 669,198" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M666,245 Q676,224.0 680,207" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 704px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M704,245 Q696,225.2 692,212" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M704,245 Q706,221.9 707,207" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M704,245 Q714,228.5 718,216" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 742px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M742,245 Q734,215.6 730,196" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M742,245 Q744,210.7 745,191" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M742,245 Q752,220.5 756,200" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 780px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M780,245 Q772,221.0 768,205" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M780,245 Q782,217.0 783,200" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M780,245 Q790,225.0 794,209" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 818px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M818,245 Q810,226.4 806,214" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M818,245 Q820,223.3 821,209" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M818,245 Q828,229.5 832,218" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 856px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M856,245 Q848,216.8 844,198" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M856,245 Q858,212.1 859,193" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M856,245 Q866,221.5 870,202" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 50px 245px; animation-duration: 3.6s; animation-delay: 0.0s;">
+          <path d="M50,245 Q46,162.5 50,95" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 50px 200.0px; animation-delay: 0.15s;" d="M50,200.0 Q5,185.0 -18,220.0 Q12,196.0 50,193.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 50px 170.0px; animation-delay: 0.35s;" d="M50,170.0 Q100,150.0 126,186.0 Q92,164.0 50,163.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 50px 137.0px; animation-delay: 0.25s;" d="M50,137.0 Q10,112.0 -12,143.0 Q16,123.0 50,131.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 50px 125.0px; animation-delay: 0.45s;" d="M50,125.0 Q86,107.0 108,133.0 Q80,121.0 50,125.0" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M50,95 Q44,73 50,61 Q56,73 50,95" fill="url(#grainGrad_auth)"/>
+        <path d="M50,89 Q34,73 26,79 M50,83 Q66,69 74,73" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 115px 245px; animation-duration: 4.4s; animation-delay: 0.8s;">
+          <path d="M115,245 Q111,148.75 115,70" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 115px 192.5px; animation-delay: 0.9500000000000001s;" d="M115,192.5 Q70,177.5 47,212.5 Q77,188.5 115,185.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 115px 157.5px; animation-delay: 1.15s;" d="M115,157.5 Q165,137.5 191,173.5 Q157,151.5 115,150.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 115px 119.0px; animation-delay: 1.05s;" d="M115,119.0 Q75,94.0 53,125.0 Q81,105.0 115,113.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 115px 107.0px; animation-delay: 1.25s;" d="M115,107.0 Q151,89.0 173,115.0 Q145,103.0 115,107.0" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M115,70 Q109,48 115,36 Q121,48 115,70" fill="url(#grainGrad_auth)"/>
+        <path d="M115,64 Q99,48 91,54 M115,58 Q131,44 139,48" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 185px 245px; animation-duration: 3.9s; animation-delay: 1.5s;">
+          <path d="M185,245 Q181,157.0 185,85" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 185px 197.0px; animation-delay: 1.65s;" d="M185,197.0 Q140,182.0 117,217.0 Q147,193.0 185,190.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 185px 165.0px; animation-delay: 1.85s;" d="M185,165.0 Q235,145.0 261,181.0 Q227,159.0 185,158.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 185px 129.8px; animation-delay: 1.75s;" d="M185,129.8 Q145,104.80000000000001 123,135.8 Q151,115.80000000000001 185,123.80000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 185px 117.80000000000001px; animation-delay: 1.95s;" d="M185,117.80000000000001 Q221,99.80000000000001 243,125.80000000000001 Q215,113.80000000000001 185,117.80000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M185,85 Q179,63 185,51 Q191,63 185,85" fill="url(#grainGrad_auth)"/>
+        <path d="M185,79 Q169,63 161,69 M185,73 Q201,59 209,63" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 255px 245px; animation-duration: 4.2s; animation-delay: 0.4s;">
+          <path d="M255,245 Q251,143.25 255,60" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 255px 189.5px; animation-delay: 0.55s;" d="M255,189.5 Q210,174.5 187,209.5 Q217,185.5 255,182.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 255px 152.5px; animation-delay: 0.75s;" d="M255,152.5 Q305,132.5 331,168.5 Q297,146.5 255,145.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 255px 111.80000000000001px; animation-delay: 0.65s;" d="M255,111.80000000000001 Q215,86.80000000000001 193,117.80000000000001 Q221,97.80000000000001 255,105.80000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 255px 99.80000000000001px; animation-delay: 0.8500000000000001s;" d="M255,99.80000000000001 Q291,81.80000000000001 313,107.80000000000001 Q285,95.80000000000001 255,99.80000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M255,60 Q249,38 255,26 Q261,38 255,60" fill="url(#grainGrad_auth)"/>
+        <path d="M255,54 Q239,38 231,44 M255,48 Q271,34 279,38" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 330px 245px; animation-duration: 3.7s; animation-delay: 1.1s;">
+          <path d="M330,245 Q326,151.5 330,75" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 330px 194.0px; animation-delay: 1.25s;" d="M330,194.0 Q285,179.0 262,214.0 Q292,190.0 330,187.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 330px 160.0px; animation-delay: 1.4500000000000002s;" d="M330,160.0 Q380,140.0 406,176.0 Q372,154.0 330,153.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 330px 122.60000000000001px; animation-delay: 1.35s;" d="M330,122.60000000000001 Q290,97.60000000000001 268,128.60000000000002 Q296,108.60000000000001 330,116.60000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 330px 110.60000000000001px; animation-delay: 1.55s;" d="M330,110.60000000000001 Q366,92.60000000000001 388,118.60000000000001 Q360,106.60000000000001 330,110.60000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M330,75 Q324,53 330,41 Q336,53 330,75" fill="url(#grainGrad_auth)"/>
+        <path d="M330,69 Q314,53 306,59 M330,63 Q346,49 354,53" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 405px 245px; animation-duration: 4.6s; animation-delay: 1.8s;">
+          <path d="M405,245 Q401,140.5 405,55" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 405px 188.0px; animation-delay: 1.95s;" d="M405,188.0 Q360,173.0 337,208.0 Q367,184.0 405,181.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 405px 150.0px; animation-delay: 2.15s;" d="M405,150.0 Q455,130.0 481,166.0 Q447,144.0 405,143.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 405px 108.20000000000002px; animation-delay: 2.05s;" d="M405,108.20000000000002 Q365,83.20000000000002 343,114.20000000000002 Q371,94.20000000000002 405,102.20000000000002" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 405px 96.20000000000002px; animation-delay: 2.25s;" d="M405,96.20000000000002 Q441,78.20000000000002 463,104.20000000000002 Q435,92.20000000000002 405,96.20000000000002" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M405,55 Q399,33 405,21 Q411,33 405,55" fill="url(#grainGrad_auth)"/>
+        <path d="M405,49 Q389,33 381,39 M405,43 Q421,29 429,33" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 480px 245px; animation-duration: 3.8s; animation-delay: 0.2s;">
+          <path d="M480,245 Q476,154.25 480,80" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 480px 195.5px; animation-delay: 0.35s;" d="M480,195.5 Q435,180.5 412,215.5 Q442,191.5 480,188.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 480px 162.5px; animation-delay: 0.55s;" d="M480,162.5 Q530,142.5 556,178.5 Q522,156.5 480,155.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 480px 126.2px; animation-delay: 0.45s;" d="M480,126.2 Q440,101.2 418,132.2 Q446,112.2 480,120.2" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 480px 114.2px; animation-delay: 0.65s;" d="M480,114.2 Q516,96.2 538,122.2 Q510,110.2 480,114.2" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M480,80 Q474,58 480,46 Q486,58 480,80" fill="url(#grainGrad_auth)"/>
+        <path d="M480,74 Q464,58 456,64 M480,68 Q496,54 504,58" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 555px 245px; animation-duration: 4.3s; animation-delay: 0.9s;">
+          <path d="M555,245 Q551,146.0 555,65" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 555px 191.0px; animation-delay: 1.05s;" d="M555,191.0 Q510,176.0 487,211.0 Q517,187.0 555,184.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 555px 155.0px; animation-delay: 1.25s;" d="M555,155.0 Q605,135.0 631,171.0 Q597,149.0 555,148.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 555px 115.4px; animation-delay: 1.15s;" d="M555,115.4 Q515,90.4 493,121.4 Q521,101.4 555,109.4" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 555px 103.4px; animation-delay: 1.35s;" d="M555,103.4 Q591,85.4 613,111.4 Q585,99.4 555,103.4" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M555,65 Q549,43 555,31 Q561,43 555,65" fill="url(#grainGrad_auth)"/>
+        <path d="M555,59 Q539,43 531,49 M555,53 Q571,39 579,43" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 630px 245px; animation-duration: 4.0s; animation-delay: 1.6s;">
+          <path d="M630,245 Q626,157.0 630,85" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 630px 197.0px; animation-delay: 1.75s;" d="M630,197.0 Q585,182.0 562,217.0 Q592,193.0 630,190.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 630px 165.0px; animation-delay: 1.9500000000000002s;" d="M630,165.0 Q680,145.0 706,181.0 Q672,159.0 630,158.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 630px 129.8px; animation-delay: 1.85s;" d="M630,129.8 Q590,104.80000000000001 568,135.8 Q596,115.80000000000001 630,123.80000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 630px 117.80000000000001px; animation-delay: 2.0500000000000003s;" d="M630,117.80000000000001 Q666,99.80000000000001 688,125.80000000000001 Q660,113.80000000000001 630,117.80000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M630,85 Q624,63 630,51 Q636,63 630,85" fill="url(#grainGrad_auth)"/>
+        <path d="M630,79 Q614,63 606,69 M630,73 Q646,59 654,63" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 705px 245px; animation-duration: 4.5s; animation-delay: 0.5s;">
+          <path d="M705,245 Q701,143.25 705,60" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 705px 189.5px; animation-delay: 0.65s;" d="M705,189.5 Q660,174.5 637,209.5 Q667,185.5 705,182.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 705px 152.5px; animation-delay: 0.85s;" d="M705,152.5 Q755,132.5 781,168.5 Q747,146.5 705,145.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 705px 111.80000000000001px; animation-delay: 0.75s;" d="M705,111.80000000000001 Q665,86.80000000000001 643,117.80000000000001 Q671,97.80000000000001 705,105.80000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 705px 99.80000000000001px; animation-delay: 0.95s;" d="M705,99.80000000000001 Q741,81.80000000000001 763,107.80000000000001 Q735,95.80000000000001 705,99.80000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M705,60 Q699,38 705,26 Q711,38 705,60" fill="url(#grainGrad_auth)"/>
+        <path d="M705,54 Q689,38 681,44 M705,48 Q721,34 729,38" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 780px 245px; animation-duration: 3.8s; animation-delay: 1.2s;">
+          <path d="M780,245 Q776,150.39999999999998 780,73" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 780px 193.4px; animation-delay: 1.3499999999999999s;" d="M780,193.4 Q735,178.4 712,213.4 Q742,189.4 780,186.4" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 780px 159.0px; animation-delay: 1.5499999999999998s;" d="M780,159.0 Q830,139.0 856,175.0 Q822,153.0 780,152.0" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 780px 121.16000000000001px; animation-delay: 1.45s;" d="M780,121.16000000000001 Q740,96.16000000000001 718,127.16000000000001 Q746,107.16000000000001 780,115.16000000000001" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 780px 109.16000000000001px; animation-delay: 1.65s;" d="M780,109.16000000000001 Q816,91.16000000000001 838,117.16000000000001 Q810,105.16000000000001 780,109.16000000000001" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M780,73 Q774,51 780,39 Q786,51 780,73" fill="url(#grainGrad_auth)"/>
+        <path d="M780,67 Q764,51 756,57 M780,61 Q796,47 804,51" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 850px 245px; animation-duration: 4.1s; animation-delay: 0.7s;">
+          <path d="M850,245 Q846,159.75 850,90" fill="none" stroke="url(#stalkGrad_auth)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 850px 198.5px; animation-delay: 0.85s;" d="M850,198.5 Q805,183.5 782,218.5 Q812,194.5 850,191.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 850px 167.5px; animation-delay: 1.0499999999999998s;" d="M850,167.5 Q900,147.5 926,183.5 Q892,161.5 850,160.5" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 850px 133.4px; animation-delay: 0.95s;" d="M850,133.4 Q810,108.4 788,139.4 Q816,119.4 850,127.4" fill="url(#leafGrad_auth)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 850px 121.4px; animation-delay: 1.15s;" d="M850,121.4 Q886,103.4 908,129.4 Q880,117.4 850,121.4" fill="url(#leafGrad_auth)"/>
+          
+        <path d="M850,90 Q844,68 850,56 Q856,68 850,90" fill="url(#grainGrad_auth)"/>
+        <path d="M850,84 Q834,68 826,74 M850,78 Q866,64 874,68" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+      
+    <!-- Fertile rich soil bed -->
+    <path d="M0,242 Q225,239 450,241 T900,239 L900,260 L0,260 Z" fill="url(#soilGrad_auth)"/>
+    <path d="M0,240 Q150,236 300,239 T600,237 T900,239" stroke="#15803d" stroke-width="4.5" fill="none"/>
+    
+    </svg>
+          </div>
         </div>
-        <form id="authForm" novalidate>
-          <div class="field" id="nameWrap" hidden>
-            <label for="name" data-i18n="label_name">Your name</label>
-            <input id="name" name="name" autocomplete="name" maxlength="80">
+
+        <!-- Right: Sign In / Create Account Card -->
+        <div class="auth-form-panel card">
+          <div class="auth-card-head">
+            <h2 id="authTitle" data-i18n="welcome_title">Let’s get started.</h2>
+            <p class="muted" data-i18n="welcome_help">Sign in to save your field details and advice.</p>
           </div>
-          <div class="field">
-            <label for="email" data-i18n="label_email">Email address or phone number</label>
-            <input id="email" name="identifier" type="text" autocomplete="username" inputmode="text" maxlength="254" required>
+
+          <div class="tabs" role="tablist">
+            <button class="tab active" type="button" role="tab" aria-selected="true" data-tab="login" data-i18n="tab_signin">Sign in</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-tab="register" data-i18n="tab_register">Create account</button>
           </div>
-          <div class="field">
-            <label for="password" data-i18n="label_password">Password</label>
-            <input id="password" name="password" type="password" autocomplete="current-password" minlength="12" required>
-            <span class="hint" data-i18n="password_hint">At least 8 characters</span>
+
+          <form id="authForm" novalidate>
+            <div class="field" id="nameWrap" hidden>
+              <label for="name" data-i18n="label_name">Your name</label>
+              <input id="name" name="name" autocomplete="name" maxlength="80" placeholder="e.g. Ramesh Kumar">
+            </div>
+            <div class="field">
+              <label for="email" data-i18n="label_email">Email address or phone number</label>
+              <input id="email" name="identifier" type="text" autocomplete="username" inputmode="text" maxlength="254" required placeholder="you@example.com or +91 98...">
+            </div>
+            <div class="field">
+              <label for="password" data-i18n="label_password">Password</label>
+              <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" required placeholder="••••••••">
+              <span class="hint" data-i18n="password_hint">At least 8 characters</span>
+            </div>
+            <p id="authMsg" class="form-error" role="alert"></p>
+            <button id="authSubmit" class="btn btn-primary btn-block btn-big" type="submit" data-i18n="btn_signin">Sign in</button>
+          </form>
+          
+          <div class="auth-footer-note">
+            <span class="secure-badge"><svg class="mini-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Bank-grade encrypted sessions · Verified ICAR Science</span>
           </div>
-          <p id="authMsg" class="form-error" role="alert"></p>
-          <button id="authSubmit" class="btn btn-primary btn-block" type="submit" data-i18n="btn_signin">Sign in</button>
-        </form>
+        </div>
       </div>
     </section>
 
     <!-- 3. SECTION A: TELL US ABOUT YOUR FIELD (three data-collection cards) -->
     <section id="view-field" class="view" hidden aria-labelledby="aTitle">
       <nav class="steps" aria-label="Steps">
-        <a class="step current" href="#/field" aria-current="step" data-i18n="step_field">1. Your field</a>
-        <a class="step" href="#/advice" id="stepAdvice" data-i18n="step_advice">2. Advice</a>
+        <a class="step current" href="#/field" aria-current="step"><span class="step-badge-num">1</span> <span data-i18n="step_field">1. Your field</span></a>
+        <a class="step" href="#/advice" id="stepAdvice"><span class="step-badge-num">2</span> <span data-i18n="step_advice">2. Advice</span></a>
       </nav>
-      <div class="section-head">
-        <h1 id="aTitle" data-i18n="a_title">Tell us about your field</h1>
-        <p class="muted" data-i18n="a_help">Fill in what you know. Only the crop is required.</p>
+      <div class="field-hero-banner">
+        <div class="field-hero-top">
+          <div>
+            <span class="badge-live"><svg class="mini-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9A9 9 0 0 1 3 11C3 6.03 7.03 2 12 2z" fill="#dcfce7" stroke="#16a34a"/><path d="M12 6v14" stroke="#15803d"/></svg> Active Field Diagnostics</span>
+            <h1 id="aTitle" data-i18n="a_title">Tell us about your field</h1>
+            <p class="muted" data-i18n="a_help">Fill in what you know. Only the crop is required.</p>
+          </div>
+          <div class="field-telemetry">
+            <span class="telemetry-pill"><svg class="mini-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></svg> Wind: 12 km/h</span>
+            <span class="telemetry-pill"><svg class="mini-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5" fill="#fef08a" stroke="#eab308"/></svg> Microclimate: Active</span>
+          </div>
+        </div>
+
+        <!-- Live Moving Crops in Field Wind -->
+        <div class="live-crops-container field-crops-viewport" aria-label="Live animated healthy field crops swaying in wind">
+          <svg class="live-crops-svg" viewBox="0 0 900 255" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Live animated healthy crops and plants swaying gently in the field wind">
+      
+    <defs>
+      <linearGradient id="skyGrad_field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#bfe3f7"/>
+        <stop offset="50%" stop-color="#ddf1e4"/>
+        <stop offset="100%" stop-color="#c3e8cd"/>
+      </linearGradient>
+      <linearGradient id="sunGrad_field" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#fff59d"/>
+        <stop offset="100%" stop-color="#f59e0b"/>
+      </linearGradient>
+      <linearGradient id="stalkGrad_field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#34d399"/>
+        <stop offset="40%" stop-color="#15803d"/>
+        <stop offset="100%" stop-color="#0f482e"/>
+      </linearGradient>
+      <linearGradient id="leafGrad_field" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#4ade80"/>
+        <stop offset="60%" stop-color="#16a34a"/>
+        <stop offset="100%" stop-color="#14532d"/>
+      </linearGradient>
+      <linearGradient id="grainGrad_field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#fef08a"/>
+        <stop offset="100%" stop-color="#d97706"/>
+      </linearGradient>
+      <linearGradient id="soilGrad_field" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#5c4033"/>
+        <stop offset="50%" stop-color="#3e2723"/>
+        <stop offset="100%" stop-color="#1b120c"/>
+      </linearGradient>
+    </defs>
+    
+      
+    <rect width="100%" height="100%" fill="url(#skyGrad_field)"/>
+    
+    <!-- Sun with pulsing glow -->
+    <circle class="anim-sun" cx="800" cy="50" r="42" fill="url(#sunGrad_field)" opacity="0.8"/>
+    <circle cx="800" cy="50" r="28" fill="#fffde7"/>
+
+    <!-- Drifting clouds -->
+    <g class="anim-cloud-slow">
+      <path d="M100,50 Q120,30 145,35 Q165,22 188,38 Q205,38 210,52 Q215,68 195,68 L105,68 Q90,68 100,50 Z" fill="#ffffff" opacity="0.82"/>
+    </g>
+    <g class="anim-cloud-fast">
+      <path d="M480,35 Q495,20 515,24 Q530,12 550,26 Q565,26 570,38 Q575,50 555,50 L485,50 Q470,50 480,35 Z" fill="#ffffff" opacity="0.7"/>
+    </g>
+
+    <!-- Wind air streams moving across the crops -->
+    <g class="anim-wind-stream stream-1">
+      <path d="M-50,90 Q150,75 350,95 T750,85 T1150,90" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="160 80"/>
+    </g>
+    <g class="anim-wind-stream stream-2">
+      <path d="M-80,140 Q120,125 320,145 T720,135 T1120,140" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2" stroke-linecap="round" stroke-dasharray="200 120"/>
+    </g>
+
+    <!-- Rolling hills in background -->
+    <path d="M0,195 Q220,168 450,186 T900,175 L900,260 L0,260 Z" fill="#86efac" opacity="0.45"/>
+    <path d="M0,210 Q280,188 560,205 T900,196 L900,260 L0,260 Z" fill="#4ade80" opacity="0.5"/>
+    
+      
+        <g class="crop-grass" style="transform-origin: 20px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M20,245 Q12,218.0 8,200" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M20,245 Q22,213.5 23,195" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M20,245 Q30,222.5 34,204" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 58px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M58,245 Q50,223.4 46,209" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M58,245 Q60,219.8 61,204" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M58,245 Q68,227.0 72,213" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 96px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M96,245 Q88,213.8 84,193" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M96,245 Q98,208.6 99,188" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M96,245 Q106,219.0 110,197" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 134px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M134,245 Q126,219.2 122,202" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M134,245 Q136,214.9 137,197" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M134,245 Q144,223.5 148,206" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 172px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M172,245 Q164,224.6 160,211" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M172,245 Q174,221.2 175,206" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M172,245 Q182,228.0 186,215" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 210px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M210,245 Q202,215.0 198,195" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M210,245 Q212,210.0 213,190" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M210,245 Q220,220.0 224,199" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 248px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M248,245 Q240,220.4 236,204" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M248,245 Q250,216.3 251,199" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M248,245 Q258,224.5 262,208" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 286px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M286,245 Q278,225.8 274,213" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M286,245 Q288,222.6 289,208" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M286,245 Q296,229.0 300,217" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 324px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M324,245 Q316,216.2 312,197" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M324,245 Q326,211.4 327,192" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M324,245 Q334,221.0 338,201" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 362px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M362,245 Q354,221.6 350,206" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M362,245 Q364,217.7 365,201" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M362,245 Q372,225.5 376,210" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 400px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M400,245 Q392,227.0 388,215" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M400,245 Q402,224.0 403,210" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M400,245 Q410,230.0 414,219" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 438px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M438,245 Q430,217.4 426,199" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M438,245 Q440,212.8 441,194" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M438,245 Q448,222.0 452,203" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 476px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M476,245 Q468,222.8 464,208" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M476,245 Q478,219.1 479,203" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M476,245 Q486,226.5 490,212" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 514px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M514,245 Q506,213.2 502,192" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M514,245 Q516,207.9 517,187" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M514,245 Q524,218.5 528,196" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 552px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M552,245 Q544,218.6 540,201" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M552,245 Q554,214.2 555,196" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M552,245 Q562,223.0 566,205" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 590px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M590,245 Q582,224.0 578,210" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M590,245 Q592,220.5 593,205" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M590,245 Q600,227.5 604,214" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 628px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M628,245 Q620,214.4 616,194" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M628,245 Q630,209.3 631,189" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M628,245 Q638,219.5 642,198" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 666px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M666,245 Q658,219.8 654,203" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M666,245 Q668,215.6 669,198" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M666,245 Q676,224.0 680,207" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 704px 245px; animation-duration: 4.1s; animation-delay: 0.8s;">
+          <path d="M704,245 Q696,225.2 692,212" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M704,245 Q706,221.9 707,207" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M704,245 Q714,228.5 718,216" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 742px 245px; animation-duration: 3.3s; animation-delay: 0.4s;">
+          <path d="M742,245 Q734,215.6 730,196" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M742,245 Q744,210.7 745,191" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M742,245 Q752,220.5 756,200" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 780px 245px; animation-duration: 2.5s; animation-delay: 0.0s;">
+          <path d="M780,245 Q772,221.0 768,205" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M780,245 Q782,217.0 783,200" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M780,245 Q790,225.0 794,209" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 818px 245px; animation-duration: 3.7s; animation-delay: 1.6s;">
+          <path d="M818,245 Q810,226.4 806,214" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M818,245 Q820,223.3 821,209" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M818,245 Q828,229.5 832,218" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-grass" style="transform-origin: 856px 245px; animation-duration: 2.9s; animation-delay: 1.2s;">
+          <path d="M856,245 Q848,216.8 844,198" stroke="#22c55e" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M856,245 Q858,212.1 859,193" stroke="#16a34a" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+          <path d="M856,245 Q866,221.5 870,202" stroke="#15803d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 50px 245px; animation-duration: 3.6s; animation-delay: 0.0s;">
+          <path d="M50,245 Q46,162.5 50,95" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 50px 200.0px; animation-delay: 0.15s;" d="M50,200.0 Q5,185.0 -18,220.0 Q12,196.0 50,193.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 50px 170.0px; animation-delay: 0.35s;" d="M50,170.0 Q100,150.0 126,186.0 Q92,164.0 50,163.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 50px 137.0px; animation-delay: 0.25s;" d="M50,137.0 Q10,112.0 -12,143.0 Q16,123.0 50,131.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 50px 125.0px; animation-delay: 0.45s;" d="M50,125.0 Q86,107.0 108,133.0 Q80,121.0 50,125.0" fill="url(#leafGrad_field)"/>
+          
+        <path d="M50,95 Q44,73 50,61 Q56,73 50,95" fill="url(#grainGrad_field)"/>
+        <path d="M50,89 Q34,73 26,79 M50,83 Q66,69 74,73" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 115px 245px; animation-duration: 4.4s; animation-delay: 0.8s;">
+          <path d="M115,245 Q111,148.75 115,70" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 115px 192.5px; animation-delay: 0.9500000000000001s;" d="M115,192.5 Q70,177.5 47,212.5 Q77,188.5 115,185.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 115px 157.5px; animation-delay: 1.15s;" d="M115,157.5 Q165,137.5 191,173.5 Q157,151.5 115,150.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 115px 119.0px; animation-delay: 1.05s;" d="M115,119.0 Q75,94.0 53,125.0 Q81,105.0 115,113.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 115px 107.0px; animation-delay: 1.25s;" d="M115,107.0 Q151,89.0 173,115.0 Q145,103.0 115,107.0" fill="url(#leafGrad_field)"/>
+          
+        <path d="M115,70 Q109,48 115,36 Q121,48 115,70" fill="url(#grainGrad_field)"/>
+        <path d="M115,64 Q99,48 91,54 M115,58 Q131,44 139,48" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 185px 245px; animation-duration: 3.9s; animation-delay: 1.5s;">
+          <path d="M185,245 Q181,157.0 185,85" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 185px 197.0px; animation-delay: 1.65s;" d="M185,197.0 Q140,182.0 117,217.0 Q147,193.0 185,190.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 185px 165.0px; animation-delay: 1.85s;" d="M185,165.0 Q235,145.0 261,181.0 Q227,159.0 185,158.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 185px 129.8px; animation-delay: 1.75s;" d="M185,129.8 Q145,104.80000000000001 123,135.8 Q151,115.80000000000001 185,123.80000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 185px 117.80000000000001px; animation-delay: 1.95s;" d="M185,117.80000000000001 Q221,99.80000000000001 243,125.80000000000001 Q215,113.80000000000001 185,117.80000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M185,85 Q179,63 185,51 Q191,63 185,85" fill="url(#grainGrad_field)"/>
+        <path d="M185,79 Q169,63 161,69 M185,73 Q201,59 209,63" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 255px 245px; animation-duration: 4.2s; animation-delay: 0.4s;">
+          <path d="M255,245 Q251,143.25 255,60" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 255px 189.5px; animation-delay: 0.55s;" d="M255,189.5 Q210,174.5 187,209.5 Q217,185.5 255,182.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 255px 152.5px; animation-delay: 0.75s;" d="M255,152.5 Q305,132.5 331,168.5 Q297,146.5 255,145.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 255px 111.80000000000001px; animation-delay: 0.65s;" d="M255,111.80000000000001 Q215,86.80000000000001 193,117.80000000000001 Q221,97.80000000000001 255,105.80000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 255px 99.80000000000001px; animation-delay: 0.8500000000000001s;" d="M255,99.80000000000001 Q291,81.80000000000001 313,107.80000000000001 Q285,95.80000000000001 255,99.80000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M255,60 Q249,38 255,26 Q261,38 255,60" fill="url(#grainGrad_field)"/>
+        <path d="M255,54 Q239,38 231,44 M255,48 Q271,34 279,38" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 330px 245px; animation-duration: 3.7s; animation-delay: 1.1s;">
+          <path d="M330,245 Q326,151.5 330,75" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 330px 194.0px; animation-delay: 1.25s;" d="M330,194.0 Q285,179.0 262,214.0 Q292,190.0 330,187.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 330px 160.0px; animation-delay: 1.4500000000000002s;" d="M330,160.0 Q380,140.0 406,176.0 Q372,154.0 330,153.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 330px 122.60000000000001px; animation-delay: 1.35s;" d="M330,122.60000000000001 Q290,97.60000000000001 268,128.60000000000002 Q296,108.60000000000001 330,116.60000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 330px 110.60000000000001px; animation-delay: 1.55s;" d="M330,110.60000000000001 Q366,92.60000000000001 388,118.60000000000001 Q360,106.60000000000001 330,110.60000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M330,75 Q324,53 330,41 Q336,53 330,75" fill="url(#grainGrad_field)"/>
+        <path d="M330,69 Q314,53 306,59 M330,63 Q346,49 354,53" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 405px 245px; animation-duration: 4.6s; animation-delay: 1.8s;">
+          <path d="M405,245 Q401,140.5 405,55" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 405px 188.0px; animation-delay: 1.95s;" d="M405,188.0 Q360,173.0 337,208.0 Q367,184.0 405,181.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 405px 150.0px; animation-delay: 2.15s;" d="M405,150.0 Q455,130.0 481,166.0 Q447,144.0 405,143.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 405px 108.20000000000002px; animation-delay: 2.05s;" d="M405,108.20000000000002 Q365,83.20000000000002 343,114.20000000000002 Q371,94.20000000000002 405,102.20000000000002" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 405px 96.20000000000002px; animation-delay: 2.25s;" d="M405,96.20000000000002 Q441,78.20000000000002 463,104.20000000000002 Q435,92.20000000000002 405,96.20000000000002" fill="url(#leafGrad_field)"/>
+          
+        <path d="M405,55 Q399,33 405,21 Q411,33 405,55" fill="url(#grainGrad_field)"/>
+        <path d="M405,49 Q389,33 381,39 M405,43 Q421,29 429,33" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 480px 245px; animation-duration: 3.8s; animation-delay: 0.2s;">
+          <path d="M480,245 Q476,154.25 480,80" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 480px 195.5px; animation-delay: 0.35s;" d="M480,195.5 Q435,180.5 412,215.5 Q442,191.5 480,188.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 480px 162.5px; animation-delay: 0.55s;" d="M480,162.5 Q530,142.5 556,178.5 Q522,156.5 480,155.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 480px 126.2px; animation-delay: 0.45s;" d="M480,126.2 Q440,101.2 418,132.2 Q446,112.2 480,120.2" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 480px 114.2px; animation-delay: 0.65s;" d="M480,114.2 Q516,96.2 538,122.2 Q510,110.2 480,114.2" fill="url(#leafGrad_field)"/>
+          
+        <path d="M480,80 Q474,58 480,46 Q486,58 480,80" fill="url(#grainGrad_field)"/>
+        <path d="M480,74 Q464,58 456,64 M480,68 Q496,54 504,58" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 555px 245px; animation-duration: 4.3s; animation-delay: 0.9s;">
+          <path d="M555,245 Q551,146.0 555,65" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 555px 191.0px; animation-delay: 1.05s;" d="M555,191.0 Q510,176.0 487,211.0 Q517,187.0 555,184.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 555px 155.0px; animation-delay: 1.25s;" d="M555,155.0 Q605,135.0 631,171.0 Q597,149.0 555,148.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 555px 115.4px; animation-delay: 1.15s;" d="M555,115.4 Q515,90.4 493,121.4 Q521,101.4 555,109.4" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 555px 103.4px; animation-delay: 1.35s;" d="M555,103.4 Q591,85.4 613,111.4 Q585,99.4 555,103.4" fill="url(#leafGrad_field)"/>
+          
+        <path d="M555,65 Q549,43 555,31 Q561,43 555,65" fill="url(#grainGrad_field)"/>
+        <path d="M555,59 Q539,43 531,49 M555,53 Q571,39 579,43" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 630px 245px; animation-duration: 4.0s; animation-delay: 1.6s;">
+          <path d="M630,245 Q626,157.0 630,85" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 630px 197.0px; animation-delay: 1.75s;" d="M630,197.0 Q585,182.0 562,217.0 Q592,193.0 630,190.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 630px 165.0px; animation-delay: 1.9500000000000002s;" d="M630,165.0 Q680,145.0 706,181.0 Q672,159.0 630,158.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 630px 129.8px; animation-delay: 1.85s;" d="M630,129.8 Q590,104.80000000000001 568,135.8 Q596,115.80000000000001 630,123.80000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 630px 117.80000000000001px; animation-delay: 2.0500000000000003s;" d="M630,117.80000000000001 Q666,99.80000000000001 688,125.80000000000001 Q660,113.80000000000001 630,117.80000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M630,85 Q624,63 630,51 Q636,63 630,85" fill="url(#grainGrad_field)"/>
+        <path d="M630,79 Q614,63 606,69 M630,73 Q646,59 654,63" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-fast" style="transform-origin: 705px 245px; animation-duration: 4.5s; animation-delay: 0.5s;">
+          <path d="M705,245 Q701,143.25 705,60" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 705px 189.5px; animation-delay: 0.65s;" d="M705,189.5 Q660,174.5 637,209.5 Q667,185.5 705,182.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 705px 152.5px; animation-delay: 0.85s;" d="M705,152.5 Q755,132.5 781,168.5 Q747,146.5 705,145.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 705px 111.80000000000001px; animation-delay: 0.75s;" d="M705,111.80000000000001 Q665,86.80000000000001 643,117.80000000000001 Q671,97.80000000000001 705,105.80000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 705px 99.80000000000001px; animation-delay: 0.95s;" d="M705,99.80000000000001 Q741,81.80000000000001 763,107.80000000000001 Q735,95.80000000000001 705,99.80000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M705,60 Q699,38 705,26 Q711,38 705,60" fill="url(#grainGrad_field)"/>
+        <path d="M705,54 Q689,38 681,44 M705,48 Q721,34 729,38" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-mid" style="transform-origin: 780px 245px; animation-duration: 3.8s; animation-delay: 1.2s;">
+          <path d="M780,245 Q776,150.39999999999998 780,73" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 780px 193.4px; animation-delay: 1.3499999999999999s;" d="M780,193.4 Q735,178.4 712,213.4 Q742,189.4 780,186.4" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 780px 159.0px; animation-delay: 1.5499999999999998s;" d="M780,159.0 Q830,139.0 856,175.0 Q822,153.0 780,152.0" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 780px 121.16000000000001px; animation-delay: 1.45s;" d="M780,121.16000000000001 Q740,96.16000000000001 718,127.16000000000001 Q746,107.16000000000001 780,115.16000000000001" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 780px 109.16000000000001px; animation-delay: 1.65s;" d="M780,109.16000000000001 Q816,91.16000000000001 838,117.16000000000001 Q810,105.16000000000001 780,109.16000000000001" fill="url(#leafGrad_field)"/>
+          
+        <path d="M780,73 Q774,51 780,39 Q786,51 780,73" fill="url(#grainGrad_field)"/>
+        <path d="M780,67 Q764,51 756,57 M780,61 Q796,47 804,51" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+        <g class="crop-stalk sway-slow" style="transform-origin: 850px 245px; animation-duration: 4.1s; animation-delay: 0.7s;">
+          <path d="M850,245 Q846,159.75 850,90" fill="none" stroke="url(#stalkGrad_field)" stroke-width="5" stroke-linecap="round"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 850px 198.5px; animation-delay: 0.85s;" d="M850,198.5 Q805,183.5 782,218.5 Q812,194.5 850,191.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 850px 167.5px; animation-delay: 1.0499999999999998s;" d="M850,167.5 Q900,147.5 926,183.5 Q892,161.5 850,160.5" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-l" style="transform-origin: 850px 133.4px; animation-delay: 0.95s;" d="M850,133.4 Q810,108.4 788,139.4 Q816,119.4 850,127.4" fill="url(#leafGrad_field)"/>
+          <path class="crop-leaf anim-leaf-r" style="transform-origin: 850px 121.4px; animation-delay: 1.15s;" d="M850,121.4 Q886,103.4 908,129.4 Q880,117.4 850,121.4" fill="url(#leafGrad_field)"/>
+          
+        <path d="M850,90 Q844,68 850,56 Q856,68 850,90" fill="url(#grainGrad_field)"/>
+        <path d="M850,84 Q834,68 826,74 M850,78 Q866,64 874,68" stroke="#f59e0b" stroke-width="2" fill="none" stroke-linecap="round"/>
+        
+        </g>
+        
+      
+    <!-- Fertile rich soil bed -->
+    <path d="M0,242 Q225,239 450,241 T900,239 L900,260 L0,260 Z" fill="url(#soilGrad_field)"/>
+    <path d="M0,240 Q150,236 300,239 T600,237 T900,239" stroke="#15803d" stroke-width="4.5" fill="none"/>
+    
+    </svg>
+        </div>
       </div>
 
       <div class="grid3">
         <!-- Card 1 -->
         <article class="card" id="card1" aria-labelledby="c1t">
-          <header class="card-head"><h2 id="c1t" data-i18n="c1_title">Crop and soil</h2><span class="status" id="status1"></span></header>
+          <header class="card-head">
+            <h2 id="c1t"><span class="ui-icon ui-icon-crop"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9A9 9 0 0 1 3 11C3 6.03 7.03 2 12 2z" fill="#dcfce7" stroke="#16a34a"/><path d="M12 6v14M8 10c2 1 4 0 4-2M12 14c2 1 4 0 4-2M8 16c2 1 4 0 4-2" stroke="#15803d"/></svg></span> <span data-i18n="c1_title">Crop and soil</span></h2>
+            <span class="status" id="status1"></span>
+          </header>
           <p class="muted" data-i18n="c1_help">What are you growing?</p>
+          
+          <div class="crop-visual-selector" id="cropVisualGrid" role="radiogroup" aria-label="Select Crop">
+            <button type="button" class="crop-tile" data-crop="Maize" role="radio" aria-checked="false">
+              <div class="tile-icon-wrap">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#fef9c3"/><path d="M18 8c-3 5-4 12-2 18 4-2 7-5 9-10 1-3-3-6-7-8z" fill="#f59e0b"/><path d="M14 16c-3 2-5 7-5 11 3 2 7 0 9-3-2-3-3-6-4-8z" fill="#16a34a"/><path d="M18 26c-2 3-3 6-6 8 4 1 8-1 10-4-1-1-3-3-4-4z" fill="#15803d"/></svg>
+              </div>
+              <span class="crop-title" data-i18n="crop_maize">Maize</span>
+            </button>
+            <button type="button" class="crop-tile" data-crop="Cotton" role="radio" aria-checked="false">
+              <div class="tile-icon-wrap">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#ecfdf5"/><path d="M18 28v-4M15 24c-3-1-6-4-6-8 0-3 3-6 6-6s6 3 6 6c0 4-3 7-6 8z" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/><path d="M15 22c2 3 5 3 6 0" stroke="#16a34a" stroke-width="2" fill="none"/></svg>
+              </div>
+              <span class="crop-title" data-i18n="crop_cotton">Cotton</span>
+            </button>
+            <button type="button" class="crop-tile" data-crop="Sorghum" role="radio" aria-checked="false">
+              <div class="tile-icon-wrap">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#fff7ed"/><path d="M18 30v-10M18 20c-2-5-3-11-1-14 3 2 5 8 4 14z" fill="#ea580c"/><path d="M15 17c-2-3-3-7-1-9 2 1 3 5 2 9zM21 17c2-3 3-7 1-9-2 1-3 5-2 9z" fill="#c2410c"/></svg>
+              </div>
+              <span class="crop-title" data-i18n="crop_sorghum">Sorghum</span>
+            </button>
+            <button type="button" class="crop-tile" data-crop="Pigeon pea" role="radio" aria-checked="false">
+              <div class="tile-icon-wrap">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f0fdf4"/><path d="M10 24c5-11 14-14 19-11-2 8-9 14-19 11z" fill="#22c55e"/><circle cx="16" cy="21" r="2" fill="#15803d"/><circle cx="21" cy="19" r="2" fill="#15803d"/><circle cx="25" cy="17" r="2" fill="#15803d"/></svg>
+              </div>
+              <span class="crop-title" data-i18n="crop_pigeonpea">Pigeon Pea</span>
+            </button>
+            <button type="button" class="crop-tile" data-crop="__other" role="radio" aria-checked="false">
+              <div class="tile-icon-wrap">
+                <svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#f8fafc"/><path d="M18 12v12M12 18h12" stroke="#16a34a" stroke-width="2.5" stroke-linecap="round"/></svg>
+              </div>
+              <span class="crop-title" data-i18n="opt_other">Other</span>
+            </button>
+          </div>
+
           <div class="field"><label for="f_crop"><span data-i18n="f_crop">Crop</span> <b class="req" data-i18n="required">required</b></label>
             <select id="f_crop"></select><span class="field-error" id="e_crop"></span></div>
           <div class="field" id="cropOtherWrap" hidden><label for="f_crop_other" data-i18n="f_crop_other">Type the crop name</label>
             <input id="f_crop_other" maxlength="80"><span class="field-error" id="e_crop_other"></span></div>
           <div class="field"><label for="f_variety"><span data-i18n="f_variety">Variety (if known)</span></label>
-            <input id="f_variety" maxlength="60"></div>
+            <input id="f_variety" maxlength="60" placeholder="e.g. Hybrid, Desi..."></div>
           <div class="field"><label for="f_stage" data-i18n="f_stage">Growth stage</label><select id="f_stage"></select></div>
           <div class="field"><label for="f_sowing" data-i18n="f_sowing">Sowing date</label><input id="f_sowing" type="date"></div>
           <div class="field"><label for="f_soil" data-i18n="f_soil">Soil type (what you see)</label><select id="f_soil"></select></div>
           <p class="hint" data-i18n="c1_photo">The photo is analyzed as preliminary evidence and is not saved with your field.</p>
-        <!-- Photo input: collect evidence before decisions -->
-        <section class="photo-panel" id="cardPhoto" aria-labelledby="pt">
-          <header class="card-head"><h2 id="pt" data-i18n="p_title">Photo diagnosis</h2></header>
-          <p class="muted" data-i18n="p_help">Take or choose a clear photo of the affected plant.</p>
-          <p class="hint" data-i18n="p_tips">Use daylight. Show the affected leaf or plant clearly. No people or documents in the photo.</p>
-          <p class="hint" data-i18n="p_internet">Needs internet. The photo is sent to an online service.</p>
-          <div class="field"><label for="photoKind" data-i18n="photo_kind_label">What are you photographing?</label>
-            <select id="photoKind"><option value="plant" data-i18n="photo_kind_plant">Affected plant or leaves</option><option value="soil" data-i18n="photo_kind_soil">Soil surface</option></select></div>
-          <div class="btn-row">
-            <button class="btn btn-secondary" type="button" id="photoTake" data-i18n="p_take">Take photo</button>
-            <button class="btn btn-secondary" type="button" id="photoPick" data-i18n="p_gallery">Choose from gallery</button>
-          </div>
-          <input id="photoCamera" type="file" accept="image/*" capture="environment" hidden>
-          <input id="photoGallery" type="file" accept="image/jpeg,image/png,image/webp,image/*" hidden>
-          <div class="preview" id="photoPreview" hidden><img id="photoImg" alt=""><span id="photoMeta" class="hint"></span></div>
-          <div class="btn-row">
-            <button class="btn btn-primary" type="button" id="photoAnalyze" disabled data-i18n="p_analyze">Analyze photo</button>
-            <button class="btn btn-quiet" type="button" id="photoCancel" hidden data-i18n="p_cancel">Cancel</button>
-          </div>
-          <progress id="photoProgress" max="100" value="0" hidden></progress>
-          <div class="result" id="photoResult" aria-live="polite"></div>
-        </section>
+        
+          <!-- Photo input: collect evidence before decisions -->
+          <section class="photo-panel" id="cardPhoto" aria-labelledby="pt">
+            <header class="card-head"><h2 id="pt"><span class="ui-icon ui-icon-camera"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" fill="#f0fdf4" stroke="#16a34a"/><circle cx="12" cy="13" r="4.5" fill="#dcfce7" stroke="#15803d"/><path d="M12 11c1 0 2 1 2 2" stroke="#059669"/></svg></span> <span data-i18n="p_title">Photo diagnosis</span></h2></header>
+            <p class="muted" data-i18n="p_help">Take or choose a clear photo of the affected plant.</p>
+            <p class="hint" data-i18n="p_tips">Use daylight. Show the affected leaf or plant clearly. No people or documents in the photo.</p>
+            <p class="hint" data-i18n="p_internet">Needs internet. The photo is sent to an online service.</p>
+            <div class="field"><label for="photoKind" data-i18n="photo_kind_label">What are you photographing?</label>
+              <select id="photoKind"><option value="plant" data-i18n="photo_kind_plant">Affected plant or leaves</option><option value="soil" data-i18n="photo_kind_soil">Soil surface</option></select></div>
+            <div class="btn-row">
+              <button class="btn btn-secondary" type="button" id="photoTake"><svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> <span data-i18n="p_take">Take photo</span></button>
+              <button class="btn btn-secondary" type="button" id="photoPick"><svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg> <span data-i18n="p_gallery">Choose from gallery</span></button>
+            </div>
+            <input id="photoCamera" type="file" accept="image/*" capture="environment" hidden>
+            <input id="photoGallery" type="file" accept="image/jpeg,image/png,image/webp,image/*" hidden>
+            <div class="preview" id="photoPreview" hidden><img id="photoImg" alt=""><span id="photoMeta" class="hint"></span></div>
+            <div class="btn-row">
+              <button class="btn btn-primary" type="button" id="photoAnalyze" disabled data-i18n="p_analyze">Analyze photo</button>
+              <button class="btn btn-quiet" type="button" id="photoCancel" hidden data-i18n="p_cancel">Cancel</button>
+            </div>
+            <progress id="photoProgress" max="100" value="0" hidden></progress>
+            <div class="result" id="photoResult" aria-live="polite"></div>
+          </section>
 
-          <button class="btn btn-secondary btn-block" type="button" id="save1" data-i18n="save">Save</button>
+          <button class="btn btn-secondary btn-block" type="button" id="save1" data-i18n="save">Save crop details</button>
         </article>
 
         <!-- Card 2 -->
         <article class="card" id="card2" aria-labelledby="c2t">
-          <header class="card-head"><h2 id="c2t" data-i18n="c2_title">Farm size and budget</h2><span class="status" id="status2"></span></header>
+          <header class="card-head">
+            <h2 id="c2t"><span class="ui-icon ui-icon-area"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21" fill="#ecfdf5" stroke="#059669"/><line x1="9" y1="3" x2="9" y2="18" stroke="#047857"/><line x1="15" y1="6" x2="15" y2="21" stroke="#047857"/><circle cx="12" cy="12" r="2.5" fill="#f59e0b" stroke="#d97706"/></svg></span> <span data-i18n="c2_title">Farm size and budget</span></h2>
+            <span class="status" id="status2"></span>
+          </header>
           <p class="muted" data-i18n="c2_help">Used to estimate costs. You can leave this empty.</p>
           <div class="field"><label for="f_area"><span data-i18n="f_area">Field size</span> <span class="opt" data-i18n="optional">optional</span></label>
-            <input id="f_area" inputmode="decimal" autocomplete="off"><span class="field-error" id="e_area"></span></div>
+            <input id="f_area" inputmode="decimal" autocomplete="off" placeholder="e.g. 2.5"><span class="field-error" id="e_area"></span></div>
+
+          <div class="field-preset-chips" id="areaChips" aria-label="Quick field size options">
+            <span class="preset-label">Quick sizes:</span>
+            <button type="button" class="preset-chip" data-val="1.0">1.0 Acre</button>
+            <button type="button" class="preset-chip" data-val="2.5">2.5 Acres</button>
+            <button type="button" class="preset-chip" data-val="5.0">5.0 Acres</button>
+            <button type="button" class="preset-chip" data-val="10.0">10 Acres</button>
+          </div>
+
           <div class="field"><label for="f_unit" data-i18n="f_unit">Unit</label>
             <select id="f_unit"><option value="acres" data-i18n="unit_acres">Acres</option><option value="hectares" data-i18n="unit_hectares">Hectares</option></select></div>
           <div class="field"><label for="f_budget"><span data-i18n="f_budget">Total budget for this field (₹)</span> <span class="opt" data-i18n="optional">optional</span></label>
-            <input id="f_budget" inputmode="decimal" autocomplete="off"><span class="field-error" id="e_budget"></span></div>
-          <button class="btn btn-secondary btn-block" type="button" id="save2" data-i18n="save">Save</button>
+            <input id="f_budget" inputmode="decimal" autocomplete="off" placeholder="e.g. 1500"><span class="field-error" id="e_budget"></span></div>
+          
+          <div class="field-preset-chips" id="budgetChips" aria-label="Budget presets">
+            <span class="preset-label">Quick budgets:</span>
+            <button type="button" class="preset-chip" data-val="500">₹500</button>
+            <button type="button" class="preset-chip" data-val="1000">₹1,000</button>
+            <button type="button" class="preset-chip" data-val="2500">₹2,500</button>
+            <button type="button" class="preset-chip" data-val="5000">₹5,000</button>
+          </div>
+
+          <button class="btn btn-secondary btn-block" type="button" id="save2" data-i18n="save">Save farm economics</button>
         </article>
 
         <!-- Card 3 -->
         <article class="card" id="card3" aria-labelledby="c3t">
-          <header class="card-head"><h2 id="c3t" data-i18n="c3_title">Your location</h2><span class="status" id="status3"></span></header>
+          <header class="card-head">
+            <h2 id="c3t"><span class="ui-icon ui-icon-location"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" fill="#e0f2fe" stroke="#0284c7"/><circle cx="12" cy="10" r="3.5" fill="#0369a1" stroke="#ffffff" stroke-width="1.5"/><path d="M12 2v2M2 10h2M20 10h2" stroke="#38bdf8"/></svg></span> <span data-i18n="c3_title">Your location</span></h2>
+            <span class="status" id="status3"></span>
+          </header>
           <p class="muted" data-i18n="c3_help">Used for local help and the risk check.</p>
-          <div class="field"><label for="f_state" data-i18n="f_state">State</label><input id="f_state" maxlength="80" autocomplete="off"></div>
-          <div class="field"><label for="f_district" data-i18n="f_district">District</label><input id="f_district" maxlength="80" autocomplete="off"></div>
-          <div class="field"><label for="f_village" data-i18n="f_village">Village or area</label><input id="f_village" maxlength="80" autocomplete="off"></div>
-          <button class="btn btn-secondary btn-block" type="button" id="useGpsWeather" data-i18n="gps_weather">Use my location for weather</button>
+          <div class="field"><label for="f_state" data-i18n="f_state">State</label><input id="f_state" maxlength="80" autocomplete="off" placeholder="e.g. Karnataka"></div>
+          <div class="field"><label for="f_district" data-i18n="f_district">District</label><input id="f_district" maxlength="80" autocomplete="off" placeholder="e.g. Mandya"></div>
+          <div class="field"><label for="f_village" data-i18n="f_village">Village or area</label><input id="f_village" maxlength="80" autocomplete="off" placeholder="e.g. Maddur"></div>
+          <button class="btn btn-secondary btn-block" type="button" id="useGpsWeather"><svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 0-10 10c0 5.25 7 10 10 10s10-4.75 10-10a10 10 0 0 0-10-10z"/><circle cx="12" cy="12" r="3"/></svg> <span data-i18n="gps_weather">Use my location for weather</span></button>
           <p class="hint" id="weatherStatus" role="status" data-i18n="weather_note">Weather is fetched only when you allow location access. Your exact coordinates are not saved.</p>
-          <button class="btn btn-secondary btn-block" type="button" id="save3" data-i18n="save">Save</button>
+          <button class="btn btn-secondary btn-block" type="button" id="save3" data-i18n="save">Save location & weather</button>
         </article>
       </div>
 
@@ -162,23 +966,25 @@
     <!-- 4. SECTION B: RECOMMENDATIONS (decision cards using the saved field) -->
     <section id="view-advice" class="view" hidden aria-labelledby="bTitle">
       <nav class="steps" aria-label="Steps">
-        <a class="step" href="#/field" data-i18n="step_field">1. Your field</a>
-        <a class="step current" href="#/advice" aria-current="step" data-i18n="step_advice">2. Advice</a>
+        <a class="step" href="#/field"><span class="step-badge-num">1</span> <span data-i18n="step_field">1. Your field</span></a>
+        <a class="step current" href="#/advice" id="stepAdvice" aria-current="step"><span class="step-badge-num">2</span> <span data-i18n="step_advice">2. Advice</span></a>
       </nav>
       <div class="section-head">
         <h1 id="bTitle" data-i18n="b_title">Recommendations for your field</h1>
         <p class="muted" data-i18n="b_help">These use the information you saved.</p>
         <p class="ctx-summary" id="ctxSummary"></p>
-        <a class="btn btn-quiet" href="#/field" data-i18n="edit_field">Change field information</a>
+        <a class="btn btn-secondary" href="#/field"><svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> <span data-i18n="edit_field">Change field information</span></a>
       </div>
 
       <!-- Ask Fieldwise (existing chat endpoint) -->
       <article class="card" id="askCard" aria-labelledby="askT">
-        <h2 id="askT" data-i18n="ask_title">Ask Fieldwise</h2>
+        <header class="card-head">
+          <h2 id="askT"><span class="ui-icon ui-icon-ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15 8L21 9L16.5 14L18 20L12 17L6 20L7.5 14L3 9L9 8L12 2Z" fill="#fef3c7" stroke="#f59e0b"/><circle cx="12" cy="11" r="3" fill="#16a34a" stroke="#dcfce7"/><path d="M12 7v8M8 11h8" stroke="#ffffff" stroke-width="1.5"/></svg></span> <span data-i18n="ask_title">Ask Fieldwise</span></h2>
+        </header>
         <p class="muted" data-i18n="ask_help">Get a recommendation from your saved crop, photo, weather, field size and budget. You do not need to choose a pest-control method.</p>
         <label class="sr-only" for="question" data-i18n="ask_title">Ask Fieldwise</label>
-        <textarea id="question" rows="3" maxlength="600" data-i18n-placeholder="ask_placeholder" placeholder="Optional: tell us what you noticed."></textarea>
-        <button class="btn btn-primary btn-block" type="button" id="ask" data-i18n="ask_btn">Make a recommendation for my field</button>
+        <textarea id="question" rows="3" maxlength="600" data-i18n-placeholder="ask_placeholder" placeholder="Ask anything about pest control, natural predators, bio-pesticide timing, or crop symptoms..."></textarea>
+        <button class="btn btn-primary btn-block btn-big" type="button" id="ask"><svg class="btn-svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3 7 7 3-7 3-3 7-3-7-7-3 7-3z"/></svg> <span data-i18n="ask_btn">Make a recommendation for my field</span></button>
         <p class="hint" data-i18n="ask_internet">Needs internet to get advice from the server.</p>
         <div id="conversation" aria-live="polite"></div>
       </article>
@@ -186,7 +992,7 @@
       <div class="grid2">
         <!-- Card 5: Budget plan -->
         <article class="card" id="cardBudget" aria-labelledby="bt">
-          <header class="card-head"><h2 id="bt" data-i18n="bu_title">Budget plan</h2></header>
+          <header class="card-head"><h2 id="bt"><span class="ui-icon ui-icon-budget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#fef9c3" stroke="#eab308"/><path d="M8 8h8M8 12h5.5M8 8c3 0 5 1 5 4s-2 4-5 4M12 16l4 5" stroke="#ca8a04"/><path d="M6 10h5" stroke="#ca8a04"/></svg></span> <span data-i18n="bu_title">Budget plan</span></h2></header>
           <p class="muted" data-i18n="bu_help">Estimated cost for your field.</p>
           <p class="needs" id="needsBudget"></p>
           <button class="btn btn-primary btn-block" type="button" id="runBudget" data-i18n="get_result">Get result</button>
@@ -195,16 +1001,309 @@
 
         <!-- Card 6: Risk -->
         <article class="card" id="cardRisk" aria-labelledby="rt">
-          <header class="card-head"><h2 id="rt" data-i18n="r_title">Pest risk check</h2></header>
+          <header class="card-head"><h2 id="rt"><span class="ui-icon ui-icon-risk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 22 20 2 20" fill="#fffbeb" stroke="#f59e0b"/><line x1="12" y1="9" x2="12" y2="13" stroke="#d97706" stroke-width="2.5"/><circle cx="12" cy="17" r="1.2" fill="#b45309"/></svg></span> <span data-i18n="r_title">Pest risk check</span></h2></header>
           <p class="muted" data-i18n="r_help">Uses your crop, location, weather and available verified evidence. It will not invent an outbreak alert.</p>
           <p class="needs" id="needsRisk"></p>
           <button class="btn btn-primary btn-block" type="button" id="runRisk" data-i18n="get_result">Get result</button>
           <div class="result" id="resRisk" aria-live="polite"></div>
         </article>
 
+        <!-- Card: Bio vs Chemical ROI Simulator -->
+        <article class="card card-wide roi-card" id="cardRoi" aria-labelledby="roiT">
+          <header class="card-head">
+            <h2 id="roiT">
+              <span class="ui-icon ui-icon-roi">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke="#059669" stroke-width="2.2"/>
+                  <circle cx="19" cy="6" r="3" fill="#ecfdf5" stroke="#10b981"/>
+                  <path d="M18 6l1 1 2-2" stroke="#047857" stroke-width="1.5"/>
+                </svg>
+              </span>
+              <span data-i18n="roi_title">Bio vs. Chemical ROI Simulator</span>
+            </h2>
+            <span class="badge-tag live-badge">Eco-Financial Model</span>
+          </header>
+          <p class="muted" data-i18n="roi_help">Compare real financial costs, harvest safety, and soil health between biological and synthetic chemical control.</p>
+
+          <div class="roi-controls-bar">
+            <div class="roi-ctrl-group">
+              <label for="roiAreaRange"><strong>Field Area:</strong> <span id="roiAreaVal">2.5</span> Acres</label>
+              <input type="range" id="roiAreaRange" min="0.5" max="20" step="0.5" value="2.5" class="roi-slider">
+            </div>
+            <div class="roi-ctrl-group">
+              <label for="roiPressureSelect"><strong>Pest Pressure Level:</strong></label>
+              <select id="roiPressureSelect" class="select-styled">
+                <option value="low">Low / Preventive (Light early symptoms)</option>
+                <option value="moderate" selected>Moderate (Seasonal threshold reached)</option>
+                <option value="high">High / Severe Outbreak (Heavy pest density)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Comparative Grid -->
+          <div class="roi-compare-grid">
+            <!-- Chemical Side -->
+            <div class="roi-col roi-chemical">
+              <div class="roi-col-header">
+                <span class="col-pill pill-danger">Conventional Chemical Spray</span>
+                <div class="roi-total-cost" id="roiChemTotal">₹14,250</div>
+                <div class="roi-cost-sub" id="roiChemPerAcre">₹5,700 per acre (3 rounds)</div>
+              </div>
+              <ul class="roi-breakdown">
+                <li><span>Chemical Pesticide Formulations:</span> <strong id="roiChemPesticide">₹8,750</strong></li>
+                <li><span>Sprayer Rig Rental & Fuel:</span> <strong id="roiChemRig">₹2,500</strong></li>
+                <li><span>Hazardous Spray Labor & PPE:</span> <strong id="roiChemLabor">₹3,000</strong></li>
+                <li class="metric-warning"><span>Harvest Waiting Period (PHI):</span> <strong>14–21 Days Toxic Residue</strong></li>
+                <li class="metric-warning"><span>Beneficial Insect Kill Rate:</span> <strong>92% (High Toxicity)</strong></li>
+                <li class="metric-warning"><span>Soil Microbial Loss:</span> <strong>-35% Active Biomass</strong></li>
+              </ul>
+            </div>
+
+            <!-- Bio Side -->
+            <div class="roi-col roi-bio">
+              <div class="roi-col-header">
+                <span class="col-pill pill-success">Fieldwise Biocontrol Protocol</span>
+                <div class="roi-total-cost" id="roiBioTotal">₹4,250</div>
+                <div class="roi-cost-sub" id="roiBioPerAcre">₹1,700 per acre (Biological release)</div>
+              </div>
+              <ul class="roi-breakdown">
+                <li><span>Bio-Agents (Trichogramma / Beauveria):</span> <strong id="roiBioAgents">₹3,000</strong></li>
+                <li><span>Pheromone Traps & Sticky Lures:</span> <strong id="roiBioTraps">₹500</strong></li>
+                <li><span>Simple Release / Staple Labor:</span> <strong id="roiBioLabor">₹750</strong></li>
+                <li class="metric-positive"><span>Harvest Waiting Period (PHI):</span> <strong>0 Days (Immediate & Residue-Free)</strong></li>
+                <li class="metric-positive"><span>Beneficial Natural Enemies:</span> <strong>100% Protected & Multiplies</strong></li>
+                <li class="metric-positive"><span>Soil Microbial Health:</span> <strong>+42% Active Carbon Growth</strong></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Summary Banner -->
+          <div class="roi-summary-banner">
+            <div class="roi-summary-stat">
+              <div class="stat-num text-success" id="roiNetSaved">₹10,000</div>
+              <div class="stat-label">Net Farmer Savings</div>
+            </div>
+            <div class="roi-summary-stat">
+              <div class="stat-num text-primary" id="roiPercentSaved">70%</div>
+              <div class="stat-label">Cost Reduction</div>
+            </div>
+            <div class="roi-summary-stat">
+              <div class="stat-num text-emerald" id="roiSoilPreserved">+38%</div>
+              <div class="stat-label">Soil Health Index</div>
+            </div>
+            <div class="roi-summary-stat">
+              <div class="stat-num text-amber">0 Days</div>
+              <div class="stat-label">Chemical Residue</div>
+            </div>
+          </div>
+
+          <div class="roi-actions">
+            <button type="button" class="btn btn-outline" id="roiPrintBtn">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
+              Print Farm Economic Report
+            </button>
+            <span class="hint">Real-time comparative economics dynamically tailored to your crop and acreage.</span>
+          </div>
+        </article>
+
+        <!-- Card: District Pest Outbreak Radar & Community GIS -->
+        <article class="card card-wide radar-card" id="cardRadar" aria-labelledby="radarT">
+          <header class="card-head">
+            <h2 id="radarT">
+              <span class="ui-icon ui-icon-radar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" fill="#f0fdf4" stroke="#16a34a"/>
+                  <circle cx="12" cy="12" r="6" stroke="#4ade80" stroke-dasharray="2 2"/>
+                  <circle cx="12" cy="12" r="2" fill="#15803d"/>
+                  <line x1="12" y1="12" x2="19" y2="5" stroke="#16a34a" stroke-width="2"/>
+                  <path d="M12 2a10 10 0 0 1 10 10" stroke="#22c55e" stroke-width="2"/>
+                </svg>
+              </span>
+              <span data-i18n="radar_title">Pest Outbreak Radar & Community GIS</span>
+            </h2>
+            <div class="radar-top-controls">
+              <span class="radar-live-indicator"><span class="radar-pulse-dot"></span> LIVE COMMUNITY RADAR</span>
+              <button type="button" class="btn btn-primary btn-sm" id="radarReportToggleBtn" data-i18n="radar_report_btn">+ Report Pest Sighting</button>
+            </div>
+          </header>
+          <p class="muted" data-i18n="radar_help">Live regional pest incidence reports, danger zones, and biological early intervention alerts.</p>
+
+          <!-- Report Sighting Inline Drawer -->
+          <div id="radarReportDrawer" class="radar-report-box" hidden>
+            <h3><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg> Report a Pest Sighting in Your Area</h3>
+            <div class="report-form-grid">
+              <div class="field">
+                <label for="reportPest">Pest Observed:</label>
+                <select id="reportPest">
+                  <option value="Fall Armyworm (Spodoptera frugiperda)">Fall Armyworm (Spodoptera frugiperda)</option>
+                  <option value="Pink Bollworm (Pectinophora gossypiella)">Pink Bollworm (Pectinophora gossypiella)</option>
+                  <option value="Stem Borer (Chilo partellus)">Stem Borer (Chilo partellus)</option>
+                  <option value="Gram Pod Borer (Helicoverpa armigera)">Gram Pod Borer (Helicoverpa armigera)</option>
+                  <option value="Whitefly / Aphids">Whitefly / Aphids</option>
+                  <option value="Other Pest">Other Pest Sighting</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="reportDistrict">District / Taluk:</label>
+                <input id="reportDistrict" placeholder="e.g. Mandya, Haveri, Dharwad" value="Mandya">
+              </div>
+              <div class="field">
+                <label for="reportSeverity">Infestation Level:</label>
+                <select id="reportSeverity">
+                  <option value="High">🔴 High Density (Urgent bio-release needed)</option>
+                  <option value="Moderate" selected>🟡 Moderate (Scattered egg masses / larvae)</option>
+                  <option value="Early">🟢 Early Warning (Pheromone trap count rising)</option>
+                </select>
+              </div>
+            </div>
+            <div class="report-actions">
+              <button type="button" class="btn btn-primary" id="radarSubmitReport">Submit Sighting Alert</button>
+              <button type="button" class="btn btn-quiet" id="radarCancelReport">Cancel</button>
+            </div>
+          </div>
+
+          <!-- Radar Visual Display & Dossier Split -->
+          <div class="radar-display-layout">
+            <!-- Left: Vector GIS Radar Map -->
+            <div class="radar-map-container" id="radarMapWrap">
+              <svg id="radarSvgMap" viewBox="0 0 600 420" class="radar-svg-canvas">
+                <defs>
+                  <pattern id="radarGridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(22, 101, 52, 0.08)" stroke-width="1"/>
+                  </pattern>
+                  <radialGradient id="radarSweepGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="rgba(34, 197, 94, 0.35)"/>
+                    <stop offset="60%" stop-color="rgba(34, 197, 94, 0.08)"/>
+                    <stop offset="100%" stop-color="transparent"/>
+                  </radialGradient>
+                </defs>
+                
+                <rect width="600" height="420" fill="#f8fafc" rx="8"/>
+                <rect width="600" height="420" fill="url(#radarGridPattern)" rx="8"/>
+                
+                <!-- Regional Agro-climatic zone shape -->
+                <path class="radar-landmass" d="M120,40 Q250,30 380,45 Q480,70 510,140 Q530,220 480,310 Q420,380 290,400 Q180,380 130,300 Q80,210 90,130 Z" fill="#e2f5ea" stroke="#86efac" stroke-width="2"/>
+                <path d="M150,90 Q220,110 320,80 Q420,100 460,170 Q470,250 420,330 Q330,360 220,340 Q140,280 120,200 Z" fill="#d1fae5" opacity="0.6"/>
+
+                <!-- Radar Range Rings -->
+                <circle cx="300" cy="220" r="80" fill="none" stroke="rgba(16, 185, 129, 0.25)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <circle cx="300" cy="220" r="160" fill="none" stroke="rgba(16, 185, 129, 0.2)" stroke-width="1.5" stroke-dasharray="6 6"/>
+                <circle cx="300" cy="220" r="240" fill="none" stroke="rgba(16, 185, 129, 0.15)" stroke-width="1"/>
+
+                <!-- Scanning Sweep Beam -->
+                <g class="radar-sweep-group">
+                  <line x1="300" y1="220" x2="520" y2="100" stroke="#10b981" stroke-width="2" opacity="0.7" class="radar-beam"/>
+                  <polygon points="300,220 540,60 520,120" fill="url(#radarSweepGlow)" class="radar-beam"/>
+                </g>
+
+                <!-- District Hub Pins & Labels -->
+                <g class="district-nodes">
+                  <g class="radar-node" data-district="Belagavi" transform="translate(180, 80)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Belagavi</text>
+                  </g>
+                  <g class="radar-node" data-district="Dharwad" transform="translate(210, 135)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Dharwad</text>
+                  </g>
+                  <g class="radar-node" data-district="Haveri" transform="translate(240, 180)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Haveri</text>
+                  </g>
+                  <g class="radar-node" data-district="Davanagere" transform="translate(290, 210)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Davanagere</text>
+                  </g>
+                  <g class="radar-node active-zone" data-district="Mandya" transform="translate(320, 310)">
+                    <circle r="6" fill="#065f46" stroke="#ffffff" stroke-width="2"/>
+                    <text x="10" y="4" class="map-district-label active-district-text">Mandya (Your Area)</text>
+                  </g>
+                  <g class="radar-node" data-district="Mysuru" transform="translate(300, 355)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Mysuru</text>
+                  </g>
+                  <g class="radar-node" data-district="Hassan" transform="translate(250, 290)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Hassan</text>
+                  </g>
+                  <g class="radar-node" data-district="Raichur" transform="translate(390, 120)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Raichur</text>
+                  </g>
+                  <g class="radar-node" data-district="Ballari" transform="translate(360, 175)">
+                    <circle r="4" fill="#047857"/>
+                    <text x="8" y="4" class="map-district-label">Ballari</text>
+                  </g>
+                </g>
+
+                <!-- Dynamic Hotspot Markers with Animated Pulsing Waves -->
+                <g id="radarHotspotsLayer">
+                  <!-- Mandya FAW Hotspot (High Alert) -->
+                  <g class="hotspot-point hotspot-high is-selected-hotspot" data-id="h-mandya" transform="translate(320, 310)">
+                    <circle class="pulse-ring ring-red-1" r="22" fill="none" stroke="#ef4444" stroke-width="2"/>
+                    <circle class="pulse-ring ring-red-2" r="38" fill="none" stroke="#ef4444" stroke-width="1.5" opacity="0.6"/>
+                    <circle r="8" fill="#dc2626" stroke="#ffffff" stroke-width="2"/>
+                    <text x="12" y="-12" class="hotspot-badge-text">🔴 FAW Outbreak (14)</text>
+                  </g>
+
+                  <!-- Haveri Pink Bollworm (Moderate) -->
+                  <g class="hotspot-point hotspot-mod" data-id="h-haveri" transform="translate(240, 180)">
+                    <circle class="pulse-ring ring-amber" r="20" fill="none" stroke="#f59e0b" stroke-width="2"/>
+                    <circle r="6" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+                    <text x="10" y="-10" class="hotspot-badge-text">🟡 PBW Warning (9)</text>
+                  </g>
+
+                  <!-- Dharwad Stem Borer (Early) -->
+                  <g class="hotspot-point hotspot-early" data-id="h-dharwad" transform="translate(210, 135)">
+                    <circle class="pulse-ring ring-emerald" r="18" fill="none" stroke="#10b981" stroke-width="1.5"/>
+                    <circle r="5" fill="#059669" stroke="#ffffff" stroke-width="1.5"/>
+                    <text x="10" y="-8" class="hotspot-badge-text">🟢 Bio-Controlled (7)</text>
+                  </g>
+
+                  <!-- Raichur Aphids -->
+                  <g class="hotspot-point hotspot-mod" data-id="h-raichur" transform="translate(390, 120)">
+                    <circle class="pulse-ring ring-amber" r="18" fill="none" stroke="#f59e0b" stroke-width="1.5"/>
+                    <circle r="5" fill="#d97706" stroke="#ffffff" stroke-width="1.5"/>
+                    <text x="10" y="-8" class="hotspot-badge-text">🟡 Sucking Pests (6)</text>
+                  </g>
+                </g>
+              </svg>
+            </div>
+
+            <!-- Right: Interactive Incident Dossier & Action Protocol -->
+            <div class="radar-dossier" id="radarDossierBox">
+              <div class="dossier-header">
+                <span class="dossier-pill pill-danger" id="dossierSeverity">High Alert Severity</span>
+                <span class="dossier-time" id="dossierUpdated">Confirmed 2 hrs ago</span>
+              </div>
+              <h3 class="dossier-title" id="dossierPest">Fall Armyworm (Spodoptera frugiperda)</h3>
+              <div class="dossier-meta-grid">
+                <div><span class="d-label">Target Crop:</span> <strong id="dossierCrop">Maize (Vegetative)</strong></div>
+                <div><span class="d-label">Detection Zone:</span> <strong id="dossierZone">Mandya Taluk (8.4 km away)</strong></div>
+                <div><span class="d-label">Community Reports:</span> <strong id="dossierCount">14 verified farmers</strong></div>
+                <div><span class="d-label">Microclimate:</span> <strong id="dossierWeather">78% RH (Favors egg hatch)</strong></div>
+              </div>
+
+              <div class="dossier-action-box">
+                <h4><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Immediate Biological Counter-Action:</h4>
+                <p id="dossierAction">Release <strong>Trichogramma chilonis</strong> parasitoid cards @ 50,000 eggs/acre stapled under lower leaves, combined with 5 pheromone trap lures/acre to disrupt mating before caterpillars bore into whorls.</p>
+              </div>
+
+              <div class="dossier-feed">
+                <h4>Live Community Scout Intelligence:</h4>
+                <ul class="scout-feed-list" id="radarScoutFeed">
+                  <li><span class="feed-dot red"></span> <strong>Mandya Farmer S. Gowda:</strong> <em>"Found early instar pinhole feeding in 3 acre maize field."</em> <small>2h ago</small></li>
+                  <li><span class="feed-dot yellow"></span> <strong>Haveri Cotton Scout:</strong> <em>"Adult moths trapped in delta lures. Trichogrammatoidea release planned."</em> <small>5h ago</small></li>
+                  <li><span class="feed-dot green"></span> <strong>Dharwad Agronomist:</strong> <em>"Braconid wasp parasitism rate reached 65% in sorghum plots."</em> <small>9h ago</small></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
         <!-- Card 7: Planner -->
         <article class="card" id="cardPlan" aria-labelledby="plt">
-          <header class="card-head"><h2 id="plt" data-i18n="pl_title">Field plan</h2></header>
+          <header class="card-head"><h2 id="plt"><span class="ui-icon ui-icon-calendar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3" fill="#f0fdf4" stroke="#16a34a"/><line x1="16" y1="2" x2="16" y2="6" stroke="#15803d"/><line x1="8" y1="2" x2="8" y2="6" stroke="#15803d"/><line x1="3" y1="10" x2="21" y2="10" stroke="#86efac"/><polyline points="8 15 11 18 16 13" stroke="#15803d"/></svg></span> <span data-i18n="pl_title">Field plan</span></h2></header>
           <p class="muted" data-i18n="pl_help">A simple scouting schedule.</p>
           <div class="field"><label for="planStart" data-i18n="pl_start">Plan start date</label><input id="planStart" type="date"></div>
           <p class="needs" id="needsPlan"></p>
@@ -214,7 +1313,7 @@
 
         <!-- Card 8: Compatibility -->
         <article class="card" id="cardCompat" aria-labelledby="ct">
-          <header class="card-head"><h2 id="ct" data-i18n="co_title">Treatment compatibility</h2></header>
+          <header class="card-head"><h2 id="ct"><span class="ui-icon ui-icon-shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" fill="#ecfdf5" stroke="#10b981"/><path d="M12 8v8M8 12h8" stroke="#047857" stroke-width="2"/></svg></span> <span data-i18n="co_title">Treatment compatibility</span></h2></header>
           <p class="muted" data-i18n="co_help">The advisor will choose evidence-supported next steps for your crop. It will not ask you to select a treatment.</p>
           <button class="btn btn-primary btn-block" type="button" id="runCompat" data-i18n="co_check">Recommend a safe next step</button>
           <div class="result" id="resCompat" aria-live="polite"></div>
@@ -222,7 +1321,7 @@
 
         <!-- Card 9: Suppliers -->
         <article class="card" id="cardSupp" aria-labelledby="st">
-          <header class="card-head"><h2 id="st" data-i18n="su_title">Local suppliers</h2></header>
+          <header class="card-head"><h2 id="st"><span class="ui-icon ui-icon-kvk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h1M14 10h1M9 14h1M14 14h1" fill="#f8fafc" stroke="#334155"/><rect x="10" y="17" width="4" height="4" fill="#64748b"/></svg></span> <span data-i18n="su_title">Local suppliers</span></h2></header>
           <p class="muted" data-i18n="su_help">Find verified local agricultural support. The app will not invent supplier names or stock.</p>
           <p class="hint"><span data-i18n="su_district">Your district:</span> <b id="suppDistrict">–</b></p>
           <p class="needs" id="needsSupp"></p>
@@ -232,7 +1331,7 @@
 
         <!-- Card 10: Field notes -->
         <article class="card card-wide" id="cardNotes" aria-labelledby="nt">
-          <header class="card-head"><h2 id="nt" data-i18n="n_title">Field notes</h2>
+          <header class="card-head"><h2 id="nt"><span class="ui-icon ui-icon-notes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" fill="#fefce8" stroke="#ca8a04"/><polyline points="14 2 14 8 20 8" fill="#fef08a" stroke="#ca8a04"/><line x1="16" y1="13" x2="8" y2="13" stroke="#854d0e"/><line x1="16" y1="17" x2="8" y2="17" stroke="#854d0e"/><polyline points="10 9 9 9 8 9" stroke="#854d0e"/></svg></span> <span data-i18n="n_title">Field notes</span></h2>
             <button class="btn btn-quiet" type="button" id="notesRefresh" data-i18n="n_refresh">Refresh</button></header>
           <p class="muted" data-i18n="n_help">Your earlier questions and answers.</p>
           <div id="notesList" aria-live="polite"></div>
@@ -243,6 +1342,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <footer class="foot" id="foot" data-i18n="footer" hidden>Sample estimates and demo checks are not live data. Confirm treatment and label guidance with your local KVK.</footer>
-  <script src="/static/app-v2.js?v=5"></script>
+  <script src="/static/app-v2.js?v=7"></script>
 </body>
 </html>

@@ -26,7 +26,7 @@
   "label_name": "Your name",
   "label_email": "Email address or phone number",
   "label_password": "Password",
-  "password_hint": "At least 12 characters",
+  "password_hint": "At least 8 characters",
   "btn_signin": "Sign in",
   "btn_register": "Create account",
   "err_login": "Wrong email or password.",
@@ -191,5 +191,11 @@
   "photo_kind_label": "What are you photographing?",
   "photo_kind_plant": "Affected plant or leaves",
   "photo_kind_soil": "Soil surface",
-  "p_err_unclear": "This photo is too dark or unclear. Retake it in daylight, hold the camera steady, and show the affected area close-up."
+  "p_err_unclear": "This photo is too dark or unclear. Retake it in daylight, hold the camera steady, and show the affected area close-up.",
+  "roi_title": "Bio vs. Chemical ROI Simulator",
+  "roi_help": "Compare real financial costs, harvest safety, and soil health between biological and synthetic chemical control.",
+  "roi_btn": "Recalculate Economics",
+  "radar_title": "Pest Outbreak Radar & Community GIS",
+  "radar_help": "Live regional pest incidence reports, danger zones, and biological early intervention alerts.",
+  "radar_report_btn": "Report Pest Sighting"
 }

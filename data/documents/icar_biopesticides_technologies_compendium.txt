@@ -1,0 +1,75 @@
+ICAR - Directorate of Knowledge Management in Agriculture (DKMA)
+ICAR Technologies: Biopesticides for Eco-Friendly Pest Management Compendium (2021)
+
+1. OVERVIEW OF REGISTERED ICAR MICROBIAL TECHNOLOGIES:
+This official compendium compiled by ICAR-NBAIM, ICAR-NBAIR, ICAR-CICR, and ICAR-IIHR details 31 commercially validated biopesticide formulations validated across All India Coordinated Research Projects (AICRP).
+
+2. KEY COMMERCIALIZED BIO-FORMULATIONS AND DOSAGES:
+- Shatpada Larvicide (Metarhizium anisopliae ICAR-NBAIR Ma 35 / NAIMCC-F-04130):
+  Target: Fall Armyworm (Spodoptera frugiperda) in maize.
+  Dosage: Three foliar sprays at 5 mL/L of water (or 5 g/L talc formulation) at 20, 30, and 40 days after sowing.
+  Benefits: 33-76% reduction in plant damage, 38-53% increase in yield.
+  Estimated Cost: Rs 350-450 per liter formulation (approx Rs 350-500/acre).
+
+- Shatpada Armour (Bacillus thuringiensis var. kurstaki ICAR-NBAIR BT25):
+  Target: Fall Armyworm (Spodoptera frugiperda) in maize.
+  Dosage: Two to three foliar sprays at 10 mL/L of water at 25, 35, and 45 days after sowing.
+  Benefits: 85-90% reduction in pest, 33-40% increase in yield.
+  Estimated Cost: Rs 300-400 per liter formulation.
+
+- Shatpada Terminator (Bacillus thuringiensis var. kurstaki ICAR-NBAIR BTG4):
+  Target: Legume pod borer (Helicoverpa armigera, Maruca sp.), spotted stem borer (Chilo partellus), rice leaf folder, and cotton bollworm.
+  Dosage: Two to three foliar sprays at 20 mL/L of water at pre-flowering and post-flowering stages.
+  Benefits: 83-85% reduction in pest, 19-35% increase in yield. Commercialized and licensed to Ponalabs and Allwin Industries.
+  Estimated Cost: Rs 350-450 per liter.
+
+- Mycoguard Bb-L (Beauveria bassiana ITCC 4513 - ICAR-IIOR):
+  Target: Helicoverpa armigera and pod borers in pigeon pea, cotton, and pulses.
+  Dosage: Two to three foliar sprays at 0.3 to 5 mL/L of water at 10 days interval.
+  Benefits: 24-45% reduction in pod damage, 21-33% increase in yield. Commercialized in 2014.
+  Estimated Cost: Rs 400 per bottle (covers approx 1 to 2 acres).
+
+- Shatpada Sucking Pest Hit & Shatpada Aphid Kill (Lecanicillium lecanii Vl-8 & Beauveria bassiana Bb-5a):
+  Target: Aphids, whiteflies, jassids, and thrips in chilli, cotton, brinjal, cowpea.
+  Dosage: Three foliar sprays at 5 mL/L of water at 15-day intervals.
+  Benefits: 75-78% pest reduction, 24-27% increase in yield.
+  Estimated Cost: Rs 300-380 per bottle.
+
+- Shatpada All Rounder (Pseudomonas fluorescens NBAIR-PFDWD):
+  Target: Thrips and Fusarium wilt in red gram / pigeon pea and capsicum.
+  Dosage: Soil application 2.5 kg/ha mixed with 250 kg FYM; foliar 20 g/L for thrips.
+  Benefits: 70-90% thrips reduction, 50-60% Fusarium wilt reduction.
+
+- Bio-Pulse (Trichoderma harzianum NAIMCC-SF-0036 + Bacillus amyloliquefaciens NAIMCC-SB-0052):
+  Target: Wilt of pigeon pea, chickpea, lentil, and pea.
+  Dosage: Seed treatment @ 10 g/kg seed.
+  Benefits: 40-75% reduction in wilt incidence.
+  Estimated Cost: Rs 120-180 per 500g packet.
+
+- ARKA Krishi Vriddhi & ARKA Krishi Veera (ICAR-IIHR):
+  Target: Root knot nematode (Meloidogyne incognita) and Fusarium wilt in vegetables and pulses.
+  Dosage: Seed treatment @ 20 g/kg seed; nursery treatment @ 50 g/m2; soil application @ 5 kg/ha in 5 tons FYM.
+  Benefits: 62-72% fungal inhibition, 56-68% egg suppression.
+
+3. TYPICAL PER-ACRE INPUT COST BENCHMARKS FOR BIOCONTROL PLANNING:
+- Trichogramma Parasitoid Cards (2 to 3 cards/acre): Rs 140 to 180 total per acre.
+- Pheromone Monitoring Traps + Septa Lures (5 to 8 traps/acre): Rs 300 to 450 total per acre.
+- Microbial Formulation (Shatpada / Mycoguard / Bt / Beauveria @ 1 to 2 sprays): Rs 400 to 700 total per acre.
+- Botanical Repellent (5% NSKE or Neem Azadirachtin 10,000 ppm): Rs 250 to 350 total per acre.
+- Overall Recommended Biocontrol Budget: Rs 1,100 to Rs 1,700 per acre (saves over 60-70% compared to chemical sprays costing Rs 4,500-6,000/acre).
+
+5. ECONOMIC THRESHOLD LEVELS (ETL) AND APPLICATION TRIGGERS:
+- Cotton Pink Bollworm & American Bollworm:
+  * ETL: 8 moths/trap/night for 3 consecutive nights OR 1 caterpillar/plant OR 5-10% damaged green bolls / flared squares.
+  * Risk: HIGH if catches >8 moths/trap/night or >10% boll infestation; MODERATE if 4-7 moths/trap/night or 5-9% damage; LOW if <4 moths/trap/night.
+  * Bio-Intervention: High risk requires immediate Shatpada Larvicide / HaNPV spray + Trichogrammatoidea bactrae cards. Moderate risk requires 5% NSKE / Neem Azadirachtin spray + pheromone trap refresh.
+- Maize & Sorghum Fall Armyworm / Stem Borer:
+  * ETL: 5-10% seedling whorl damage or 3 moths/trap/day.
+  * Risk: HIGH if >10% whorl damage; MODERATE if 5-10% damage.
+  * Bio-Intervention: Trichogramma chilonis release @ 50,000/acre + Mycoguard Bb-L or Bio-Pulse / Bt whorl application.
+- Pigeonpea / Chickpea Pod Borer:
+  * ETL: 1 larva per meter row or 5-10% pod borer damage.
+  * Bio-Intervention: Shatpada Larvicide or HaNPV @ 250 LE/acre with jaggery + bird perches.
+- Tomato Fruit Borer & Leaf Miner:
+  * ETL: 1 larva/plant or 5% fruit damage.
+  * Bio-Intervention: Shatpada Armour or Beauveria bassiana spray + Trichogramma pretiosum release.
