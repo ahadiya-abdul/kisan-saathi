@@ -13,7 +13,7 @@ except ImportError:  # let the dashboard boot and report a clear unavailable-mod
 load_dotenv()
 logger = logging.getLogger(__name__)
 import time
-DEFAULT_MODEL = "gemini-3.8-flash"
+DEFAULT_MODEL = "gemini-3.5-flash"
 _LAST_NETWORK_FAILURE = 0
 CIRCUIT_TIMEOUT = 120
 
@@ -33,7 +33,7 @@ def _client():
     if genai is None or not api_key:
         return None
     try:
-        return genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=8000))
+        return genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=15000))
     except Exception:
         return genai.Client(api_key=api_key)
 
@@ -481,13 +481,22 @@ Farmer context JSON: {json.dumps(context, ensure_ascii=False)}
 Retrieved passages JSON: {json.dumps(passages, ensure_ascii=False)}
 Source-derived knowledge-graph relationships JSON: {json.dumps(graph_facts, ensure_ascii=False)}
 """
-            target_model = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+            models_to_try = [os.getenv("GEMINI_MODEL", "gemini-3.5-flash"), "gemini-3.5-flash", "gemini-3.5-flash-lite"]
+            response = None
+            for m in dict.fromkeys(models_to_try):
+                try:
+                    response = client.models.generate_content(
+                        model=m,
+                        contents=prompt,
+                        config=types.GenerateContentConfig(temperature=0.1, response_mime_type="application/json"),
+                    )
+                    if response and response.text:
+                        break
+                except Exception:
+                    continue
             try:
-                response = client.models.generate_content(
-                    model=target_model,
-                    contents=prompt,
-                    config=types.GenerateContentConfig(temperature=0.1, response_mime_type="application/json"),
-                )
+                if response is None or not response.text:
+                    raise ValueError("All remote Gemini models failed")
                 result = _parse_json(response.text or "")
                 for key in ("answer", "recommended_actions", "why", "uncertainty", "needs_human_review", "sources", "price_supported"):
                     if key not in result:
@@ -545,11 +554,23 @@ confidence (number 0..1 only if meaningfully estimable; otherwise null), needs_h
 Do not invent certainty, treatment recommendations, dose, crop variety, lab measurements or local conditions.
 The safety note must include this limitation where relevant: {limits}
 """
-        response = client.models.generate_content(
-            model=os.getenv("GEMINI_MODEL", DEFAULT_MODEL),
-            contents=[types.Part.from_bytes(data=image_bytes, mime_type=mime_type), prompt],
-            config=types.GenerateContentConfig(temperature=0.1, response_mime_type="application/json"),
-        )
+        models_to_try = [os.getenv("GEMINI_MODEL", "gemini-3.5-flash"), "gemini-3.5-flash", "gemini-3.5-flash-lite"]
+        response = None
+        last_img_err = None
+        for m in dict.fromkeys(models_to_try):
+            try:
+                response = client.models.generate_content(
+                    model=m,
+                    contents=[types.Part.from_bytes(data=image_bytes, mime_type=mime_type), prompt],
+                    config=types.GenerateContentConfig(temperature=0.1, response_mime_type="application/json"),
+                )
+                if response and response.text:
+                    break
+            except Exception as m_err:
+                last_img_err = m_err
+                continue
+        if response is None or not response.text:
+            raise ValueError(f"Image analysis failed on all candidate models: {last_img_err}")
         result = _parse_json(response.text or "")
         required = ("candidate_issue", "visible_symptoms", "needs_human_verification", "safety_note")
         if any(key not in result for key in required):
@@ -562,5 +583,5 @@ The safety note must include this limitation where relevant: {limits}
             result["visible_symptoms"] = [str(result["visible_symptoms"])]
         return result
     except Exception as exc:
-        logger.warning("Gemini image analysis unavailable: %s", exc)
-        return None
+        logger.warning("Gemini image analysis error: %s. Using agronomic visual triage fallback.", exc)
+        return _visual_triage_fallback(image_bytes, mime_type, context)
