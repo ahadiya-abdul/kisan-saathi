@@ -103,7 +103,7 @@ function updateNet() { const b = $("netBanner"); b.hidden = navigator.onLine; if
 window.addEventListener("online", updateNet); window.addEventListener("offline", updateNet);
 
 /* ---------- routing ---------- */
-const VIEWS = ["language", "auth", "field", "advice"];
+const VIEWS = ["language", "auth", "field", "advice", "profile"];
 function savedComplete() { return !!clean(saved.crop); }
 function go(view) { if (location.hash !== "#/" + view) location.hash = "#/" + view; else route(); }
 function route() {
@@ -111,18 +111,19 @@ function route() {
   if (!VIEWS.includes(v)) v = "";
   if (!lang) v = "language";
   else if (!v) v = token ? (savedComplete() ? "advice" : "field") : "auth";
-  else if (!token && (v === "field" || v === "advice")) v = "auth";
+  else if (!token && (v === "field" || v === "advice" || v === "profile")) v = "auth";
   else if (token && v === "auth") v = savedComplete() ? "advice" : "field";
   if (v === "advice" && !savedComplete()) v = "field";
   VIEWS.forEach(n => { $("view-" + n).hidden = n !== v; });
   $("topbar").hidden = v === "language";
   $("logout").hidden = !token;
-  if ($("fpDropdownWrap")) $("fpDropdownWrap").hidden = !token;
+  if ($("btnProfileNav")) $("btnProfileNav").hidden = !token;
   $("foot").hidden = v === "language";
   if (location.hash !== "#/" + v) history.replaceState(null, "", "#/" + v);
   document.title = "Fieldwise";
   if (v === "field") fillFieldForms();
   if (v === "advice") { refreshAll(); loadNotes(); }
+  if (v === "profile") loadProfileView();
   window.scrollTo(0, 0);
   const h = document.querySelector("#view-" + v + " h1"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({preventScroll: true}); }
 }
@@ -175,8 +176,7 @@ async function signOut() {
   try { await fetch("/api/auth/logout", {method: "POST", credentials: "same-origin"}); } catch (_) {}
   token = null; remoteCtx = {}; saved = {}; lastPhotoResult = null; photoCropAtAnalysis = "";
   currentFarmerUser = null;
-  if ($("fpDropdownWrap")) $("fpDropdownWrap").hidden = true;
-  if ($("fpFlyoutCard")) $("fpFlyoutCard").hidden = true;
+  if ($("btnProfileNav")) $("btnProfileNav").hidden = true;
   sessionStorage.clear(); Object.keys(runs).forEach(k => delete runs[k]);
   qa(".result").forEach(n => n.replaceChildren()); $("conversation").replaceChildren(); $("notesList").replaceChildren();
   go("auth");
@@ -772,115 +772,127 @@ $("useGpsWeather").addEventListener("click", () => withBusy("gps-weather", $("us
 
 
 
-/* ---------- Top Right Farmer Profile Component ---------- */
+/* ---------- Top Right Farmer Profile & Dedicated Profile Page ---------- */
 let currentFarmerUser = null;
 
 function syncFarmerProfile(u) {
   if (!u) return;
   currentFarmerUser = u;
-  if ($("fpDropdownWrap")) $("fpDropdownWrap").hidden = !token;
+  if ($("btnProfileNav")) $("btnProfileNav").hidden = !token;
 
-  // 1. Top Bar Pill
+  // 1. Top Right Profile Button
   const displayName = u.name ? (u.name.length > 15 ? u.name.slice(0, 13) + "…" : u.name) : "Farmer";
-  if ($("fpTopName")) $("fpTopName").textContent = displayName;
-  if ($("fpTopId")) $("fpTopId").textContent = u.farmer_id || "ID";
+  if ($("navFarmerName")) $("navFarmerName").textContent = displayName;
+  if ($("navFarmerId")) $("navFarmerId").textContent = u.farmer_id || "ID";
 
-  if (u.photo_url && $("fpTopAvatarImg")) {
-    $("fpTopAvatarImg").src = u.photo_url;
-    $("fpTopAvatarImg").style.display = "block";
-    if ($("fpTopInitials")) $("fpTopInitials").style.display = "none";
+  if (u.photo_url && $("navAvatarImg")) {
+    $("navAvatarImg").src = u.photo_url;
+    $("navAvatarImg").style.display = "block";
+    if ($("navAvatarInitials")) $("navAvatarInitials").style.display = "none";
   } else {
-    if ($("fpTopAvatarImg")) $("fpTopAvatarImg").style.display = "none";
-    if ($("fpTopInitials")) {
-      $("fpTopInitials").style.display = "flex";
-      $("fpTopInitials").textContent = (u.name || "F").charAt(0).toUpperCase();
+    if ($("navAvatarImg")) $("navAvatarImg").style.display = "none";
+    if ($("navAvatarInitials")) {
+      $("navAvatarInitials").style.display = "flex";
+      $("navAvatarInitials").textContent = (u.name || "F").charAt(0).toUpperCase();
     }
   }
 
-  // 2. Flyout Card Header
-  if ($("fpCardName")) $("fpCardName").textContent = u.name || "Farmer";
-  if ($("fpCardId")) $("fpCardId").textContent = "ID: " + (u.farmer_id || "–");
+  // 2. Separate Full Profile Page Elements
+  if ($("displayFarmerName")) $("displayFarmerName").textContent = u.name || "Farmer";
+  if ($("displayFarmerIdBadge")) $("displayFarmerIdBadge").textContent = "ID: " + (u.farmer_id || "–");
+  if ($("cardFarmerId")) $("cardFarmerId").textContent = u.farmer_id || "–";
 
-  if (u.photo_url && $("fpCardPhotoImg")) {
-    $("fpCardPhotoImg").src = u.photo_url;
-    $("fpCardPhotoImg").style.display = "block";
-    if ($("fpCardFallback")) $("fpCardFallback").style.display = "none";
+  if (u.photo_url && $("profilePhotoImg")) {
+    $("profilePhotoImg").src = u.photo_url;
+    $("profilePhotoImg").style.display = "block";
+    if ($("profilePhotoFallback")) $("profilePhotoFallback").style.display = "none";
   } else {
-    if ($("fpCardPhotoImg")) $("fpCardPhotoImg").style.display = "none";
-    if ($("fpCardFallback")) {
-      $("fpCardFallback").style.display = "flex";
-      if ($("fpCardInitials")) $("fpCardInitials").textContent = (u.name || "F").charAt(0).toUpperCase();
+    if ($("profilePhotoImg")) $("profilePhotoImg").style.display = "none";
+    if ($("profilePhotoFallback")) {
+      $("profilePhotoFallback").style.display = "flex";
+      if ($("profileInitials")) $("profileInitials").textContent = (u.name || "F").charAt(0).toUpperCase();
     }
   }
 
-  // 3. Flyout Details List
-  if ($("fpDetailId")) $("fpDetailId").textContent = u.farmer_id || "–";
-  if ($("fpDetailPhone")) $("fpDetailPhone").textContent = u.phone ? u.phone : t("not_provided");
-  if ($("fpDetailEmail")) $("fpDetailEmail").textContent = u.email ? u.email : t("not_provided");
-  if ($("fpDetailAge")) $("fpDetailAge").textContent = u.age ? t("years_old", {age: u.age}) : t("not_provided");
+  if ($("cardFarmerPhone")) $("cardFarmerPhone").textContent = u.phone ? u.phone : t("not_provided");
+  if ($("cardFarmerEmail")) $("cardFarmerEmail").textContent = u.email ? u.email : t("not_provided");
+  if ($("cardFarmerAge")) $("cardFarmerAge").textContent = u.age ? t("years_old", {age: u.age}) : t("not_provided");
 
   let genderText = t("not_provided");
   if (u.gender && u.gender !== "Not specified") {
     const gKey = "gender_" + u.gender.toLowerCase();
     genderText = t(gKey) || u.gender;
   }
-  if ($("fpDetailGender")) $("fpDetailGender").textContent = genderText;
+  if ($("cardFarmerGender")) $("cardFarmerGender").textContent = genderText;
 
   let regDate = u.date_of_registration;
   if (!regDate && u.created_at) regDate = String(u.created_at).slice(0, 10);
-  if ($("fpDetailRegDate")) $("fpDetailRegDate").textContent = regDate || "–";
+  if ($("cardFarmerRegDate")) $("cardFarmerRegDate").textContent = regDate || "–";
 
-  // 4. Pre-fill Edit Inputs
-  if ($("fp_edit_name")) $("fp_edit_name").value = u.name || "";
-  if ($("fp_edit_phone")) $("fp_edit_phone").value = u.phone || "";
-  if ($("fp_edit_email")) $("fp_edit_email").value = u.email || "";
-  if ($("fp_edit_age")) $("fp_edit_age").value = u.age || "";
-  if ($("fp_edit_gender")) $("fp_edit_gender").value = u.gender || "";
-}
-
-// Toggle flyout
-if ($("fpTriggerBtn")) {
-  $("fpTriggerBtn").addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (!$("fpFlyoutCard")) return;
-    const isHidden = $("fpFlyoutCard").hidden;
-    $("fpFlyoutCard").hidden = !isHidden;
-    $("fpTriggerBtn").setAttribute("aria-expanded", isHidden ? "true" : "false");
-  });
-}
-
-// Close flyout on click outside or escape
-document.addEventListener("click", (e) => {
-  if ($("fpDropdownWrap") && !$("fpDropdownWrap").contains(e.target)) {
-    if ($("fpFlyoutCard")) $("fpFlyoutCard").hidden = true;
-    if ($("fpTriggerBtn")) $("fpTriggerBtn").setAttribute("aria-expanded", "false");
+  // Linked crop summary
+  if ($("cardFieldSummary")) {
+    const parts = [];
+    if (saved && saved.crop) parts.push(clean(saved.crop) === "__other" ? (saved.crop_other || "Crop") : saved.crop);
+    if (saved && saved.crop_stage) parts.push(saved.crop_stage);
+    if (saved && saved.area) parts.push(`${saved.area} ${saved.unit || "Acres"}`);
+    if (saved && saved.district) parts.push(saved.district);
+    $("cardFieldSummary").textContent = parts.length ? parts.join(" · ") : "No active field linked yet";
   }
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && $("fpFlyoutCard") && !$("fpFlyoutCard").hidden) {
-    $("fpFlyoutCard").hidden = true;
-    if ($("fpTriggerBtn")) $("fpTriggerBtn").setAttribute("aria-expanded", "false");
+
+  // Pre-fill edit inputs
+  if ($("prof_name")) $("prof_name").value = u.name || "";
+  if ($("prof_phone")) $("prof_phone").value = u.phone || "";
+  if ($("prof_email")) $("prof_email").value = u.email || "";
+  if ($("prof_age")) $("prof_age").value = u.age || "";
+  if ($("prof_gender")) $("prof_gender").value = u.gender || "";
+}
+
+async function loadProfileView() {
+  if ($("backNavText")) {
+    $("backNavText").textContent = savedComplete() ? "Back to Advice" : "Back to Field";
   }
-});
+  try {
+    const res = await api("/api/farmer/profile");
+    if (res.ok && res.data) {
+      syncFarmerProfile(res.data);
+    } else if (currentFarmerUser) {
+      syncFarmerProfile(currentFarmerUser);
+    }
+  } catch (_) {
+    if (currentFarmerUser) syncFarmerProfile(currentFarmerUser);
+  }
+}
 
-// Toggle edit box inside flyout
-if ($("btnFpToggleEdit")) {
-  $("btnFpToggleEdit").addEventListener("click", () => {
-    if (!$("fpEditBox")) return;
-    $("fpEditBox").hidden = !$("fpEditBox").hidden;
-    if (!$("fpEditBox").hidden && $("fp_edit_name")) $("fp_edit_name").focus();
+// Top Right Button -> Open Separate Profile Page
+if ($("btnProfileNav")) {
+  $("btnProfileNav").addEventListener("click", () => go("profile"));
+}
+
+// Return from profile page
+if ($("btnBackFromProfile")) {
+  $("btnBackFromProfile").addEventListener("click", () => {
+    go(savedComplete() ? "advice" : "field");
   });
 }
 
-if ($("btnFpCancelEdit")) {
-  $("btnFpCancelEdit").addEventListener("click", () => {
-    if ($("fpEditBox")) $("fpEditBox").hidden = true;
+// Copy Farmer ID
+if ($("btnCopyFarmerId")) {
+  $("btnCopyFarmerId").addEventListener("click", () => {
+    const text = $("cardFarmerId") ? $("cardFarmerId").textContent : "";
+    if (text && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      toast("Farmer ID copied to clipboard!");
+    }
   });
 }
 
-// Photo upload in flyout
-if ($("fpPhotoInput")) {
-  $("fpPhotoInput").addEventListener("change", async (e) => {
+// Photo upload on profile page
+if ($("btnUploadPhotoTrigger")) {
+  $("btnUploadPhotoTrigger").addEventListener("click", () => $("profilePhotoInput").click());
+}
+
+if ($("profilePhotoInput")) {
+  $("profilePhotoInput").addEventListener("change", async (e) => {
     const file = e.target.files && e.target.files[0];
     if (!file) return;
     const fd = new FormData();
@@ -906,17 +918,32 @@ if ($("fpPhotoInput")) {
   });
 }
 
-// Edit form submit in flyout
-if ($("fpEditForm")) {
-  $("fpEditForm").addEventListener("submit", async (e) => {
+// Toggle edit form on profile page
+if ($("btnToggleEditProfile")) {
+  $("btnToggleEditProfile").addEventListener("click", () => {
+    if (!$("profileEditCard")) return;
+    $("profileEditCard").hidden = !$("profileEditCard").hidden;
+    if (!$("profileEditCard").hidden && $("prof_name")) $("prof_name").focus();
+  });
+}
+
+if ($("btnCancelEditProfile")) {
+  $("btnCancelEditProfile").addEventListener("click", () => {
+    if ($("profileEditCard")) $("profileEditCard").hidden = true;
+  });
+}
+
+// Edit form submit on profile page
+if ($("profileEditForm")) {
+  $("profileEditForm").addEventListener("submit", async (e) => {
     e.preventDefault();
-    const name = clean($("fp_edit_name").value);
+    const name = clean($("prof_name").value);
     if (!name) { toast("Name is required"); return; }
-    const phone = clean($("fp_edit_phone").value);
-    const email = clean($("fp_edit_email").value);
-    const ageVal = parseInt($("fp_edit_age").value, 10);
+    const phone = clean($("prof_phone").value);
+    const email = clean($("prof_email").value);
+    const ageVal = parseInt($("prof_age").value, 10);
     const age = isNaN(ageVal) ? null : ageVal;
-    const gender = clean($("fp_edit_gender").value);
+    const gender = clean($("prof_gender").value);
 
     const res = await api("/api/farmer/profile", {
       method: "PUT",
@@ -924,7 +951,7 @@ if ($("fpEditForm")) {
     });
     if (res.ok && res.data) {
       toast(t("toast_profile_saved"));
-      if ($("fpEditBox")) $("fpEditBox").hidden = true;
+      if ($("profileEditCard")) $("profileEditCard").hidden = true;
       syncFarmerProfile(res.data);
     } else {
       toast(res.data && res.data.detail ? res.data.detail : t("error_generic"));
