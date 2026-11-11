@@ -110,9 +110,9 @@ function route() {
   let v = location.hash.replace(/^#\//, "");
   if (!VIEWS.includes(v)) v = "";
   if (!lang) v = "language";
-  else if (!v) v = token ? (savedComplete() ? "advice" : "field") : "auth";
+  else if (!v) v = token ? "field" : "auth";
   else if (!token && (v === "field" || v === "advice" || v === "profile")) v = "auth";
-  else if (token && v === "auth") v = savedComplete() ? "advice" : "field";
+  else if (token && v === "auth") v = "field";
   if (v === "advice" && !savedComplete()) v = "field";
   VIEWS.forEach(n => { $("view-" + n).hidden = n !== v; });
   $("topbar").hidden = v === "language";
@@ -169,7 +169,7 @@ $("authForm").addEventListener("submit", ev => {
     if (res.data && res.data.user) syncFarmerProfile(res.data.user);
     await loadContext();
     await persistLang();
-    go(savedComplete() ? "advice" : "field");
+    go("field");
   });
 });
 async function signOut() {
@@ -184,7 +184,7 @@ async function signOut() {
 $("logout").addEventListener("click", () => { signOut(); toast(t("toast_signed_out")); });
 
 /* ---------- language switching ---------- */
-qa(".lang-btn").forEach(b => b.addEventListener("click", async () => { await loadLang(b.dataset.lang); go(token ? (savedComplete() ? "advice" : "field") : "auth"); }));
+qa(".lang-btn").forEach(b => b.addEventListener("click", async () => { await loadLang(b.dataset.lang); go(token ? "field" : "auth"); }));
 $("langSwitch").addEventListener("change", async e => { await loadLang(e.target.value); persistLang(); });
 async function persistLang() {   // remember the choice on the account too; failure is harmless
   if (!token) return;
@@ -849,7 +849,7 @@ function syncFarmerProfile(u) {
 
 async function loadProfileView() {
   if ($("backNavText")) {
-    $("backNavText").textContent = savedComplete() ? "Back to Advice" : "Back to Field";
+    $("backNavText").textContent = "Back to Field";
   }
   try {
     const res = await api("/api/farmer/profile");
@@ -871,7 +871,7 @@ if ($("btnProfileNav")) {
 // Return from profile page
 if ($("btnBackFromProfile")) {
   $("btnBackFromProfile").addEventListener("click", () => {
-    go(savedComplete() ? "advice" : "field");
+    go("field");
   });
 }
 
@@ -969,6 +969,15 @@ if ($("profileEditForm")) {
     const session = await fetch("/api/auth/me", {credentials: "same-origin"});
     if (session.ok) { token = "cookie-session"; await loadContext(); }
   } catch (_) { /* show the sign-in route when the server is unavailable */ }
+  // Always default to 'field' when opening website (never jump straight to advice)
+  if (!sessionStorage.getItem("fieldwise_session_active")) {
+    sessionStorage.setItem("fieldwise_session_active", "1");
+    if (token) {
+      if (location.hash === "#/advice" || !location.hash || location.hash === "#/" || location.hash === "#/auth") {
+        location.hash = "#/field";
+      }
+    }
+  }
   route();
 })();
 })();
