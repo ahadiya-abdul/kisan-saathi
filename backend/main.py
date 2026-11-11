@@ -57,10 +57,11 @@ def db():
         con.execute("DROP TABLE users")
         con.execute("ALTER TABLE users_v5 RENAME TO users")
         columns = {row[1] for row in con.execute("PRAGMA table_info(users)")}
-    for name, definition in (("name", "TEXT"), ("password", "TEXT"), ("password_hash", "TEXT"), ("context", "TEXT"), ("phone", "TEXT"), ("created_at", "TIMESTAMP")):
+    for name, definition in (("name", "TEXT"), ("password", "TEXT"), ("password_hash", "TEXT"), ("context", "TEXT"), ("phone", "TEXT"), ("created_at", "TIMESTAMP"), ("age", "INTEGER"), ("gender", "TEXT"), ("photo_url", "TEXT"), ("farmer_id", "TEXT")):
         if name not in columns:
             con.execute(f"ALTER TABLE users ADD COLUMN {name} {definition}")
     con.execute("UPDATE users SET name=COALESCE(name, email, phone), context=COALESCE(context, '{}')")
+    con.execute("UPDATE users SET farmer_id = 'KS-2026-' || printf('%04d', id) WHERE farmer_id IS NULL OR farmer_id = ''")
     con.execute("CREATE TABLE IF NOT EXISTS chats (id INTEGER PRIMARY KEY, user_id INTEGER, question TEXT, answer TEXT, created_at TEXT)")
     con.execute("CREATE TABLE IF NOT EXISTS auth_sessions (id INTEGER PRIMARY KEY, user_id INTEGER NOT NULL, token_hash TEXT UNIQUE NOT NULL, created_at TEXT NOT NULL, expires_at TEXT NOT NULL, last_seen_at TEXT NOT NULL)")
     con.execute("CREATE INDEX IF NOT EXISTS idx_auth_sessions_user ON auth_sessions(user_id)")
@@ -117,7 +118,7 @@ def current(request: Request, authorization: str | None = Header(default=None)):
             payload = jwt.decode(authorization.split()[1], SECRET, algorithms=["HS256"])
         except jwt.PyJWTError:
             con.close(); raise HTTPException(401, "Invalid token")
-        row = con.execute("SELECT id,name,email,phone,context FROM users WHERE id=?", (payload["sub"],)).fetchone()
+        row = con.execute("SELECT id,name,email,phone,age,gender,photo_url,farmer_id,created_at,context FROM users WHERE id=?", (payload["sub"],)).fetchone()
     raw_session = request.cookies.get(SESSION_COOKIE)
     if row is None and raw_session:
         # SameSite=Lax is the default CSRF barrier; reject cross-origin unsafe requests when Origin is present.
@@ -129,12 +130,15 @@ def current(request: Request, authorization: str | None = Header(default=None)):
         session_row = con.execute("SELECT user_id FROM auth_sessions WHERE token_hash=? AND expires_at> ?", (digest, datetime.now(timezone.utc).isoformat())).fetchone()
         if session_row:
             con.execute("UPDATE auth_sessions SET last_seen_at=? WHERE token_hash=?", (datetime.now(timezone.utc).isoformat(), digest))
-            row = con.execute("SELECT id,name,email,phone,context FROM users WHERE id=?", (session_row["user_id"],)).fetchone()
+            row = con.execute("SELECT id,name,email,phone,age,gender,photo_url,farmer_id,created_at,context FROM users WHERE id=?", (session_row["user_id"],)).fetchone()
             con.commit()
     con.close()
     if not row:
         raise HTTPException(401, "Authentication required")
-    return dict(row)
+    u_dict = dict(row)
+    if not u_dict.get("farmer_id"):
+        u_dict["farmer_id"] = f"KS-2026-{u_dict['id']:04d}"
+    return u_dict
 
 
 def _normalize_identifier(value: str) -> tuple[str | None, str | None]:
@@ -156,6 +160,16 @@ class Register(BaseModel):
     phone: str | None = Field(default=None, max_length=24)
     identifier: str | None = Field(default=None, max_length=254)
     password: str = Field(min_length=8, max_length=256)
+    age: int | None = Field(default=None, ge=10, le=120)
+    gender: str | None = Field(default=None, max_length=30)
+
+class ProfileUpdate(BaseModel):
+    name: str = Field(min_length=1, max_length=80)
+    email: str | None = Field(default=None, max_length=254)
+    phone: str | None = Field(default=None, max_length=24)
+    age: int | None = Field(default=None, ge=10, le=120)
+    gender: str | None = Field(default=None, max_length=30)
+    photo_url: str | None = Field(default=None, max_length=500000)
 
 
 class Login(BaseModel):
@@ -253,14 +267,17 @@ def register(body: Register, response: Response):
     con = db()
     try:
         encoded = pw(body.password)
-        cur = con.execute("INSERT INTO users(name,email,phone,password,password_hash,context) VALUES(?,?,?,?,?,?)",
-                          (body.name.strip(), email, phone, encoded, encoded, "{}"))
-        con.commit(); user_id = cur.lastrowid
+        cur = con.execute("INSERT INTO users(name,email,phone,password,password_hash,context,age,gender) VALUES(?,?,?,?,?,?,?,?)",
+                          (body.name.strip(), email, phone, encoded, encoded, "{}", body.age, body.gender))
+        user_id = cur.lastrowid
+        farmer_id = f"KS-2026-{user_id:04d}"
+        con.execute("UPDATE users SET farmer_id=? WHERE id=?", (farmer_id, user_id))
+        con.commit()
     except sqlite3.IntegrityError:
         con.close()
         raise HTTPException(409, "An account with this identifier already exists")
     con.close()
-    user = {"id": user_id, "name": body.name.strip(), "email": email, "phone": phone}
+    user = {"id": user_id, "farmer_id": farmer_id, "name": body.name.strip(), "email": email, "phone": phone, "age": body.age, "gender": body.gender or "Not specified", "photo_url": None, "date_of_registration": datetime.now(timezone.utc).strftime("%d %b %Y")}
     _session_cookie(response, user_id)
     return {"access_token": token(user), "token_type": "bearer", "user": user, "session_persistent": True}
 
@@ -566,8 +583,109 @@ def farmer_dashboard(user=Depends(current)):
     chats = [dict(row) for row in con.execute(
         "SELECT question,answer,created_at FROM chats WHERE user_id=? ORDER BY id DESC LIMIT 20", (user["id"],))]
     con.close()
-    return {"user": {"id": user["id"], "name": user["name"], "email": user["email"]},
-            "context": json.loads(user.get("context") or "{}"), "chat_history": chats}
+    reg_date = str(user.get("created_at") or "")
+    if reg_date:
+        try:
+            dt = datetime.fromisoformat(reg_date.replace("Z", "+00:00"))
+            formatted_date = dt.strftime("%d %b %Y")
+        except Exception:
+            formatted_date = reg_date[:10]
+    else:
+        formatted_date = datetime.now(timezone.utc).strftime("%d %b %Y")
+    return {
+        "user": {
+            "id": user["id"],
+            "farmer_id": user.get("farmer_id") or f"KS-2026-{user['id']:04d}",
+            "name": user.get("name") or "Farmer",
+            "email": user.get("email") or "",
+            "phone": user.get("phone") or "",
+            "age": user.get("age"),
+            "gender": user.get("gender") or "Not specified",
+            "photo_url": user.get("photo_url") or "",
+            "created_at": user.get("created_at"),
+            "date_of_registration": formatted_date
+        },
+        "context": json.loads(user.get("context") or "{}"),
+        "chat_history": chats
+    }
+
+@app.get("/api/farmer/profile")
+def get_farmer_profile(user=Depends(current)):
+    reg_date = str(user.get("created_at") or "")
+    if reg_date:
+        try:
+            dt = datetime.fromisoformat(reg_date.replace("Z", "+00:00"))
+            formatted_date = dt.strftime("%d %b %Y")
+        except Exception:
+            formatted_date = reg_date[:10]
+    else:
+        formatted_date = datetime.now(timezone.utc).strftime("%d %b %Y")
+    try:
+        ctx = json.loads(user.get("context") or "{}")
+    except Exception:
+        ctx = {}
+    return {
+        "id": user["id"],
+        "farmer_id": user.get("farmer_id") or f"KS-2026-{user['id']:04d}",
+        "name": user.get("name") or "Farmer",
+        "phone": user.get("phone") or "",
+        "email": user.get("email") or "",
+        "age": user.get("age"),
+        "gender": user.get("gender") or "Not specified",
+        "photo_url": user.get("photo_url") or "",
+        "created_at": user.get("created_at"),
+        "date_of_registration": formatted_date,
+        "field_summary": ctx.get("field") or {}
+    }
+
+@app.put("/api/farmer/profile")
+def update_farmer_profile(body: ProfileUpdate, user=Depends(current)):
+    con = db()
+    email = body.email.strip().lower() if body.email and body.email.strip() else None
+    phone = re.sub(r"[\s()\-]", "", body.phone.strip()) if body.phone and body.phone.strip() else None
+    con.execute(
+        "UPDATE users SET name=?, email=?, phone=?, age=?, gender=?, photo_url=COALESCE(?, photo_url) WHERE id=?",
+        (body.name.strip(), email, phone, body.age, body.gender, body.photo_url, user["id"])
+    )
+    con.commit()
+    con.close()
+    updated_user = dict(user)
+    updated_user.update({
+        "name": body.name.strip(), "email": email, "phone": phone,
+        "age": body.age, "gender": body.gender, "photo_url": body.photo_url or user.get("photo_url")
+    })
+    return get_farmer_profile(user=updated_user)
+
+@app.post("/api/farmer/profile/photo")
+async def upload_farmer_photo(file: UploadFile = File(...), user=Depends(current)):
+    if file.content_type not in {"image/jpeg", "image/png", "image/webp"}:
+        raise HTTPException(415, "Please upload a JPEG, PNG, or WebP photo")
+    content = await file.read(5 * 1024 * 1024 + 1)
+    if not content or len(content) > 5 * 1024 * 1024:
+        raise HTTPException(413, "Photo must be 5 MB or smaller")
+    try:
+        from PIL import Image, ImageOps
+        import io, base64
+        with Image.open(io.BytesIO(content)) as img:
+            img = ImageOps.exif_transpose(img)
+            img = img.convert("RGB")
+            w, h = img.size
+            min_dim = min(w, h)
+            left = (w - min_dim) // 2
+            top = (h - min_dim) // 2
+            img = img.crop((left, top, left + min_dim, top + min_dim))
+            img.thumbnail((256, 256), Image.Resampling.LANCZOS)
+            out = io.BytesIO()
+            img.save(out, format="JPEG", quality=85, optimize=True)
+            encoded = "data:image/jpeg;base64," + base64.b64encode(out.getvalue()).decode("ascii")
+    except Exception as e:
+        raise HTTPException(400, f"Could not process image: {e}")
+    con = db()
+    con.execute("UPDATE users SET photo_url=? WHERE id=?", (encoded, user["id"]))
+    con.commit()
+    con.close()
+    return {"photo_url": encoded, "message": "Photo updated successfully"}
+
 
 @app.post("/api/treatment-compatibility")
 @app.post("/api/compatibility")

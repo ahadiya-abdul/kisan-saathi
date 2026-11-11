@@ -23,6 +23,16 @@
           <option value="en">English</option>
         </select>
       </label>
+      <button id="btnProfileNav" class="btn-profile-pill" type="button" hidden title="Farmer Profile" aria-label="Farmer Profile">
+        <span class="avatar-ring">
+          <img id="navAvatarImg" class="nav-avatar-img" src="" alt="Photo" style="display:none;">
+          <span id="navAvatarInitials" class="nav-avatar-initials">F</span>
+        </span>
+        <span class="nav-farmer-meta">
+          <span id="navFarmerName" class="nav-farmer-name">Farmer</span>
+          <span id="navFarmerId" class="nav-farmer-id">ID</span>
+        </span>
+      </button>
       <button id="logout" class="btn btn-quiet" type="button" hidden data-i18n="sign_out">Sign out</button>
     </div>
   </header>
@@ -460,6 +470,7 @@
       <nav class="steps" aria-label="Steps">
         <a class="step current" href="#/field" aria-current="step"><span class="step-badge-num">1</span> <span data-i18n="step_field">1. Your field</span></a>
         <a class="step" href="#/advice" id="stepAdvice"><span class="step-badge-num">2</span> <span data-i18n="step_advice">2. Advice</span></a>
+        <a class="step" href="#/profile" id="stepProfileField"><span class="step-badge-num">3</span> <span data-i18n="step_profile">3. Profile</span></a>
       </nav>
       <div class="field-hero-banner">
         <div class="field-hero-top">
@@ -968,6 +979,7 @@
       <nav class="steps" aria-label="Steps">
         <a class="step" href="#/field"><span class="step-badge-num">1</span> <span data-i18n="step_field">1. Your field</span></a>
         <a class="step current" href="#/advice" id="stepAdvice" aria-current="step"><span class="step-badge-num">2</span> <span data-i18n="step_advice">2. Advice</span></a>
+        <a class="step" href="#/profile" id="stepProfileAdvice"><span class="step-badge-num">3</span> <span data-i18n="step_profile">3. Profile</span></a>
       </nav>
       <div class="section-head">
         <h1 id="bTitle" data-i18n="b_title">Recommendations for your field</h1>
@@ -1338,6 +1350,154 @@
         </article>
       </div>
     </section>
+    <!-- 4. FARMER PROFILE VIEW -->
+    <section id="view-profile" class="view" hidden aria-labelledby="profileTitle">
+      <nav class="steps" aria-label="Steps">
+        <a class="step" href="#/field"><span class="step-badge-num">1</span> <span data-i18n="step_field">1. Your field</span></a>
+        <a class="step" href="#/advice"><span class="step-badge-num">2</span> <span data-i18n="step_advice">2. Advice</span></a>
+        <a class="step current" href="#/profile" aria-current="step"><span class="step-badge-num">3</span> <span data-i18n="step_profile">3. Profile</span></a>
+      </nav>
+
+      <div class="profile-layout">
+        <!-- Farmer Digital Identity Card -->
+        <div class="farmer-id-card">
+          <div class="id-card-top-strip">
+            <div class="id-card-brand">
+              <svg class="id-card-leaf" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9A9 9 0 0 1 3 11C3 6.03 7.03 2 12 2z"/>
+                <path d="M12 6v14"/>
+              </svg>
+              <div>
+                <span class="id-network-title">KISAN SAATHI · ICAR BIOCONTROL NETWORK</span>
+                <h2 id="profileTitle" data-i18n="profile_title">Farmer Digital Identity Card</h2>
+              </div>
+            </div>
+            <div class="id-status-badge">
+              <span class="pulse-dot"></span>
+              <span data-i18n="status_verified">Active Verified Farmer</span>
+            </div>
+          </div>
+
+          <div class="id-card-main-content">
+            <!-- Left: Photo Frame with change trigger -->
+            <div class="farmer-avatar-section">
+              <div class="avatar-frame">
+                <img id="profilePhotoImg" class="photo-render" src="" alt="Farmer Photo" style="display:none;">
+                <div id="profilePhotoFallback" class="photo-fallback">
+                  <span id="profileInitials" class="fallback-letter">F</span>
+                </div>
+                <label for="profilePhotoInput" class="avatar-overlay-btn" title="Upload Photo" aria-label="Upload Photo">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                  </svg>
+                  <input type="file" id="profilePhotoInput" accept="image/jpeg,image/png,image/webp" style="display:none;">
+                </label>
+              </div>
+              <button type="button" id="btnUploadPhotoTrigger" class="btn btn-secondary btn-sm" data-i18n="btn_change_photo">Upload Photo</button>
+            </div>
+
+            <!-- Right: Farmer Attributes -->
+            <div class="farmer-details-section">
+              <div class="farmer-heading">
+                <h3 id="displayFarmerName" class="farmer-title">Farmer</h3>
+                <span id="displayFarmerIdBadge" class="farmer-id-tag">ID: KS-2026-0001</span>
+              </div>
+
+              <div class="profile-info-grid">
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_farmer_id">Farmer ID</span>
+                  <div class="tile-val-row">
+                    <strong id="cardFarmerId" class="tile-value text-mono">KS-2026-0001</strong>
+                    <button type="button" id="btnCopyFarmerId" class="btn-copy-chip" title="Copy ID">
+                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_contact_phone">Contact Number</span>
+                  <strong id="cardFarmerPhone" class="tile-value">+91 –</strong>
+                </div>
+
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_contact_email">Email Address</span>
+                  <strong id="cardFarmerEmail" class="tile-value">–</strong>
+                </div>
+
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_age">Age</span>
+                  <strong id="cardFarmerAge" class="tile-value">–</strong>
+                </div>
+
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_gender">Gender</span>
+                  <strong id="cardFarmerGender" class="tile-value">–</strong>
+                </div>
+
+                <div class="info-tile">
+                  <span class="tile-label" data-i18n="label_reg_date">Date of Registration</span>
+                  <strong id="cardFarmerRegDate" class="tile-value">–</strong>
+                </div>
+              </div>
+
+              <!-- Linked Active Crop Summary -->
+              <div class="field-link-badge">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#16a34a" stroke-width="2"><path d="M12 2a9 9 0 0 1 9 9c0 4.97-4.03 9-9 9A9 9 0 0 1 3 11C3 6.03 7.03 2 12 2z"/></svg>
+                <span>Active Field: <strong id="cardFieldSummary">Cotton (Squaring) · 3.0 Acres · Black Soil</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="id-card-bottom-actions">
+            <button type="button" id="btnToggleEditProfile" class="btn btn-primary" data-i18n="btn_edit_profile">Edit Details</button>
+            <span class="id-security-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Authenticated Farmer Ledger Account</span>
+          </div>
+        </div>
+
+        <!-- Collapsible Edit Form -->
+        <div id="profileEditCard" class="card profile-edit-box" hidden>
+          <div class="edit-box-head">
+            <h3 data-i18n="btn_edit_profile">Edit Details</h3>
+            <p class="muted">Keep your contact and agronomic profile up to date</p>
+          </div>
+          <form id="profileEditForm" novalidate>
+            <div class="edit-inputs-grid">
+              <div class="field">
+                <label for="prof_name" data-i18n="label_farmer_name">Farmer Name</label>
+                <input id="prof_name" type="text" maxlength="80" required placeholder="Full Name">
+              </div>
+              <div class="field">
+                <label for="prof_phone" data-i18n="label_contact_phone">Contact Number</label>
+                <input id="prof_phone" type="tel" maxlength="20" placeholder="+91 98765 43210">
+              </div>
+              <div class="field">
+                <label for="prof_email" data-i18n="label_contact_email">Email Address</label>
+                <input id="prof_email" type="email" maxlength="254" placeholder="you@example.com">
+              </div>
+              <div class="field">
+                <label for="prof_age" data-i18n="label_age">Age</label>
+                <input id="prof_age" type="number" min="15" max="110" placeholder="e.g. 45">
+              </div>
+              <div class="field">
+                <label for="prof_gender" data-i18n="label_gender">Gender</label>
+                <select id="prof_gender">
+                  <option value="">–</option>
+                  <option value="Male" data-i18n="gender_male">Male</option>
+                  <option value="Female" data-i18n="gender_female">Female</option>
+                  <option value="Other" data-i18n="gender_other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="edit-actions-row">
+              <button id="btnSaveProfile" type="submit" class="btn btn-primary" data-i18n="btn_save_profile">Save Profile</button>
+              <button id="btnCancelEditProfile" type="button" class="btn btn-secondary">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

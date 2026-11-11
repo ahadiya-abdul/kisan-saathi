@@ -103,7 +103,7 @@ function updateNet() { const b = $("netBanner"); b.hidden = navigator.onLine; if
 window.addEventListener("online", updateNet); window.addEventListener("offline", updateNet);
 
 /* ---------- routing ---------- */
-const VIEWS = ["language", "auth", "field", "advice"];
+const VIEWS = ["language", "auth", "field", "advice", "profile"];
 function savedComplete() { return !!clean(saved.crop); }
 function go(view) { if (location.hash !== "#/" + view) location.hash = "#/" + view; else route(); }
 function route() {
@@ -111,16 +111,19 @@ function route() {
   if (!VIEWS.includes(v)) v = "";
   if (!lang) v = "language";
   else if (!v) v = token ? (savedComplete() ? "advice" : "field") : "auth";
-  else if (!token && (v === "field" || v === "advice")) v = "auth";
+  else if (!token && (v === "field" || v === "advice" || v === "profile")) v = "auth";
   else if (token && v === "auth") v = savedComplete() ? "advice" : "field";
   if (v === "advice" && !savedComplete()) v = "field";
   VIEWS.forEach(n => { $("view-" + n).hidden = n !== v; });
   $("topbar").hidden = v === "language";
-  $("logout").hidden = !token; $("foot").hidden = v === "language";
+  $("logout").hidden = !token;
+  if ($("btnProfileNav")) $("btnProfileNav").hidden = !token;
+  $("foot").hidden = v === "language";
   if (location.hash !== "#/" + v) history.replaceState(null, "", "#/" + v);
   document.title = "Fieldwise";
   if (v === "field") fillFieldForms();
   if (v === "advice") { refreshAll(); loadNotes(); }
+  if (v === "profile") loadProfileView();
   window.scrollTo(0, 0);
   const h = document.querySelector("#view-" + v + " h1"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({preventScroll: true}); }
 }
@@ -188,7 +191,12 @@ async function persistLang() {   // remember the choice on the account too; fail
 /* ---------- saved field context ---------- */
 async function loadContext() {
   const res = await api("/api/farmer/dashboard");
-  if (res.ok && res.data) { remoteCtx = res.data.context || {}; saved = remoteCtx.field || {}; return res.data; }
+  if (res.ok && res.data) {
+    remoteCtx = res.data.context || {};
+    saved = remoteCtx.field || {};
+    if (res.data.user) updateProfilePill(res.data.user);
+    return res.data;
+  }
   return null;
 }
 const effCrop = f => clean(f.crop) === "__other" ? clean(f.crop_other) : clean(f.crop);
@@ -758,6 +766,176 @@ $("useGpsWeather").addEventListener("click", () => withBusy("gps-weather", $("us
       });
     });
   }
+
+
+/* ---------- Farmer Profile & Identity Card ---------- */
+let currentFarmerProfile = null;
+
+function updateProfilePill(u) {
+  if (!u) return;
+  if ($("btnProfileNav")) $("btnProfileNav").hidden = !token;
+  const displayName = u.name ? (u.name.length > 14 ? u.name.slice(0, 12) + "…" : u.name) : "Farmer";
+  if ($("navFarmerName")) $("navFarmerName").textContent = displayName;
+  if ($("navFarmerId")) $("navFarmerId").textContent = u.farmer_id || "ID";
+  if (u.photo_url && $("navAvatarImg")) {
+    $("navAvatarImg").src = u.photo_url;
+    $("navAvatarImg").style.display = "block";
+    if ($("navAvatarInitials")) $("navAvatarInitials").style.display = "none";
+  } else {
+    if ($("navAvatarImg")) $("navAvatarImg").style.display = "none";
+    if ($("navAvatarInitials")) {
+      $("navAvatarInitials").style.display = "flex";
+      $("navAvatarInitials").textContent = (u.name || "F").charAt(0).toUpperCase();
+    }
+  }
+}
+
+async function loadProfileView() {
+  const res = await api("/api/farmer/profile");
+  if (!res.ok || !res.data) return;
+  const p = res.data;
+  currentFarmerProfile = p;
+
+  updateProfilePill(p);
+
+  // Populate Identity Card
+  if ($("displayFarmerName")) $("displayFarmerName").textContent = p.name || "Farmer";
+  if ($("displayFarmerIdBadge")) $("displayFarmerIdBadge").textContent = "ID: " + (p.farmer_id || "–");
+  if ($("cardFarmerId")) $("cardFarmerId").textContent = p.farmer_id || "–";
+  if ($("cardFarmerPhone")) $("cardFarmerPhone").textContent = p.phone ? p.phone : t("not_provided");
+  if ($("cardFarmerEmail")) $("cardFarmerEmail").textContent = p.email ? p.email : t("not_provided");
+  if ($("cardFarmerAge")) $("cardFarmerAge").textContent = p.age ? t("years_old", {age: p.age}) : t("not_provided");
+  
+  let genderText = t("not_provided");
+  if (p.gender && p.gender !== "Not specified") {
+    const gKey = "gender_" + p.gender.toLowerCase();
+    genderText = t(gKey) || p.gender;
+  }
+  if ($("cardFarmerGender")) $("cardFarmerGender").textContent = genderText;
+  if ($("cardFarmerRegDate")) $("cardFarmerRegDate").textContent = p.date_of_registration || "–";
+
+  // Active Field Link Summary
+  const f = saved;
+  const cropStr = f.crop ? cropLabel(f) + (f.stage ? " (" + f.stage + ")" : "") : "";
+  const areaStr = f.area ? f.area + " " + (f.unit || "acres") : "";
+  const soilStr = clean(f.soil) ? clean(f.soil) : "";
+  const locStr = clean(f.district) ? clean(f.district) + (clean(f.state) ? ", " + clean(f.state) : "") : "";
+  const parts = [cropStr, areaStr, soilStr, locStr].filter(Boolean);
+  if ($("cardFieldSummary")) {
+    $("cardFieldSummary").textContent = parts.length ? parts.join(" · ") : "No active field linked yet. Save your field in Step 1.";
+  }
+
+  // Photo Render
+  if (p.photo_url && $("profilePhotoImg")) {
+    $("profilePhotoImg").src = p.photo_url;
+    $("profilePhotoImg").style.display = "block";
+    if ($("profilePhotoFallback")) $("profilePhotoFallback").style.display = "none";
+  } else {
+    if ($("profilePhotoImg")) $("profilePhotoImg").style.display = "none";
+    if ($("profilePhotoFallback")) {
+      $("profilePhotoFallback").style.display = "flex";
+      if ($("profileInitials")) $("profileInitials").textContent = (p.name || "F").charAt(0).toUpperCase();
+    }
+  }
+
+  // Populate Edit Inputs
+  if ($("prof_name")) $("prof_name").value = p.name || "";
+  if ($("prof_phone")) $("prof_phone").value = p.phone || "";
+  if ($("prof_email")) $("prof_email").value = p.email || "";
+  if ($("prof_age")) $("prof_age").value = p.age || "";
+  if ($("prof_gender")) $("prof_gender").value = p.gender || "";
+}
+
+// Wire Profile UI events
+if ($("btnProfileNav")) $("btnProfileNav").addEventListener("click", () => go("profile"));
+
+if ($("btnCopyFarmerId")) {
+  $("btnCopyFarmerId").addEventListener("click", () => {
+    const text = $("cardFarmerId") ? $("cardFarmerId").textContent : "";
+    if (text && navigator.clipboard) {
+      navigator.clipboard.writeText(text);
+      toast("Farmer ID copied to clipboard!");
+    }
+  });
+}
+
+if ($("btnUploadPhotoTrigger")) {
+  $("btnUploadPhotoTrigger").addEventListener("click", () => $("profilePhotoInput").click());
+}
+
+if ($("profilePhotoInput")) {
+  $("profilePhotoInput").addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const fd = new FormData();
+    fd.append("file", file);
+    try {
+      const res = await fetch("/api/farmer/profile/photo", {
+        method: "POST",
+        headers: token && token !== "cookie-session" ? {"Authorization": "Bearer " + token} : {},
+        body: fd,
+        credentials: "same-origin"
+      });
+      const data = await res.json();
+      if (res.ok && data.photo_url) {
+        if ($("profilePhotoImg")) {
+          $("profilePhotoImg").src = data.photo_url;
+          $("profilePhotoImg").style.display = "block";
+        }
+        if ($("profilePhotoFallback")) $("profilePhotoFallback").style.display = "none";
+        if ($("navAvatarImg")) {
+          $("navAvatarImg").src = data.photo_url;
+          $("navAvatarImg").style.display = "block";
+        }
+        if ($("navAvatarInitials")) $("navAvatarInitials").style.display = "none";
+        toast("Photo updated successfully!");
+      } else {
+        toast(data.detail || "Could not upload photo");
+      }
+    } catch (err) {
+      toast("Photo upload failed");
+    }
+  });
+}
+
+if ($("btnToggleEditProfile")) {
+  $("btnToggleEditProfile").addEventListener("click", () => {
+    if (!$("profileEditCard")) return;
+    $("profileEditCard").hidden = !$("profileEditCard").hidden;
+    if (!$("profileEditCard").hidden && $("prof_name")) $("prof_name").focus();
+  });
+}
+
+if ($("btnCancelEditProfile")) {
+  $("btnCancelEditProfile").addEventListener("click", () => {
+    if ($("profileEditCard")) $("profileEditCard").hidden = true;
+  });
+}
+
+if ($("profileEditForm")) {
+  $("profileEditForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const name = clean($("prof_name").value);
+    if (!name) { toast("Name is required"); return; }
+    const phone = clean($("prof_phone").value);
+    const email = clean($("prof_email").value);
+    const ageVal = parseInt($("prof_age").value, 10);
+    const age = isNaN(ageVal) ? null : ageVal;
+    const gender = clean($("prof_gender").value);
+
+    const res = await api("/api/farmer/profile", {
+      method: "PUT",
+      body: { name, phone: phone || null, email: email || null, age, gender: gender || null }
+    });
+    if (res.ok && res.data) {
+      toast(t("toast_profile_saved"));
+      if ($("profileEditCard")) $("profileEditCard").hidden = true;
+      loadProfileView();
+    } else {
+      toast(res.data && res.data.detail ? res.data.detail : t("error_generic"));
+    }
+  });
+}
 
 (async function init() {
   updateNet();
