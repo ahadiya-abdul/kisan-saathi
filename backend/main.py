@@ -306,7 +306,28 @@ def login(body: Login, request: Request, response: Response):
         upgraded = pw(body.password)
         con.execute("UPDATE users SET password=?, password_hash=? WHERE id=?", (upgraded, upgraded, row["id"]))
         con.commit()
-    user = {"id": row["id"], "name": row["name"], "email": row["email"], "phone": row["phone"]}
+    farmer_id = row["farmer_id"] if ("farmer_id" in row.keys() and row["farmer_id"]) else f"KS-2026-{row['id']:04d}"
+    reg_date = str(row["created_at"]) if "created_at" in row.keys() and row["created_at"] else ""
+    if reg_date:
+        try:
+            dt = datetime.fromisoformat(reg_date.replace("Z", "+00:00"))
+            formatted_date = dt.strftime("%d %b %Y")
+        except Exception:
+            formatted_date = reg_date[:10]
+    else:
+        formatted_date = ""
+    user = {
+        "id": row["id"],
+        "farmer_id": farmer_id,
+        "name": row["name"],
+        "email": row["email"] or "",
+        "phone": row["phone"] or "",
+        "age": row["age"] if "age" in row.keys() else None,
+        "gender": row["gender"] if "gender" in row.keys() else "Not specified",
+        "photo_url": row["photo_url"] if "photo_url" in row.keys() else "",
+        "created_at": str(row["created_at"]) if "created_at" in row.keys() else None,
+        "date_of_registration": formatted_date
+    }
     con.close(); _clear_login_failures(ip)
     _session_cookie(response, user["id"])
     return {"access_token": token(user), "token_type": "bearer", "user": user, "session_persistent": True}
