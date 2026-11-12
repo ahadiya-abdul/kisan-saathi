@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1a6b46">
   <title>Fieldwise - Biocontrol Advisory</title>
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="/static/v2.css?v=11">
+  <link rel="stylesheet" href="/static/v2.css?v=12">
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
@@ -1002,6 +1002,93 @@
       </article>
 
       <div class="grid2">
+        <!-- Card: Weather-Responsive Advisory -->
+        <article class="card card-wide weather-adv-card" id="cardWeatherAdv" aria-labelledby="wt">
+          <header class="card-head">
+            <h2 id="wt">
+              <span class="ui-icon ui-icon-weather">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" stroke="#f59e0b"/>
+                  <circle cx="12" cy="12" r="4" fill="#fef08a" stroke="#d97706"/>
+                  <path d="M16 16a4 4 0 0 1-8 0" stroke="#0284c7" stroke-width="1.5"/>
+                  <path d="M14 19v3M10 19v3" stroke="#0284c7" stroke-width="2"/>
+                </svg>
+              </span>
+              <span data-i18n="w_title">Weather-Responsive Advisory</span>
+            </h2>
+            <span class="badge-tag live-badge" data-i18n="w_badge">Microclimate Biocontrol Radar</span>
+          </header>
+          <p class="muted" data-i18n="w_help">Assesses live temperature, rain probability, humidity, and wind to calculate safe biopesticide spray windows and prevent washoff or UV degradation.</p>
+
+          <!-- Weather Dashboard Grid -->
+          <div class="weather-metrics-grid">
+            <div class="w-metric-tile">
+              <span class="w-metric-icon">🌡️</span>
+              <div class="w-metric-meta">
+                <span class="w-metric-label" data-i18n="w_temp">Temperature</span>
+                <strong class="w-metric-val" id="advWeatherTemp">-- °C</strong>
+              </div>
+            </div>
+            <div class="w-metric-tile">
+              <span class="w-metric-icon">💧</span>
+              <div class="w-metric-meta">
+                <span class="w-metric-label" data-i18n="w_humidity">Humidity</span>
+                <strong class="w-metric-val" id="advWeatherHumidity">-- %</strong>
+              </div>
+            </div>
+            <div class="w-metric-tile">
+              <span class="w-metric-icon">🌧️</span>
+              <div class="w-metric-meta">
+                <span class="w-metric-label" data-i18n="w_rain">Rain Probability</span>
+                <strong class="w-metric-val" id="advWeatherRain">-- %</strong>
+              </div>
+            </div>
+            <div class="w-metric-tile">
+              <span class="w-metric-icon">💨</span>
+              <div class="w-metric-meta">
+                <span class="w-metric-label" data-i18n="w_wind">Wind Speed</span>
+                <strong class="w-metric-val" id="advWeatherWind">-- km/h</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spray Window Feasibility Gauge Banner -->
+          <div class="spray-window-banner" id="sprayWindowBanner">
+            <div class="spray-window-indicator" id="sprayWindowIndicator">
+              <span class="spray-window-dot" id="sprayWindowDot"></span>
+              <strong id="sprayWindowStatus" data-i18n="w_status_checking">Checking Microclimate Spray Feasibility...</strong>
+            </div>
+            <span class="spray-window-sub" id="sprayWindowSub">Weather parameters update based on your saved location or GPS observation.</span>
+          </div>
+
+          <!-- Microclimate Simulation Controls -->
+          <div class="weather-sim-bar">
+            <div class="weather-sim-title">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+              <strong data-i18n="w_sim_title">Forecast & Application Conditions</strong>
+            </div>
+            <div class="weather-sim-inputs">
+              <label class="sim-input-item">
+                <span data-i18n="w_input_temp">Temp (°C)</span>
+                <input type="number" id="simTemp" min="5" max="55" step="1" value="28">
+              </label>
+              <label class="sim-input-item">
+                <span data-i18n="w_input_humidity">RH (%)</span>
+                <input type="number" id="simHumidity" min="10" max="100" step="1" value="65">
+              </label>
+              <label class="sim-input-item">
+                <span data-i18n="w_input_rain">Rain Chance (%)</span>
+                <input type="number" id="simRain" min="0" max="100" step="5" value="20">
+              </label>
+              <button type="button" class="btn btn-secondary btn-sm" id="btnSyncSavedWeather" data-i18n="w_btn_sync">Use Saved Weather</button>
+            </div>
+          </div>
+
+          <p class="needs" id="needsWeatherAdv"></p>
+          <button class="btn btn-primary btn-block" type="button" id="runWeatherAdv" data-i18n="w_btn_run">Assess Weather-Responsive Biocontrol Plan</button>
+          <div class="result" id="resWeatherAdv" aria-live="polite"></div>
+        </article>
+
         <!-- Card 5: Budget plan -->
         <article class="card" id="cardBudget" aria-labelledby="bt">
           <header class="card-head"><h2 id="bt"><span class="ui-icon ui-icon-budget"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" fill="#fef9c3" stroke="#eab308"/><path d="M8 8h8M8 12h5.5M8 8c3 0 5 1 5 4s-2 4-5 4M12 16l4 5" stroke="#ca8a04"/><path d="M6 10h5" stroke="#ca8a04"/></svg></span> <span data-i18n="bu_title">Budget plan</span></h2></header>
@@ -1509,6 +1596,6 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <footer class="foot" id="foot" data-i18n="footer" hidden>Sample estimates and demo checks are not live data. Confirm treatment and label guidance with your local KVK.</footer>
-  <script src="/static/app-v2.js?v=11"></script>
+  <script src="/static/app-v2.js?v=12"></script>
 </body>
 </html>

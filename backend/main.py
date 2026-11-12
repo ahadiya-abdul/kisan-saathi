@@ -554,7 +554,14 @@ def weather_recommend(body: WeatherRequest, user=Depends(current)):
     context = {"district": body.district, "crop": body.crop, "pest": body.pest,
                "weather_summary": {"rain_probability": body.rain_probability,
                                    "humidity": body.humidity, "temperature_c": body.temperature_c}}
-    result = answer("Assess weather-related crop risk and recommend only evidence-supported next steps.", context)
+    query = (
+        f"Provide a weather-responsive biological crop protection advisory for {body.crop} in {body.district} "
+        f"facing {body.pest or 'common seasonal pests'}. Current microclimate conditions: Temperature {body.temperature_c}°C, "
+        f"Relative Humidity {body.humidity}%, and Rain Probability {int(body.rain_probability * 100)}%. "
+        f"Evaluate biopesticide spray feasibility (washoff risk, evening spray timing, UV sensitivity), "
+        f"parasitoid release safety (Trichocards detachment risk), and weather-induced pest surge likelihood under ICAR guidelines."
+    )
+    result = answer(query, context)
     result["weather"] = {"inputs": body.model_dump(), "demo": False, "source": "farmer-provided weather values"}
     return result
 

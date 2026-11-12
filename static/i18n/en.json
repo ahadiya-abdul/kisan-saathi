@@ -219,5 +219,19 @@
   "gender_male": "Male",
   "gender_female": "Female",
   "gender_other": "Other",
-  "years_old": "{age} years"
+  "years_old": "{age} years",
+  "w_title": "Weather-Responsive Advisory",
+  "w_badge": "Microclimate Biocontrol Radar",
+  "w_help": "Assesses live temperature, rain probability, humidity, and wind to calculate safe biopesticide spray windows and prevent washoff or UV degradation.",
+  "w_temp": "Temperature",
+  "w_humidity": "Humidity",
+  "w_rain": "Rain Probability",
+  "w_wind": "Wind Speed",
+  "w_status_checking": "Checking Microclimate Spray Feasibility...",
+  "w_sim_title": "Forecast & Application Conditions",
+  "w_input_temp": "Temp (°C)",
+  "w_input_humidity": "RH (%)",
+  "w_input_rain": "Rain Chance (%)",
+  "w_btn_sync": "Use Saved Weather",
+  "w_btn_run": "Assess Weather-Responsive Biocontrol Plan"
 }

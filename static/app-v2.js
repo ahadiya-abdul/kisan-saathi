@@ -277,13 +277,20 @@ Object.entries(ID).forEach(([k, id]) => { const n = $(id); const h = () => { ses
 /* ---------- Section B: context, prerequisites, stale results ---------- */
 function sigFor(card) {
   const f = saved;
-  const pick = {budget: [effCrop(f), areaAcres(f), budgetOf(f), f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue], risk: [effCrop(f), clean(f.district), f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue],
-    plan: [effCrop(f), f.stage, f.sowing_date, $("planStart").value, f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue], compat: [effCrop(f), lastPhotoResult?.candidate_issue], supp: [clean(f.district), effCrop(f)]};
+  const pick = {
+    weather: [effCrop(f), clean(f.district), f.weather_observation?.observed_at, $("simTemp")?.value, $("simHumidity")?.value, $("simRain")?.value],
+    budget: [effCrop(f), areaAcres(f), budgetOf(f), f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue],
+    risk: [effCrop(f), clean(f.district), f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue],
+    plan: [effCrop(f), f.stage, f.sowing_date, $("planStart").value, f.weather_observation?.observed_at, lastPhotoResult?.candidate_issue],
+    compat: [effCrop(f), lastPhotoResult?.candidate_issue],
+    supp: [clean(f.district), effCrop(f)]
+  };
   return JSON.stringify(pick[card]);
 }
 function needsFor(card) {
   const f = saved, m = [];
   const need = (cond, key) => { if (!cond) m.push(t(key)); };
+  if (card === "weather") { need(effCrop(f), "n_crop"); need(clean(f.district), "n_district"); }
   if (card === "budget") { need(effCrop(f), "n_crop"); need(areaAcres(f), "n_area"); need(budgetOf(f), "n_budget"); }
   if (card === "risk") { need(effCrop(f), "n_crop"); need(clean(f.district), "n_district"); }
   if (card === "plan") { need(effCrop(f), "n_crop"); }
@@ -291,7 +298,51 @@ function needsFor(card) {
   if (card === "compat") need(effCrop(f), "n_crop");
   return m;
 }
-const CARD_UI = {budget: ["needsBudget", "runBudget", "resBudget"], risk: ["needsRisk", "runRisk", "resRisk"], plan: ["needsPlan", "runPlan", "resPlan"], supp: ["needsSupp", "runSupp", "resSupp"]};
+const CARD_UI = {
+  weather: ["needsWeatherAdv", "runWeatherAdv", "resWeatherAdv"],
+  budget: ["needsBudget", "runBudget", "resBudget"],
+  risk: ["needsRisk", "runRisk", "resRisk"],
+  plan: ["needsPlan", "runPlan", "resPlan"],
+  supp: ["needsSupp", "runSupp", "resSupp"]
+};
+
+function updateWeatherAdvUI() {
+  const w = saved.weather_observation;
+  const temp = $("simTemp")?.value ? parseFloat($("simTemp").value) : (w?.temperature_c ?? 28);
+  const rh = $("simHumidity")?.value ? parseFloat($("simHumidity").value) : (w?.humidity_percent ?? 65);
+  const rain = $("simRain")?.value ? parseFloat($("simRain").value) : (w?.rain_probability_percent ?? 20);
+  const wind = w?.wind_speed_kmh ?? 8;
+
+  if ($("advWeatherTemp")) $("advWeatherTemp").textContent = `${temp} °C`;
+  if ($("advWeatherHumidity")) $("advWeatherHumidity").textContent = `${rh} %`;
+  if ($("advWeatherRain")) $("advWeatherRain").textContent = `${rain} %`;
+  if ($("advWeatherWind")) $("advWeatherWind").textContent = `${wind} km/h`;
+
+  const banner = $("sprayWindowBanner");
+  const status = $("sprayWindowStatus");
+  const sub = $("sprayWindowSub");
+  if (banner && status) {
+    banner.className = "spray-window-banner";
+    if (rain >= 40) {
+      banner.classList.add("window-danger");
+      status.textContent = "⚠️ High Washoff Risk: Postpone bio-sprays & parasitoid release until rain passes";
+      if (sub) sub.textContent = `Forecasted rain probability is ${rain}%. Rain droplets will wash off biopesticide spores and drown released parasitoids.`;
+    } else if (temp >= 35 || rh <= 35) {
+      banner.classList.add("window-caution");
+      status.textContent = "☀️ High Heat / UV Desiccation: Spray only in evening hours (after 4:30 PM)";
+      if (sub) sub.textContent = `High temperature (${temp}°C) and low humidity (${rh}%) desiccate fungal spores (Beauveria/Metarhizium) and reduce Trichogramma adult longevity.`;
+    } else if (wind >= 16) {
+      banner.classList.add("window-caution");
+      status.textContent = "💨 High Wind Drift: Avoid fine droplet mist spraying";
+      if (sub) sub.textContent = `Wind speed is ${wind} km/h. High drift will reduce target canopy deposition.`;
+    } else {
+      banner.classList.add("window-optimal");
+      status.textContent = "✅ Optimal Biological Spray Window: Conditions favor spore germination & release";
+      if (sub) sub.textContent = `Microclimate (${temp}°C, ${rh}% RH, ${rain}% rain) is optimal for biopesticide germination, Trichocards release, and pheromone lure diffusion.`;
+    }
+  }
+}
+
 function refreshAll() {
   if (Object.keys(ID).length && $("view-field") && !$("view-field").hidden) statuses();
   const w = saved.weather_observation;
@@ -314,16 +365,33 @@ function refreshAll() {
   if (runs.compat && runs.compat !== sigFor("compat")) $("resCompat").replaceChildren(panel("is-stale", t("st_outdated"), [], [el("p", {text: t("recalc")})]));
   for (const [card, [needId, btnId, resId]] of Object.entries(CARD_UI)) {
     const miss = needsFor(card), nd = $(needId), btn = $(btnId);
+    if (!nd || !btn) continue;
     nd.textContent = miss.length ? t("needs_prefix") + " " + miss.join(", ") : "";
     if (!busy.has(card)) btn.disabled = miss.length > 0;
-    btn.textContent = runs[card] ? t("recalc") : (card === "supp" ? t("su_search") : t("get_result"));
+    btn.textContent = runs[card] ? t("recalc") : (card === "supp" ? t("su_search") : (card === "weather" ? t("w_btn_run") : t("get_result")));
     if (runs[card] && runs[card] !== sigFor(card)) {   // inputs changed: never show the old result as current
       $(resId).replaceChildren(panel("is-stale", t("st_outdated"), [], [el("p", {text: t("recalc")})]));
     }
   }
+  updateWeatherAdvUI();
   $("photoImg").alt = "";
 }
-["planStart"].forEach(id => $(id).addEventListener("input", refreshAll));
+["planStart", "simTemp", "simHumidity", "simRain"].forEach(id => { if ($(id)) $(id).addEventListener("input", refreshAll); });
+
+if ($("btnSyncSavedWeather")) {
+  $("btnSyncSavedWeather").addEventListener("click", () => {
+    const w = saved.weather_observation;
+    if (w) {
+      if ($("simTemp") && w.temperature_c != null) $("simTemp").value = Math.round(w.temperature_c);
+      if ($("simHumidity") && w.humidity_percent != null) $("simHumidity").value = Math.round(w.humidity_percent);
+      if ($("simRain") && w.rain_probability_percent != null) $("simRain").value = Math.round(w.rain_probability_percent);
+      updateWeatherAdvUI();
+      toast("Weather synced with saved field observation!");
+    } else {
+      toast("No saved weather observation yet. Click 'Use my location' in Step 1.");
+    }
+  });
+}
 
 function panel(cls, title, items, extra) {
   const isLong = typeof title === "string" && (title.length > 55 || title.includes(". "));
@@ -362,6 +430,31 @@ async function runDecision(key, buttonId, resultId, prompt) {
   if (!res.ok) return fail(resultId, res);
   runs[key] = sigFor(key);
   show(resultId, renderAnswer(res.data));
+}
+if ($("runWeatherAdv")) {
+  $("runWeatherAdv").addEventListener("click", () => withBusy("weather", $("runWeatherAdv"), async () => {
+    if (needsFor("weather").length) {
+      show("resWeatherAdv", panel("is-warn", t("needs_prefix") + " " + needsFor("weather").join(", "), []));
+      return;
+    }
+    loading("resWeatherAdv");
+    const f = saved;
+    const temp = $("simTemp")?.value ? parseFloat($("simTemp").value) : (f.weather_observation?.temperature_c ?? 28);
+    const rh = $("simHumidity")?.value ? parseFloat($("simHumidity").value) : (f.weather_observation?.humidity_percent ?? 65);
+    const rainPct = $("simRain")?.value ? parseFloat($("simRain").value) : (f.weather_observation?.rain_probability_percent ?? 20);
+    const body = {
+      district: clean(f.district) || "Local District",
+      crop: effCrop(f) || "Field Crop",
+      pest: effPest(f) || "Target Pest",
+      temperature_c: isNaN(temp) ? 28 : temp,
+      humidity: isNaN(rh) ? 65 : rh,
+      rain_probability: isNaN(rainPct) ? 0.2 : (rainPct / 100.0)
+    };
+    const res = await api("/api/weather-recommend", {method: "POST", body});
+    if (!res.ok) return fail("resWeatherAdv", res);
+    runs.weather = sigFor("weather");
+    show("resWeatherAdv", renderAnswer(res.data));
+  }));
 }
 $("runBudget").addEventListener("click", () => withBusy("budget", $("runBudget"), () => runDecision("budget", "runBudget", "resBudget",
   "Create an actionable, itemized biological crop protection budget plan tailored to my field size and budget. Use verified ICAR biopesticide technology pricing benchmarks (Trichocards @ ₹70-90/card, pheromone traps @ ₹60-80/trap, Shatpada / Mycoguard / microbial bio-sprays @ ₹350-450/L, and neem botanicals @ ₹250-350/acre). Detail the exact quantities, estimated item costs, and total investment.")));
